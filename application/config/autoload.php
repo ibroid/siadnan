@@ -66,7 +66,7 @@ $autoload['libraries'] = array(
     'form_validation',
     'EntityValidation',
     'EntityFormInput',
-    'EloquentDatabase',
+    'EloquentDatabase' => 'ed',
     'Redirect'
 );
 

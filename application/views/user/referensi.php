@@ -27,7 +27,9 @@
                             <div class="card-body">
                                 <h4>Data Pegawai</h4>
                                 <p>Atur referensi pegawai anda disini</p>
-                                <a href="<?= base_url('referensi/pegawai') ?>" class="btn btn-outline-primary">Detail</a>
+                                <?php foreach ($satkers as $n => $satker) { ?>
+                                    <a href="<?= base_url('referensi/pegawai?satker=' . $satker->kode_satker) ?>" class="btn btn-outline-primary"><?= $satker->nama_satker ?></a>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>

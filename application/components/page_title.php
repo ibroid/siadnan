@@ -20,7 +20,7 @@ if ($user['profile']['pegawai_id'] == 0) {
             <div class="col-6">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="">
+                        <a href="<?= base_url('/dashboard') ?>">
                             <svg class="stroke-icon">
                                 <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
                             </svg>
