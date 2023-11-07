@@ -4,7 +4,7 @@ defined("BASEPATH") or die("Kuya batok");
 
 require_once APPPATH . 'traits/UserApi.php';
 
-class User extends CI_Controller
+class User extends R_Controller
 {
 
     public function __construct()

@@ -59,14 +59,12 @@ $autoload['packages'] = array(APPPATH . 'third_party/imal');
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
 $autoload['libraries'] = array(
-    'database',
     'ResponseJson',
     'session',
     'addons',
     'form_validation',
     'EntityValidation',
     'EntityFormInput',
-    'EloquentDatabase' => 'ed',
     'Redirect'
 );
 

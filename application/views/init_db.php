@@ -16,6 +16,7 @@
 							<div><a class="logo" href="index.html"><img class="img-fluid for-light" src="../assets/images/logo/logo.png" alt="looginpage"><img class="img-fluid for-dark" src="../assets/images/logo/logo_dark.png" alt="looginpage"></a></div>
 							<div class="login-main">
 								<form class="theme-form" method="POST" autocomplete="off" action="<?= base_url('setup/start_init') ?>">
+									<input type="hidden" name="login[password]" value="<?= $password ?>">
 									<h4>Database Initialize </h4>
 									<div class="form-group">
 										<label class="col-form-label">Host/Addreass Database</label>
@@ -30,7 +31,7 @@
 										<div class="form-input position-relative">
 											<input class="form-control" type="text" name="db_user" required placeholder="root">
 										</div>
-										<label class="col-form-label">Database Password (isi dengan spasi apabila tidak menggunakan password)</label>
+										<label class="col-form-label">Database Password (isi dengan spasi apabila tidak menggunakan password atau pasang di localhost)</label>
 										<div class="form-input position-relative">
 											<input class="form-control" type="text" name="db_pass" required placeholder="password">
 										</div>

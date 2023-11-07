@@ -84,8 +84,9 @@ class ProfileEntity extends Illuminate\Database\Eloquent\Model implements Migrat
 
 		foreach ($reflect->getConstants() as $c => $cv) {
 			$rf = json_decode($cv, TRUE);
-
-			if (!isset($rf['table'])) {
+			// echo '<pre>';
+			// print_r($rf);
+			if (!isset($rf['table']) && $rf !== null) {
 				$rs = [];
 				$rd = array_keys($rf);
 

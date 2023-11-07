@@ -1,6 +1,6 @@
 <?php
 
-class Pengajuan extends CI_Controller
+class Pengajuan extends R_Controller
 {
 
     public function index()

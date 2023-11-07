@@ -12,9 +12,13 @@ class Setup extends CI_Controller
 
 	public function index()
 	{
-		$this->load->page('setup', [
-			'page_name' => 'Setup'
-		])->layout('auth_layout');
+		if (is_dir("./assets")) {
+			$this->load->page('/setup', [
+				'page_name' => '/setup'
+			])->layout('auth_layout');
+		} else {
+			$this->assets();
+		}
 	}
 
 	private function auth()
@@ -27,7 +31,7 @@ class Setup extends CI_Controller
 				'mesg' => 'Terjadi Kesalahan', 'text' => 'Password Salah', 'type' => 'secondary'
 			]));
 
-			redirect(base_url('setup'));
+			redirect(base_url('/setup'));
 		}
 	}
 
@@ -36,18 +40,19 @@ class Setup extends CI_Controller
 		R_Input::mustPost();
 
 		if (!isset($_SERVER['HTTP_REFERER'])) {
-			redirect(base_url('setup'));
+			redirect(base_url('/setup'));
 		}
 
 
-		if ($_SERVER['HTTP_REFERER'] != base_url('setup')) {
-			redirect(base_url('setup'));
+		if ($_SERVER['HTTP_REFERER'] != base_url('/setup')) {
+			redirect(base_url('/setup'));
 		}
 
 		$this->auth();
 
 		$this->load->page('init_db', [
-			'page_name' => 'Setup DB'
+			'page_name' => 'Setup DB',
+			'password' => R_Input::pos('login')['password']
 		])->layout('auth_layout');
 	}
 
@@ -56,17 +61,20 @@ class Setup extends CI_Controller
 		R_Input::mustPost();
 
 		if (!isset($_SERVER['HTTP_REFERER'])) {
-			redirect(base_url('setup'));
+			redirect(base_url('/setup'));
 		}
 
 		if ($_SERVER['HTTP_REFERER'] != base_url('setup/init_db')) {
-			redirect(base_url('setup'));
+			redirect(base_url('/setup'));
 		}
 
 		try {
 			$this->CreateDB();
 
 			$this->InitFile();
+
+			$this->load->database();
+			$this->load->library('EloquentDatabase', null, 'ed');
 
 			$this->Migrate();
 
@@ -93,71 +101,6 @@ class Setup extends CI_Controller
 		}
 
 		$this->flash_message .= "Migrate Success <br>";
-	}
-
-	private function Seed()
-	{
-		UserEntity::create([
-			'identifier' => 'dev_siadnan',
-			'password' => password_hash('tampan_dan_berani' . 'sd9Lk0Rh', PASSWORD_BCRYPT),
-			'status' => 1,
-			'level' => 1,
-			'salt' => 'sd9Lk0Rh',
-			'profileId' => 1,
-			'createdAt' => date('Y-m-d H:i:s'),
-			'updatedAt' => date('Y-m-d H:i:s'),
-		]);
-
-		UserEntity::create([
-			'identifier' => 'admin_siadnan',
-			'password' => password_hash('youmaywantthis' . 'Djl8mk20', PASSWORD_BCRYPT),
-			'status' => 1,
-			'level' => 2,
-			'salt' => 'Djl8mk20',
-			'profileId' => 2,
-			'createdAt' => date('Y-m-d H:i:s'),
-			'updatedAt' => date('Y-m-d H:i:s'),
-		]);
-
-		ProfileEntity::create([
-			'namaLengkap' => 'Imal Maulana 😎',
-			'nomorTelepon' => '6289636811489',
-			'email' => 'imal@gmail.com',
-			'avatar' => '',
-			'pegawaiId' => 1,
-			'createdAt' => date('Y-m-d H:i:s'),
-			'updatedAt' => date('Y-m-d H:i:s'),
-		]);
-
-		ProfileEntity::create([
-			'namaLengkap' => 'Cut Muthia Andini 👩🏻‍🦰',
-			'nomorTelepon' => '6289636811489',
-			'email' => 'andini@gmail.com',
-			'avatar' => '',
-			'pegawaiId' => 0,
-			'createdAt' => date('Y-m-d H:i:s'),
-			'updatedAt' => date('Y-m-d H:i:s'),
-		]);
-
-		PengaturanEntity::create([
-			'variabel' => 'ptb',
-			'value' => 'PENGADILAN TINGGI AGMA DKI JAKARTA 🏢',
-			'keterangan' => 'Nama Pengadilan Tingkat Banding',
-			'createdAt' => date('Y-m-d H:i:s'),
-			'updatedAt' => date('Y-m-d H:i:s')
-		]);
-
-		SatkerEntity::create([
-			'namaSatker' => 'PENGADILAN AGAMA JAKARTA UTARA',
-			'kodeSatker' => '400622',
-			'teleponSatker' => '02143934701',
-			'emailSatker' => 'sekretariat.pajakartautara@gmail.com',
-			'logoSatker' => 'paju.png',
-			'createdAt' => date('Y-m-d H:i:s'),
-			'updatedAt' => date('Y-m-d H:i:s'),
-		]);
-
-		$this->flash_message .= "Seeder Success <br>";
 	}
 
 	private function CreateDB()
@@ -188,9 +131,9 @@ class Setup extends CI_Controller
 
 		$resModDbFile = $this->RunGoHelper("--do=init_db --db_host=$db_host --db_name=$db_name --db_user=$db_user --db_pass=$db_pass");
 
-		$resModAutoload = $this->RunGoHelper("--do=auto_db");
+		// $resModAutoload = $this->RunGoHelper("--do=auto_db");
 
-		$this->flash_message .= $resModDbFile . '<br>' . $resModAutoload . '<br>';
+		$this->flash_message .= $resModDbFile . '<br>'; # . $resModAutoload . '<br>';
 	}
 
 	function RunGoHelper($par = null)
@@ -203,7 +146,7 @@ class Setup extends CI_Controller
 		// }
 
 		$proc = proc_open(
-			"cd $path && $gofile $par",
+			"cd $path && $gofile $par --pass=" . R_Input::pos('login')['password'],
 			[['pipe', 'r'], ['pipe', 'w'], ['pipe', 'w']],
 			$pipes,
 		);
@@ -212,7 +155,7 @@ class Setup extends CI_Controller
 
 		foreach ($pipes as $pipe) {
 			try {
-				$result .= stream_get_contents($pipe);
+				$result .=  stream_get_contents($pipe);
 			} catch (\Throwable $th) {
 				//throw $th;
 			}
@@ -251,11 +194,30 @@ class Setup extends CI_Controller
 		}
 
 		$this->auth();
+		switch (R_Input::pos('method')) {
+			case 'direct':
+				$this->init_assets_direct();
+				break;
+			case 'go_helper':
+				$this->init_assets_go_helper();
+				break;
 
+			default:
+				$this->init_assets_shell();
+				break;
+		}
+	}
+
+	private function init_assets_shell()
+	{
+		R_Input::mustPost();
 		$path = str_replace('\\', '/', FCPATH);
 
+		$link_assets = $this->RunGoHelper("--do=link_assets");
+		$bash = "mkdir ./assets && cd assets && curl -sS $link_assets > assets.zip && unzip assets.zip && rm assets.zip";
+
 		$proc = proc_open(
-			"cd $path && get_assets.sh",
+			$bash,
 			[['pipe', 'r'], ['pipe', 'w'], ['pipe', 'w']],
 			$pipes,
 		);
@@ -267,10 +229,144 @@ class Setup extends CI_Controller
 
 		proc_close($proc);
 
-		$urlSetup = base_url('setup');
+		$urlSetup = base_url('/setup');
 
-		echo "<h1>Jika running di windows. Open With Git</h1>";
-		echo "<h1>Pastikan Ada Internet</h1>";
-		echo "<a href=\"$urlSetup\">Lanjut Ke Setup DB</a>";
+		echo "<h1>Jika anda di windows. Silahkan copy script di bawah lalu paste di Git Bash Windows. Pastikan Git Bash dibuka di folder aplikasi</h1>";
+		echo "<h3>Pastikan Ada Internet</h3>";
+		echo $bash . '<br>';
+		echo "<img src='/uploads/git_tutorial.png' src='git_turorial.png' /><br>";
+		echo "<img src='/uploads/git_tutorial_2.png' src='git_turorial_2.png' /><br>";
+		// echo "<a href=\"$urlSetup\">Lanjut Ke Setup DB</a>";
+	}
+
+	private function init_assets_direct()
+	{
+		$root = str_replace('\\', '/', FCPATH);
+
+		$link_assets = $this->RunGoHelper("--do=link_assets");
+		// prindie($link_assets);
+
+		$zipFileName = 'assets.zip';
+
+		$downloadPath = $root . $zipFileName;
+
+		$extractPath = './assets';
+
+		try {
+
+			$ch = curl_init();
+
+			$fp = fopen("assets.zip", 'w+');
+
+			curl_setopt($ch, CURLOPT_FILE, $fp);
+			curl_setopt($ch, CURLOPT_HEADER, 0);
+			// curl_setopt($ch, CURLOPT_FILE, $fp);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+			curl_setopt($ch, CURLOPT_URL, $link_assets);
+
+			$out = curl_exec($ch);
+
+			curl_close($ch);
+			fwrite($fp, $out);
+			fclose($fp);
+		} catch (\Throwable $th) {
+			unlink($root . "assets");
+			throw $th;
+		}
+
+		$zip = new ZipArchive;
+		if ($zip->open($downloadPath) === TRUE) {
+			$zip->extractTo($extractPath);
+			$zip->close();
+			echo 'File ZIP berhasil diekstrak. <a href="/setup">Kembali</a>';
+		} else {
+			echo 'Gagal mengekstrak file ZIP.';
+		}
+	}
+
+	private function init_assets_go_helper()
+	{
+		try {
+			$res = $this->RunGoHelper("--do=download_assets");
+			echo $res;
+			echo "<br>";
+			echo '<h1>Assets berhasil dipasang.</h1> <a href="/setup">Kembali</a>';
+		} catch (\Throwable $th) {
+			throw $th;
+		}
+	}
+
+	private function Seed()
+	{
+		EloquentDatabase::table('user')->insert([
+			[
+				'identifier' => 'dev_siadnan',
+				'password' => password_hash('tampan_dan_berani' . 'sd9Lk0Rh', PASSWORD_BCRYPT),
+				'status' => 1,
+				'level' => 1,
+				'salt' => 'sd9Lk0Rh',
+				'profile_id' => 1,
+				'created_at' => date('Y-m-d H:i:s'),
+				'updated_at' => date('Y-m-d H:i:s'),
+			],
+			[
+				'identifier' => 'admin_siadnan',
+				'password' => password_hash('ptadkijakarta' . 'Djl8mk20', PASSWORD_BCRYPT),
+				'status' => 1,
+				'level' => 2,
+				'salt' => 'Djl8mk20',
+				'profile_id' => 2,
+				'created_at' => date('Y-m-d H:i:s'),
+				'updated_at' => date('Y-m-d H:i:s'),
+			]
+		]);
+
+		EloquentDatabase::table('profile')->insert(
+			[
+				[
+					'nama_lengkap' => 'Imal Maulana',
+					'nomor_telepon' => '6289636811489',
+					'email' => 'imal@gmail.com',
+					'avatar' => '',
+					'pegawai_id' => 1,
+					'created_at' => date('Y-m-d H:i:s'),
+					'updated_at' => date('Y-m-d H:i:s'),
+				],
+				[
+					'nama_lengkap' => 'Cut Muthia Andini',
+					'nomor_telepon' => '6289636811489',
+					'email' => 'andini@gmail.com',
+					'avatar' => '',
+					'pegawai_id' => 0,
+					'created_at' => date('Y-m-d H:i:s'),
+					'updated_at' => date('Y-m-d H:i:s'),
+				],
+			]
+		);
+
+		EloquentDatabase::table('pengaturan')->insert([
+			[
+				'variable' => 'ptb',
+				'value' => 'PENGADILAN TINGGI AGMA DKI JAKARTA',
+				'keterangan' => 'Nama Pengadilan Tingkat Banding',
+				'type' => 'text',
+				'created_at' => date('Y-m-d H:i:s'),
+				'updated_at' => date('Y-m-d H:i:s')
+			],
+		]);
+
+		EloquentDatabase::table('satker')->insert([
+			[
+				'nama_satker' => 'PENGADILAN AGAMA JAKARTA UTARA',
+				'kode_satker' => '400622',
+				'telepon_satker' => '02143934701',
+				'email_satker' => 'sekretariat.pajakartautara@gmail.com',
+				'logo_satker' => 'paju.png',
+				'created_at' => date('Y-m-d H:i:s'),
+				'updated_at' => date('Y-m-d H:i:s'),
+			],
+		]);
+
+		$this->flash_message .= "Seeder Success <br>";
 	}
 }

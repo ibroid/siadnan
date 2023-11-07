@@ -1,6 +1,6 @@
 <?php
 
-class Wizard extends CI_Controller
+class Wizard extends R_Controller
 {
     public function index()
     {

@@ -9,6 +9,7 @@ class Auth extends CI_Controller
     public function index()
     {
         $this->load->page("public/login")->layout('auth_layout');
+        $this->load->database();
     }
 
     public function login()

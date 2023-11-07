@@ -99,7 +99,7 @@ class SatkerEntity extends Illuminate\Database\Eloquent\Model implements Migrato
             if ($rf == null) {
                 echo $cv;
             } else {
-                if (!isset($rf['table'])) {
+                if (!isset($rf['table']) && $rf !== null) {
                     $rs = [];
                     $rd = array_keys($rf);
 

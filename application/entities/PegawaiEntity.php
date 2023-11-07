@@ -108,7 +108,7 @@ class PegawaiEntity extends Illuminate\Database\Eloquent\Model implements Migrat
         foreach ($reflect->getConstants() as $c => $cv) {
             $rf = json_decode($cv, TRUE);
 
-            if (!isset($rf['table'])) {
+            if (!isset($rf['table']) && $rf !== null) {
                 $rs = [];
                 $rd = array_keys($rf);
 

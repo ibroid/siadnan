@@ -35,6 +35,8 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 # ASSETS
 /assets/
 get_assets.sh
+assets.zip
+assets.tar.gz
 
 # UPLOADS
 !uploads/index.html
@@ -42,6 +44,7 @@ uploads/foto/*
 uploads/berkas/*
 uploads/pengaturan/*
 uploads/logo/*
+uploads/git_tutorial.png
 
 !uploads/foto/index.html
 !uploads/berkas/index.html

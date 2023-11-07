@@ -3,7 +3,7 @@
 require_once APPPATH . "traits/SatkerApi.php";
 require_once APPPATH . "traits/PegawaiApi.php";
 
-class Referensi extends CI_Controller
+class Referensi extends R_Controller
 {
     use SatkerApi;
     use PegawaiApi;

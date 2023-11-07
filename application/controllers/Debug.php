@@ -5,11 +5,13 @@ class Debug extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->database();
+        $this->load->library('EloquentDatabase');
     }
 
     public function index()
     {
-        echo '<pre>';
-        print_r($this->session->userdata());
+
+        prindie(ProfileEntity::table_declare());
     }
 }
