@@ -1,1 +1,0 @@
-GOOS=darwin GOARCH=arm64 go build -o go_helper_mac

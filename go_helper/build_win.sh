@@ -1,1 +1,0 @@
-GOOS=windows GOARCH=amd64 go build -o go_helper_win.exe

@@ -8,17 +8,25 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"path"
+	"path/filepath"
 	"strings"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 var (
-	par     string
-	db_host string
-	db_name string
-	db_user string
-	db_pass string
+	par      string
+	db_host  string
+	db_name  string
+	db_user  string
+	db_pass  string
+	password string
 )
+
+var StoredPassword = "$2a$14$N8F5sjq3YanDC9pNP.D0Eu5RBHAyMawC06xwBDoBPpn8cBr7iwrH6"
+
+// LINK DI HIDDEN SETELAH KOMPILASI, DAN TERSEDIA DI COMPILED FILE
+var assetsSource = "#"
 
 func main() {
 
@@ -29,13 +37,23 @@ func main() {
 	flag.StringVar(&db_user, "db_user", "root", "Set database user")
 	flag.StringVar(&db_pass, "db_pass", "", "Set database pass")
 
+	flag.StringVar(&password, "pass", "", "Password untuk download assets")
 	flag.Parse()
+
+	err := bcrypt.CompareHashAndPassword([]byte(StoredPassword), []byte(password))
+	if err != nil {
+		panic("Password Doesnt Match")
+	}
 
 	switch par {
 	case "init_db":
 		InitializeDatabase()
 	case "auto_db":
 		AutoloadDatabase()
+	case "download_assets":
+		DownloadAssets()
+	case "link_assets":
+		fmt.Println(assetsSource)
 	default:
 		log.Println("Nothing to do")
 	}
@@ -84,7 +102,7 @@ func InitializeDatabase() {
 }
 
 func DownloadAssets() {
-	specUrl := "https://filebrowser.pajakartautara.id/api/public/dl/h0sMk9ps/"
+	specUrl := assetsSource
 	resp, err := http.Get(specUrl)
 	if err != nil {
 		log.Fatalln("Gagal get url : ", err)
@@ -97,7 +115,7 @@ func DownloadAssets() {
 	}
 
 	// Create the file
-	out, err := os.Create("test.zip")
+	out, err := os.Create("../assets.zip")
 	if err != nil {
 		fmt.Printf("Gagal ngezip: %s", err)
 	}
@@ -108,23 +126,58 @@ func DownloadAssets() {
 	if err != nil {
 		log.Fatalln("Gagal copy : ", err)
 	}
+
+	Unzip()
 }
 
-func Unzip(name string) {
-	filename := fmt.Sprintf("%s.zip", name)
+func Unzip() {
+	os.Remove("../assets")
+	os.Mkdir("../assets", 0775)
 
-	reader, _ := zip.OpenReader(filename)
+	zipFileName := "../assets.zip"
 
+	defer os.Remove("../assets.zip")
+
+	reader, err := zip.OpenReader(zipFileName)
+	if err != nil {
+		fmt.Println("Gagal membuka file ZIP:", err)
+		return
+	}
 	defer reader.Close()
 
 	for _, file := range reader.File {
-		in, _ := file.Open()
-		defer in.Close()
-		relname := path.Join("packages", name, file.Name)
-		dir := path.Dir(relname)
-		os.MkdirAll(dir, 0777)
-		out, _ := os.Create(relname)
-		defer out.Close()
-		io.Copy(out, in)
+		zippedFile, err := file.Open()
+		if err != nil {
+			fmt.Println("Gagal membuka file di dalam arsip:", err)
+			return
+		}
+		defer zippedFile.Close()
+
+		extractedFilePath := filepath.Join("../assets", file.Name) // Membuat path untuk file hasil ekstraksi
+		if file.FileInfo().IsDir() {
+			// Jika file di dalam ZIP adalah folder, buat direktori
+			err := os.MkdirAll(extractedFilePath, os.ModePerm)
+			if err != nil {
+				fmt.Println("Gagal membuat direktori:", err)
+				return
+			}
+			fmt.Println("Direktori", extractedFilePath, "dibuat.")
+			continue
+		}
+
+		extractedFile, err := os.Create(extractedFilePath)
+		if err != nil {
+			fmt.Println("Gagal membuat file:", err)
+			return
+		}
+		defer extractedFile.Close()
+
+		_, err = io.Copy(extractedFile, zippedFile)
+		if err != nil {
+			fmt.Println("Gagal menyalin isi file:", err)
+			return
+		}
+
+		fmt.Println("File", extractedFilePath, "diekstrak.")
 	}
 }
