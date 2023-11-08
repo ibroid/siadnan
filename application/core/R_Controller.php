@@ -6,6 +6,10 @@ class R_Controller extends CI_Controller
 {
     public $user = [];
 
+    public EloquentDatabase $ed;
+
+    public CI_DB $database;
+
     public function __construct()
     {
         parent::__construct();
@@ -25,6 +29,6 @@ class R_Controller extends CI_Controller
 
         $this->user = $this->session->userdata('user_login');
         $this->load->database();
-        $this->load->library('EloquentDatabase');
+        $this->load->library('EloquentDatabase', null, 'ed');
     }
 }

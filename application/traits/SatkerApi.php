@@ -25,6 +25,15 @@ trait SatkerApi
     }
   }
 
+  public function satker_by_kode(int $kode = null)
+  {
+    if ($kode == null) {
+      throw new Exception("Gagal get satker by kode. Kode kosong", 1);
+    }
+
+    return SatkerEntity::where('kode_satker', $kode)->first();
+  }
+
   public function get_satker($id = null)
   {
     if ($id == null) {

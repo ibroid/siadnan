@@ -1,15 +1,21 @@
 <?php
 
-use RabbitORM\Relations\BelongsTo;
-
 defined("BASEPATH") or die("Kuya Batok");
 
 class Auth extends CI_Controller
 {
+    public EloquentDatabase $ed;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+        $this->load->library('EloquentDatabase', null, 'ed');
+    }
+
     public function index()
     {
         $this->load->page("public/login")->layout('auth_layout');
-        $this->load->database();
     }
 
     public function login()

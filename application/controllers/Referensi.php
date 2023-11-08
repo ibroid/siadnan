@@ -8,6 +8,18 @@ class Referensi extends R_Controller
     use SatkerApi;
     use PegawaiApi;
 
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->addons->init([
+            'js' => [
+                '<script src="../assets/js/form-validation-custom.js"></script>',
+            ]
+        ]);
+    }
+
+
     public function index()
     {
         $this->load->page('user/referensi', [
@@ -19,7 +31,7 @@ class Referensi extends R_Controller
 
     public function pegawai()
     {
-        $satker = SatkerEntity::where('kode_satker', R_Input::gett("satker"))->first();
+        $satker = $this->satker_by_kode(R_Input::gett("satker"));
 
         if (!$satker) {
             return Redirect::wfe('Satker tidak ditemukan')->go('/settings');
@@ -39,5 +51,18 @@ class Referensi extends R_Controller
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+    public function add_pegawai()
+    {
+        $satker = $this->satker_by_kode(R_Input::gett("satker"));
+        if (!$satker) {
+            return Redirect::wfe('Satker tidak ditemukan')->go('/settings');
+        }
+
+        $this->load->page('user/referensi_add_pegawai', [
+            'page_name' => 'Referensi Data',
+            'breadcumb' => 'Referensi / ' . $satker->nama_satker . ' / Pegawai / Tambah',
+        ])->layout('dashboard_layout');
     }
 }
