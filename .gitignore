@@ -44,7 +44,6 @@ uploads/foto/*
 uploads/berkas/*
 uploads/pengaturan/*
 uploads/logo/*
-uploads/git_tutorial.png
 
 !uploads/foto/index.html
 !uploads/berkas/index.html

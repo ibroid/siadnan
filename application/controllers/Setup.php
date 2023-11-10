@@ -367,6 +367,19 @@ class Setup extends CI_Controller
 			],
 		]);
 
+		EloquentDatabase::table('pegawai')->insert([
+			[
+				'nama_lengkap' => 'Maulana Malik Ibrahim',
+				'nip' => '000000000000',
+				'jabatan' => 'PPNPN',
+				'pangkat' => 'PPNPN',
+				'satker_id' => 1,
+				'picture' => 'nopic',
+				'created_at' => date('Y-m-d H:i:s'),
+				'updated_at' => date('Y-m-d H:i:s'),
+			]
+		]);
+
 		$this->flash_message .= "Seeder Success <br>";
 	}
 }
