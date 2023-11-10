@@ -9,6 +9,12 @@ class Auth extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        if (!empty($this->session->userdata('user_login'))) {
+
+            redirect(base_url('dashboard'));
+        }
+
         $this->load->database();
         $this->load->library('EloquentDatabase', null, 'ed');
     }
