@@ -10,22 +10,25 @@ class Auth extends CI_Controller
     {
         parent::__construct();
 
-        if (!empty($this->session->userdata('user_login'))) {
-
-            redirect(base_url('dashboard'));
-        }
-
         $this->load->database();
         $this->load->library('EloquentDatabase', null, 'ed');
     }
 
     public function index()
     {
+        if (!empty($this->session->userdata('user_login'))) {
+
+            redirect(base_url('dashboard'));
+        }
         $this->load->page("public/login")->layout('auth_layout');
     }
 
     public function login()
     {
+        if (!empty($this->session->userdata('user_login'))) {
+
+            redirect(base_url('dashboard'));
+        }
         try {
             $u = $this->mathcIdentifier();
             $this->matchPassword($u->password, $u->salt);
