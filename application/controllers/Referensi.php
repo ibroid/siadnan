@@ -60,9 +60,38 @@ class Referensi extends R_Controller
             return Redirect::wfe('Satker tidak ditemukan')->go('/settings');
         }
 
-        $this->load->page('user/referensi_add_pegawai', [
-            'page_name' => 'Referensi Data',
-            'breadcumb' => 'Referensi / ' . $satker->nama_satker . ' / Pegawai / Tambah',
-        ])->layout('dashboard_layout');
+        if (R_Input::isPost()) {
+            try {
+                $satker = $this->satker_by_kode(R_Input::gett('satker'));
+
+                $data = [
+                    'nama_lengkap' => R_Input::pos('namaLengkap'),
+                    'nip' => R_Input::pos('nip'),
+                    'pangkat' => R_Input::pos('pangkat'),
+                    'jabatan' => R_Input::pos('jabatan'),
+                    'picture' => 'nopic',
+                    'satker_id' => $satker->id
+                ];
+
+                if (isset($_FILES['pas_foto']) && $_FILES['pas_foto']['size'] > 0) {
+                    $data['picture'] = $this->upload_pass_foto('pas_foto');
+                }
+
+                $this->insert_pegawai($data);
+
+                Redirect::wfa([
+                    'type' => 'success',
+                    'mesg' => 'Berhasil Menambahkan Pegawai',
+                    'text' => ''
+                ])->go('/referensi/pegawai?satker=' . R_Input::gett('satker'));
+            } catch (\Throwable $th) {
+                return Redirect::wfe($th->getMessage())->go('/referensi/add_pegawai?satker=' . R_Input::gett('satker'));
+            }
+        } else {
+            $this->load->page('user/referensi_add_pegawai', [
+                'page_name' => 'Referensi Data',
+                'breadcumb' => 'Referensi / ' . $satker->nama_satker . ' / Pegawai / Tambah',
+            ])->layout('dashboard_layout');
+        }
     }
 }

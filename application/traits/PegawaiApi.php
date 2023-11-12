@@ -14,6 +14,11 @@ trait PegawaiApi
     echo json_encode($data);
   }
 
+  private function insert_pegawai($data = [])
+  {
+    return PegawaiEntity::create($data);
+  }
+
   public function datatable_pegawai()
   {
     $columns = ['nama_lengkap', 'nip', 'jabatan', 'pangkat',  'status', 'picture'];
@@ -40,8 +45,8 @@ trait PegawaiApi
       $row_container[$n]['nip'] = $p->nip;
       $row_container[$n]['jabatan'] = $p->jabatan;
       $row_container[$n]['pangkat'] = $p->pangkat;
-      $row_container[$n]['status'] = $p->status;
-      $row_container[$n]['foto'] = $p->picture;
+      $row_container[$n]['status'] = $this->load->component('badge_status_pegawai',  ['status' => $p->status]);
+      $row_container[$n]['foto'] = $this->load->component('button_view_pas_foto');
     }
 
     header("Content-Type: application/json", true, 200);
@@ -52,5 +57,22 @@ trait PegawaiApi
       'recordsFiltered' => $total_pegawai,
       'data' => $row_container
     ]);
+  }
+
+  private function upload_pass_foto($file = null)
+  {
+
+    $config['upload_path'] = PegawaiEntity::$upload_path;
+    $config['allowed_types'] = 'gif|jpg|png|jpeg';
+    $config['max_size']  = '512';
+    $config['encrypt_name'] = true;
+
+    $this->load->library('upload', $config);
+
+    if (!$this->upload->do_upload($file)) {
+      throw new Exception($this->upload->display_errors(), 1);
+    } else {
+      return $this->upload->data('file_name');
+    }
   }
 }

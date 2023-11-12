@@ -4,8 +4,10 @@ require_once APPPATH . 'interfaces/Migrator.php';
 
 class PegawaiEntity extends Illuminate\Database\Eloquent\Model implements Migrator
 {
-
     protected $table = "pegawai";
+
+    protected $guarded = [];
+
     const PegawaiEntityDefinition = '{
         "name": "PegawaiEntity",
         "table": "pegawai"
@@ -99,6 +101,11 @@ class PegawaiEntity extends Illuminate\Database\Eloquent\Model implements Migrat
         "type":"timestamp",
         "name" : "updatedAt"
     }';
+
+    public $logo_path = '/uploads/foto/';
+
+    public static $upload_path = './uploads/foto/';
+
 
     public static function table_declare()
     {;
