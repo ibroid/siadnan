@@ -8,7 +8,6 @@ class Referensi extends R_Controller
     use SatkerApi;
     use PegawaiApi;
 
-
     public function __construct()
     {
         parent::__construct();
@@ -18,7 +17,6 @@ class Referensi extends R_Controller
             ]
         ]);
     }
-
 
     public function index()
     {
@@ -92,6 +90,29 @@ class Referensi extends R_Controller
                 'page_name' => 'Referensi Data',
                 'breadcumb' => 'Referensi / ' . $satker->nama_satker . ' / Pegawai / Tambah',
             ])->layout('dashboard_layout');
+        }
+    }
+
+    public function pass_foto($id = null)
+    {
+        try {
+            $passFoto = $this->passFoto($id);
+            echo $passFoto;
+            // $fp = fopen($passFoto, 'r');
+
+            // // send the right headers
+            // header("Content-Type: image/jpg");
+            // header("Content-Length: " . filesize($passFoto));
+
+            // // dump the picture and stop the script
+            // fpassthru($fp);
+            exit;
+        } catch (\Throwable $th) {
+            if ($th->getCode() == 400) {
+                set_status_header($th->getCode(), $th->getMessage());
+            } else {
+                throw $th;
+            }
         }
     }
 }

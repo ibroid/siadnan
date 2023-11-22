@@ -68,7 +68,7 @@ class PegawaiEntity extends Illuminate\Database\Eloquent\Model implements Migrat
         "name" : "satkerId"
     }';
 
-    private $picture;
+    // private $picture;
     const PictureDefinition = '{
         "column" : "picture",
         "type" : "varchar",
@@ -147,5 +147,10 @@ class PegawaiEntity extends Illuminate\Database\Eloquent\Model implements Migrat
     {
         $js = json_decode(self::PegawaiEntityDefinition, TRUE);
         return $js['table'];
+    }
+
+    public function getPassfotoAttribute()
+    {
+        return $this->logo_path . $this->picture;
     }
 }

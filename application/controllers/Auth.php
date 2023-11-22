@@ -1,10 +1,11 @@
 <?php
 
-defined("BASEPATH") or die("Kuya Batok");
+defined('BASEPATH') or die('Kuya Batok');
 
 class Auth extends CI_Controller
 {
     public EloquentDatabase $ed;
+    public CI_DB $database;
 
     public function __construct()
     {
@@ -20,7 +21,7 @@ class Auth extends CI_Controller
 
             redirect(base_url('dashboard'));
         }
-        $this->load->page("public/login")->layout('auth_layout');
+        $this->load->page('public/login')->layout('auth_layout');
     }
 
     public function login()
@@ -33,26 +34,25 @@ class Auth extends CI_Controller
             $u = $this->mathcIdentifier();
             $this->matchPassword($u->password, $u->salt);
 
-
             $this->storeSession($u->toArray());
 
-            redirect(base_url("/dashboard"));
+            redirect(base_url('/dashboard'));
         } catch (\Throwable $th) {
 
-            $this->session->set_flashdata('flash_error', $this->load->component('flash_alert', [
+            $this->session->set_flashdata('flash_error',  $this->load->component('flash_alert', [
                 'type' => 'secondary',
                 'mesg' => $th->getMessage(),
                 'text' => 'Silahkan masukan kredensi anda kembali. Pastikan Semuanya benar'
             ]));
 
-            redirect(base_url("/auth"));
+            redirect(base_url('/auth'));
         }
     }
 
     private function matchPassword($password, $salt)
     {
         if (!password_verify(R_Input::pos('login')['password'] . $salt, $password)) {
-            throw new Exception("Password tidak sama", 1);
+            throw new Exception('Password tidak sama', 1);
         }
     }
 
@@ -60,7 +60,7 @@ class Auth extends CI_Controller
     {
         $u = UserEntity::with('profile')->where('identifier', R_Input::pos('login')['identifier'])->first();
         if (!$u) {
-            throw new Exception("User tidak ditemukan", 1);
+            throw new Exception('User tidak ditemukan', 1);
         }
         return $u;
     }

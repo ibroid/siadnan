@@ -38,6 +38,7 @@
 										<th>Pangkat</th>
 										<th>Status</th>
 										<th>Foto</th>
+										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody></tbody>
@@ -50,6 +51,8 @@
 		</div>
 	</div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 	window.onload = () => {
@@ -78,7 +81,46 @@
 				{
 					"data": "foto"
 				},
+				{
+					"data": "action"
+				},
 			],
 		})
 	}
+</script>
+
+<script>
+	function showPassFoto(id) {
+		Swal.fire({
+			title: "Mohon Tunggu",
+			willOpen: () => Swal.showLoading(),
+			allowOutsideClick: false,
+			showConfirmButton: false,
+			backdrop: false,
+		})
+
+		fetch("<?= base_url('/referensi/pass_foto/') ?>" + id).then(res => {
+				if (!res.ok) {
+					throw new Error(res.statusText)
+				}
+				return res.json()
+			})
+			.then(res => {
+				Swal.fire({
+					title: "Pass Foto Pegawai",
+					imageUrl: res
+				})
+			})
+			.catch(err => {
+				console.log(err)
+				Swal.fire({
+					title: err.message,
+					icon: "error"
+				})
+			})
+	}
+
+	document.addEventListener('DOMContentLoaded', function() {
+
+	})
 </script>
