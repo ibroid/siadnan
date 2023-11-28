@@ -8,36 +8,36 @@
 	<meta name="description" content="Cuba admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
 	<meta name="keywords" content="admin template, Cuba admin template, dashboard template, flat admin template, responsive admin template, web app">
 	<meta name="author" content="pixelstrap">
-	<link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
-	<link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
+	<link rel="icon" href="<?= base_url() ?>/assets/images/favicon.png" type="image/x-icon">
+	<link rel="shortcut icon" href="<?= base_url() ?>/assets/images/favicon.png" type="image/x-icon">
 	<title>Siadnan <?= isset($page_name) ? '| ' . $page_name : '' ?></title>
 	<!-- Google font-->
 	<link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/font-awesome.css">
 	<!-- ico-font-->
-	<link rel="stylesheet" type="text/css" href="../assets/css/vendors/icofont.css">
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/vendors/icofont.css">
 	<!-- Themify icon-->
-	<link rel="stylesheet" type="text/css" href="../assets/css/vendors/themify.css">
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/vendors/themify.css">
 	<!-- Flag icon-->
-	<link rel="stylesheet" type="text/css" href="../assets/css/vendors/flag-icon.css">
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/vendors/flag-icon.css">
 	<!-- Feather icon-->
-	<link rel="stylesheet" type="text/css" href="../assets/css/vendors/feather-icon.css">
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/vendors/feather-icon.css">
 	<!-- Plugins css start-->
-	<link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick.css">
-	<link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick-theme.css">
-	<link rel="stylesheet" type="text/css" href="../assets/css/vendors/scrollbar.css">
-	<link rel="stylesheet" type="text/css" href="../assets/css/vendors/animate.css">
-	<link rel="stylesheet" type="text/css" href="../assets/css/vendors/datatables.css">
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/vendors/slick.css">
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/vendors/slick-theme.css">
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/vendors/scrollbar.css">
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/vendors/animate.css">
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/vendors/datatables.css">
 	<?php $this->addons->css() ?>
 	<!-- Plugins css Ends-->
 	<!-- Bootstrap css-->
-	<link rel="stylesheet" type="text/css" href="../assets/css/vendors/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/vendors/bootstrap.css">
 	<!-- App css-->
-	<link rel="stylesheet" type="text/css" href="../assets/css/style.css">
-	<link id="color" rel="stylesheet" href="../assets/css/color-1.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/style.css">
+	<link id="color" rel="stylesheet" href="<?= base_url() ?>/assets/css/color-1.css" media="screen">
 	<!-- Responsive css-->
-	<link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/responsive.css">
 </head>
 
 <body>
@@ -76,17 +76,17 @@
 				<div class="left-header col-xxl-5 col-xl-6 col-lg-5 col-md-4 col-sm-3 p-0">
 					<div class="notification-slider">
 						<a class="logo text-start" href="javascript:void(0)">
-							<img class="img-fluid for-light" src="../assets/images/logo/logo.png" alt="looginpage">
-							<img class="img-fluid for-dark" src="../assets/images/logo/logo_dark.png" alt="looginpage">
+							<img class="img-fluid for-light" src="<?= base_url() ?>/assets/images/logo/logo.png" alt="looginpage">
+							<img class="img-fluid for-dark" src="<?= base_url() ?>/assets/images/logo/logo_dark.png" alt="looginpage">
 						</a>
 					</div>
 				</div>
 				<!-- <div class="left-header col-xxl-5 col-xl-6 col-lg-5 col-md-4 col-sm-3 p-0">
 					<div class="notification-slider">
-						<div class="d-flex h-100"> <img src="../assets/images/giftools.gif" alt="gif">
+						<div class="d-flex h-100"> <img src="<?= base_url() ?>/assets/images/giftools.gif" alt="gif">
 							<h6 class="mb-0 f-w-400"><span class="font-primary">Don't Miss Out! </span><span class="f-light">Out new update has been release.</span></h6><i class="icon-arrow-top-right f-light"></i>
 						</div>
-						<div class="d-flex h-100"><img src="../assets/images/giftools.gif" alt="gif">
+						<div class="d-flex h-100"><img src="<?= base_url() ?>/assets/images/giftools.gif" alt="gif">
 							<h6 class="mb-0 f-w-400"><span class="f-light">Something you love is now on sale! </span></h6><a class="ms-1" href="https://1.envato.market/3GVzd" target="_blank">Buy now !</a>
 						</div>
 					</div>
@@ -109,11 +109,11 @@
 			<!-- Page Sidebar Start-->
 			<div class="sidebar-wrapper" sidebar-layout="stroke-svg">
 				<div>
-					<div class="logo-wrapper"><a href="index.html"><img class="img-fluid for-light" src="../assets/images/logo/logo.png" alt=""><img class="img-fluid for-dark" src="../assets/images/logo/logo_dark.png" alt=""></a>
+					<div class="logo-wrapper"><a href="index.html"><img class="img-fluid for-light" src="<?= base_url() ?>/assets/images/logo/logo.png" alt=""><img class="img-fluid for-dark" src="<?= base_url() ?>/assets/images/logo/logo_dark.png" alt=""></a>
 						<div class="back-btn"><i class="fa fa-angle-left"></i></div>
 						<div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
 					</div>
-					<div class="logo-icon-wrapper"><a href="index.html"><img class="img-fluid" src="../assets/images/logo/logo-icon.png" alt=""></a></div>
+					<div class="logo-icon-wrapper"><a href="index.html"><img class="img-fluid" src="<?= base_url() ?>/assets/images/logo/logo-icon.png" alt=""></a></div>
 					<?= $this->load->component('nav') ?>
 				</div>
 			</div>
@@ -127,24 +127,24 @@
 		</div>
 	</div>
 	<!-- latest jquery-->
-	<script src="../assets/js/jquery.min.js"></script>
+	<script src="<?= base_url() ?>/assets/js/jquery.min.js"></script>
 	<!-- Bootstrap js-->
-	<script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="<?= base_url() ?>/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
 	<!-- feather icon js-->
-	<script src="../assets/js/icons/feather-icon/feather.min.js"></script>
-	<script src="../assets/js/icons/feather-icon/feather-icon.js"></script>
+	<script src="<?= base_url() ?>/assets/js/icons/feather-icon/feather.min.js"></script>
+	<script src="<?= base_url() ?>/assets/js/icons/feather-icon/feather-icon.js"></script>
 	<!-- scrollbar js-->
-	<script src="../assets/js/scrollbar/simplebar.js"></script>
-	<script src="../assets/js/scrollbar/custom.js"></script>
+	<script src="<?= base_url() ?>/assets/js/scrollbar/simplebar.js"></script>
+	<script src="<?= base_url() ?>/assets/js/scrollbar/custom.js"></script>
 	<!-- Sidebar jquery-->
-	<script src="../assets/js/config.js"></script>
+	<script src="<?= base_url() ?>/assets/js/config.js"></script>
 	<!-- Plugins JS start-->
-	<script src="../assets/js/datatable/datatables/jquery.dataTables.min.js"></script>
-	<script src="../assets/js/support-ticket-custom.js"></script>
+	<script src="<?= base_url() ?>/assets/js/datatable/datatables/jquery.dataTables.min.js"></script>
+	<script src="<?= base_url() ?>/assets/js/support-ticket-custom.js"></script>
 	<?php $this->addons->js() ?>
 	<!-- Plugins JS Ends-->
 	<!-- Theme js-->
-	<script src="../assets/js/script.js"></script>
+	<script src="<?= base_url() ?>/assets/js/script.js"></script>
 </body>
 
 </html>

@@ -56,11 +56,12 @@
 
 <script>
 	window.onload = () => {
+
 		$("#table-pegawai").DataTable({
 			"processing": true,
 			"serverSide": true,
 			"ajax": {
-				"url": "/referensi/pegawai_datatable",
+				"url": "<?= base_url("/referensi/pegawai_datatable_api/" . $satker->id) ?>",
 				"type": "POST"
 			},
 			"columns": [{
@@ -87,29 +88,71 @@
 			],
 		})
 	}
-</script>
 
-<script>
+	async function confirmDelete(id) {
+		const {
+			isConfirmed
+		} = await Swal.fire({
+			title: "Apa anda yakin",
+			text: "Aksi ini tidak bisa dibatalkan",
+			icon: "warning",
+			showCancelButton: true,
+			cancelButtonText: "Batalkan",
+			confirmButtonText: "Yakin"
+		})
+
+		if (isConfirmed) {
+			Swal.fire({
+				title: "Mohon Tunggu",
+				willOpen: () => Swal.showLoading(),
+				allowOutsideClick: false,
+				showConfirmButton: false,
+				backDrop: false,
+			})
+
+			fetch("<?= base_url('/referensi/hapus_pegawai/') ?>" + id, {
+					method: "POST"
+				}).then(res => {
+					if (!res.ok) {
+						throw new Error(res.statusText)
+					}
+					return res.text()
+				})
+				.then(res => {
+					Swal.fire("Pegawai berhasil dihapus").then(() => location.reload());
+				})
+				.catch(err => {
+					console.log(err)
+					Swal.fire({
+						title: err.message,
+						icon: "error"
+					})
+				})
+		}
+	}
+
 	function showPassFoto(id) {
 		Swal.fire({
 			title: "Mohon Tunggu",
 			willOpen: () => Swal.showLoading(),
 			allowOutsideClick: false,
 			showConfirmButton: false,
-			backdrop: false,
+			backDrop: false,
 		})
 
 		fetch("<?= base_url('/referensi/pass_foto/') ?>" + id).then(res => {
 				if (!res.ok) {
 					throw new Error(res.statusText)
 				}
-				return res.json()
+				return res.text()
 			})
 			.then(res => {
 				Swal.fire({
-					title: "Pass Foto Pegawai",
-					imageUrl: res
-				})
+					imageUrl: "<?= base_url() ?>" + res,
+					// imageHeight: 1500,
+					imageAlt: "Pass Foto Pegawai"
+				});
+
 			})
 			.catch(err => {
 				console.log(err)
@@ -119,8 +162,4 @@
 				})
 			})
 	}
-
-	document.addEventListener('DOMContentLoaded', function() {
-
-	})
 </script>
