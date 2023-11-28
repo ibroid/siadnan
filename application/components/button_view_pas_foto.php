@@ -1,1 +1,1 @@
-<a href="javascript:void(0)" class="text-dark"><i class="fa fa-eye"></i></a>
+<a onclick="showPassFoto(<?= $id ?>)" href="javascript:void(0)" class="text-dark"><i class="fa fa-eye"></i></a>

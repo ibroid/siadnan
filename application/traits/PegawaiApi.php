@@ -21,7 +21,7 @@ trait PegawaiApi
 
   public function datatable_pegawai()
   {
-    $columns = ['nama_lengkap', 'nip', 'jabatan', 'pangkat',  'status', 'picture'];
+    $columns = ['id', 'nama_lengkap', 'nip', 'jabatan', 'pangkat',  'status', 'picture'];
 
     $draw = isset($_POST['draw']) ? $_POST['draw'] : 0;
     $start = isset($_POST['start']) ? $_POST['start'] : 0;
@@ -46,7 +46,8 @@ trait PegawaiApi
       $row_container[$n]['jabatan'] = $p->jabatan;
       $row_container[$n]['pangkat'] = $p->pangkat;
       $row_container[$n]['status'] = $this->load->component('badge_status_pegawai',  ['status' => $p->status]);
-      $row_container[$n]['foto'] = $this->load->component('button_view_pas_foto');
+      $row_container[$n]['foto'] = $this->load->component('button_view_pas_foto', ['id' => $p->id]);
+      $row_container[$n]['action'] = $this->load->component('button_action_pegawai', ['id' => $p->id]);
     }
 
     header("Content-Type: application/json", true, 200);
@@ -74,5 +75,21 @@ trait PegawaiApi
     } else {
       return $this->upload->data('file_name');
     }
+  }
+
+  private function passFoto($id = null)
+  {
+    if ($id == null) {
+      throw new Exception("Gagal ambil pass foto. Id kosong", 1);
+    }
+
+    $pegawai = PegawaiEntity::find($id);
+
+    if ($pegawai->picture == "nopic") {
+      // set_status_header(400, "Pegawai tidak mempunyai pass foto");
+      throw new Exception("Pegawai tidak mempunyai pass foto", 400);
+    }
+
+    return $pegawai->passfoto;
   }
 }
