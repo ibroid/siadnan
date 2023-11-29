@@ -5,6 +5,8 @@ require_once APPPATH . 'interfaces/Migrator.php';
 class JenisPengajuanEntity extends Illuminate\Database\Eloquent\Model implements Migrator
 {
     protected $table = "jenis_pengajuan";
+    protected $guarded = [];
+
     const JenisPengajuanEntityDefinition = '
     {
         "name" : "JenisPengajuanEntity",
@@ -101,5 +103,10 @@ class JenisPengajuanEntity extends Illuminate\Database\Eloquent\Model implements
     {
         $js = json_decode(self::JenisPengajuanEntityDefinition, TRUE);
         return $js['table'];
+    }
+
+    public function persyaratan()
+    {
+        return $this->hasMany(PersyaratanEntity::class, "pengajuan_id");
     }
 }

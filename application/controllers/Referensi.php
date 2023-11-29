@@ -2,11 +2,13 @@
 
 require_once APPPATH . "traits/SatkerApi.php";
 require_once APPPATH . "traits/PegawaiApi.php";
+require_once APPPATH . "traits/JenisPengajuanApi.php";
 
 class Referensi extends R_Controller
 {
     use SatkerApi;
     use PegawaiApi;
+    use JenisPengajuanApi;
 
     public function __construct()
     {
@@ -20,7 +22,7 @@ class Referensi extends R_Controller
 
     public function index()
     {
-        $this->load->page('user/referensi', [
+        $this->load->page('referensi/referensi', [
             'page_name' => 'Referensi Data',
             'breadcumb' => 'Referensi',
             'satkers' => $this->get_satker(),
@@ -35,7 +37,7 @@ class Referensi extends R_Controller
             return Redirect::wfe('Satker tidak ditemukan')->go('/dashboard');
         }
 
-        $this->load->page('user/referensi_pegawai', [
+        $this->load->page('referensi/referensi_pegawai', [
             'page_name' => 'Referensi Data',
             'breadcumb' => 'Referensi / ' . $satker->nama_satker . ' / Pegawai',
             'satker' => $satker
@@ -92,7 +94,7 @@ class Referensi extends R_Controller
                 return Redirect::wfe($th->getMessage())->go('/referensi/add_pegawai?satker=' . R_Input::gett('satker'));
             }
         } else {
-            $this->load->page('user/referensi_add_pegawai', [
+            $this->load->page('referensi/referensi_add_pegawai', [
                 'page_name' => 'Referensi Data',
                 'breadcumb' => 'Referensi / ' . $satker->nama_satker . ' / Pegawai / Tambah',
             ])->layout('dashboard_layout');
@@ -143,9 +145,9 @@ class Referensi extends R_Controller
                 ])->go('/referensi/pegawai?satker=' . $satker->kode_satker);
                 // prindie($_FILES);
             } else {
-                $this->load->page('user/referensi_edit_pegawai', [
+                $this->load->page('referensi/referensi_edit_pegawai', [
                     'page_name' => 'Referensi Data',
-                    'breadcumb' => 'Referensi /  / Pegawai / Tambah',
+                    'breadcumb' => 'Referensi / ' . $satker->nama_satker . ' / Pegawai / Tambah',
                     'pegawai' => $pegawai,
                     'satker' => $satker
                 ])->layout('dashboard_layout');
@@ -164,6 +166,107 @@ class Referensi extends R_Controller
             echo json_encode(['text' => "Success"]);
         } catch (\Throwable $th) {
             echo json_encode(['text' => $th->getMessage()]);
+        }
+    }
+
+    public function pengajuan()
+    {
+        $this->load->page('referensi/referensi_pengajuan', [
+            'page_name' => 'Referensi Data',
+            'breadcumb' => 'Referensi / Pengajuan',
+            'pengajuan' => $this->getJenisPengajuan()
+        ])->layout('dashboard_layout');
+    }
+
+    public function add_pengajuan()
+    {
+        if (R_Input::isPost()) {
+            try {
+
+                $data = [
+                    "nama_pengajuan" => R_Input::pos("namaPengajuan"),
+                    "deskripsi" => R_Input::pos("deskripsi"),
+                    "persyaratan_text" => R_Input::pos("persyaratan")
+                ];
+
+                $this->addJenisPengajuan($data);
+
+                Redirect::wfa([
+                    'type' => 'success',
+                    'mesg' => 'Berhasil Menambahkan Jenis Pengajuan',
+                    'text' => ''
+                ])->go('/referensi/pengajuan');
+            } catch (\Throwable $th) {
+                Redirect::wfe($th->getMessage())->go("/referensi/pengajuan");
+            }
+        } else {
+            $this->load->page('referensi/referensi_add_pengajuan', [
+                'page_name' => 'Referensi Data',
+                'breadcumb' => 'Referensi / Pengajuan',
+            ])->layout('dashboard_layout');
+        }
+    }
+
+    public function edit_pengajuan($id = null)
+    {
+        if ($id == null) {
+            set_status_header(404);
+            exit();
+        }
+
+        if (R_Input::isPost()) {
+
+            try {
+
+                $data = [
+                    "nama_pengajuan" => R_Input::pos("namaPengajuan"),
+                    "deskripsi" => R_Input::pos("deskripsi"),
+                    "persyaratan_text" => R_Input::pos("persyaratan")
+                ];
+
+                $this->updateJenisPengajuan($id, $data);
+
+                Redirect::wfa([
+                    'type' => 'success',
+                    'mesg' => 'Berhasil Menambahkan Jenis Pengajuan',
+                    'text' => ''
+                ])->go("/referensi/pengajuan");
+            } catch (\Throwable $th) {
+
+                Redirect::wfe($th->getMessage());
+            }
+        } else {
+
+            $pengajuan = $this->getJenisPengajuan($id);
+            if (!$pengajuan) {
+                set_status_header(404);
+                exit();
+            }
+
+            $this->load->page('referensi/referensi_edit_pengajuan', [
+                'page_name' => 'Referensi Data',
+                'breadcumb' => 'Referensi / Pengajuan',
+                'pengajuan' => $pengajuan
+            ])->layout('dashboard_layout');
+        }
+    }
+
+    public function hapus_pengajuan($id = null)
+    {
+        if ($id == null) {
+            set_status_header(404);
+            exit();
+        }
+
+        R_Input::mustPost();
+        try {
+            $this->deleteJenisPengajuan($id);
+
+            echo json_encode(["message" => "Sukes"]);
+        } catch (\Throwable $th) {
+
+            set_status_header(400, $th->getMessage());
+            echo json_encode(["message" => $th->getMessage()]);
         }
     }
 }

@@ -22,6 +22,15 @@ class PersyaratanEntity extends Illuminate\Database\Eloquent\Model implements Mi
         "name" : "id"
     }';
 
+    private $pengajuanId;
+    const PengajuanIdDefinition = '{
+        "column" : "pengajuan_id",
+        "type" : "int",
+        "constraint" : 11,
+        "null" : false,
+        "name" : "pengajuanId"
+    }';
+
     private $persyaratan;
     const PersyaratanDefinition = '{
         "column" : "persyaratan",
