@@ -3,12 +3,14 @@
 require_once APPPATH . "traits/SatkerApi.php";
 require_once APPPATH . "traits/PegawaiApi.php";
 require_once APPPATH . "traits/JenisPengajuanApi.php";
+require_once APPPATH . "traits/PersyaratanApi.php";
 
 class Referensi extends R_Controller
 {
     use SatkerApi;
     use PegawaiApi;
     use JenisPengajuanApi;
+    use PersyaratanApi;
 
     public function __construct()
     {
@@ -289,5 +291,83 @@ class Referensi extends R_Controller
             'breadcumb' => 'Referensi / Pengajuan / Persyaratan',
             'pengajuan' => $pengajuan
         ])->layout('dashboard_layout');
+    }
+
+    function pengajuan_add_persyaratan($id = null)
+    {
+        if ($id == null) {
+            set_status_header(404);
+            exit();
+        }
+
+        R_Input::mustPost();
+        try {
+            $data = [
+                "persyaratan" => R_Input::pos("persyaratan"),
+                "detail" => R_Input::pos("detail"),
+                "max_size" => R_Input::pos("max_size"),
+                "pengajuan_id" => $id
+            ];
+
+            $this->addPersyaratan($data);
+
+            Redirect::wfa([
+                'type' => 'success',
+                'mesg' => 'Berhasil Menambahkan Jenis Pengajuan',
+                'text' => ''
+            ])->go($_SERVER['HTTP_REFERER']);
+        } catch (\Throwable $th) {
+
+            Redirect::wfe($th->getMessage())->go($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    public function hapus_persyaratan($id = null)
+    {
+        if ($id == null) {
+            set_status_header(404);
+            exit();
+        }
+
+        R_Input::mustPost();
+        try {
+            $this->deletePersyaratan($id);
+
+            echo json_encode(['text' => "Success"]);
+        } catch (\Throwable $th) {
+            echo json_encode(['text' => $th->getMessage()]);
+        }
+    }
+
+    public function pengajuan_update_persyaratan($id = null)
+    {
+        if ($id == null) {
+            set_status_header(404);
+            exit();
+        }
+
+        R_Input::mustPost();
+
+        try {
+            $data = [
+                "persyaratan" => R_Input::pos("persyaratan"),
+                "detail" => R_Input::pos("detail"),
+                "max_size" => R_Input::pos("max_size"),
+                // "pengajuan_id" => $id
+            ];
+
+            $this->updatePersyaratan($id, $data);
+
+            Redirect::wfa([
+                'type' => 'success',
+                'mesg' => 'Berhasil Mengubah Persyaratan',
+                'text' => ''
+            ])->go($_SERVER['HTTP_REFERER']);
+
+        } catch (\Throwable $th) {
+
+            Redirect::wfe($th->getMessage())->go($_SERVER['HTTP_REFERER']);
+        }
+
     }
 }

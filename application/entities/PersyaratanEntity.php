@@ -6,6 +6,8 @@ class PersyaratanEntity extends Illuminate\Database\Eloquent\Model implements Mi
 {
 
     protected $table = "persyaratan";
+    protected $guarded = [];
+
     const PersyaratanEntityDefinition = '
     {
         "name" : "PersyaratanEntity",

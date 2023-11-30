@@ -1,92 +1,213 @@
 <div class="page-body">
-    <?= $this->load->component('page_title', compact('breadcumb', 'page_name')) ?>
-    <div class="container-fluid">
-        <?= $this->session->flashdata('flash_alert') ?>
-        <?= $this->session->flashdata('flash_error') ?>
-    </div>
-    <div class="container-fluid">
-        <div class="edit-profile">
-            <div class="row">
-                <div class="d-flex justify-content-center">
-                    <div class="col-xl-7">
-                        <form accept="<?= base_url('referensi/add_pengajuan') ?>" class="row g-3 needs-validation mega-inline card" novalidate="" method="POST" enctype="multipart/form-data">
-                            <div class="card-header">
-                                <h4 class="card-title mb-0">Persyaratan Untuk <?= $pengajuan->nama_pengajuan ?></h4>
-                                <div class="card-options"><a class="card-options-collapse" href="#" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="#" data-bs-toggle="card-remove"><i class="fe fe-x"></i></a></div>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="list-group" id="list-tab" role="tablist">
-                                            <a class="list-group-item list-group-item-action list-hover-primary " id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home" aria-selected="true">Home</a>
-                                            <a class="list-group-item list-group-item-action list-hover-primary" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile" aria-selected="false" tabindex="-1">Profile</a>
-                                            <a class="list-group-item list-group-item-action list-hover-primary" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages" aria-selected="false" tabindex="-1">Contact Us</a>
-                                            <a class="list-group-item list-group-item-action list-hover-primary" id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings" aria-selected="false" tabindex="-1">Settings</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <div class="tab-content" id="nav-tabContent">
-                                            <div class="tab-pane fade list-behaviors active show" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-                                                <div class="d-flex mb-xl-4 list-behavior-1">
-                                                    <div class="flex-shrink-0"><img class="tab-img img-fluid" src="../assets/images/blog/img.png" alt="home"></div>
-                                                    <div class="flex-grow-1">
-                                                        <p class="mb-xl-0 mb-sm-4">We provide end to end digital solutions, right from designing your website/application development: Domain, Web Hosting, Email Hosting Registration, Search Engine Optimization and other Internet Marketing, Renewal of Services timely and effectively.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex list-behavior-1 mb-xl-4">
-                                                    <div class="flex-shrink-0"><img class="tab-img img-fluid" src="../assets/images/blog/blog.jpg" alt="home"></div>
-                                                    <div class="flex-grow-1">
-                                                        <p class="mb-0">When someone visits your homepage, your design should inspire them to stay. Therefore, your value proposition should be established on the homepage for visitors to select to stay on your website.Building trust, expressing value, and guiding visitors to the next step all depend on a page's design.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade dark-list" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-                                                <div class="flex-space align-items-center list-light-dark contact-profile"><img class="tab-img" src="../assets/images/avtar/3.jpg" alt="profile">
-                                                    <ul class="d-flex flex-column gap-2">
-                                                        <li> <strong>Visit Us: </strong> 2600 Hollywood Blvd,Florida, United States- 33020</li>
-                                                        <li><strong>Mail Us:</strong>contact@us@gmail.com</li>
-                                                        <li><strong>Contact Number: </strong>(954) 357-7760</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
-                                                <ul class="d-flex flex-column gap-1">
-                                                    <li>Us Technology offers web &amp; mobile development solutions for all industry verticals.Include a short form using fields that'll help your business understand who's contacting them.</li>
-                                                    <li> <strong>Visit Us: </strong> 2600 Hollywood Blvd,Florida, United States- 33020</li>
-                                                    <li> <strong>Mail Us:</strong>contact@us@gmail.com</li>
-                                                    <li><strong>Contact Number: </strong>(954) 357-7760</li>
-                                                </ul>
-                                            </div>
-                                            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
-                                                <ul class="d-flex flex-column gap-2">
-                                                    <li><strong>Available pages in Theme: </strong></li>
-                                                    <li>
-                                                        --&gt; Typography:
-                                                        Typography is the art of arranging letters and text in a way that makes the copy legible, clear, and visually appealing to the reader.
-                                                    </li>
-                                                    <li>
-                                                        --&gt; Tooltip:
-                                                        A tooltip is a brief, informative message that appears when a user interacts with an element in a graphical user interface (GUI).
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer text-end">
-                                <a class="btn btn-secondary" href="<?= base_url('referensi/pengajuan') ?>"><i class="fa fa-arrow-left"></i> Kembali</a>
-                                <button class="btn btn-primary" type="submit">Simpan <i class="fa fa-save"></i></button>
-                            </div>
-                        </form>
-                        <br><br><br><br>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<?= $this->load->component('page_title', compact('breadcumb', 'page_name')) ?>
+	<div class="container-fluid">
+		<?= $this->session->flashdata('flash_alert') ?>
+		<?= $this->session->flashdata('flash_error') ?>
+	</div>
+	<div class="container-fluid">
+		<div class="edit-profile">
+			<div class="row">
+				<div class="d-flex justify-content-center">
+					<div class="col-xl-7">
+						<div class="row g-3  mega-inline card">
+							<div class="card-header">
+								<h4 class="card-title mb-0">Persyaratan Untuk
+									<?= $pengajuan->nama_pengajuan ?>
+								</h4>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<p>
+										<?= $pengajuan->persyaratan_text ?>
+									</p>
+									<div class="col-sm-5">
+										<p class="text-primary">Klik Untuk Melihat Detail</p>
+										<div class="list-group" id="list-tab" role="tablist">
+											<?php foreach ($pengajuan->persyaratan as $n => $p) { ?>
+												<a class="list-group-item list-group-item-action list-hover-primary"
+													id="list-home-list<?= $p->id ?>" data-bs-toggle="list" href="#list-home<?= $p->id ?>" role="tab"
+													aria-controls="list-home<?= $p->id ?>" aria-selected="true">
+													<?= $p->persyaratan ?>
+												</a>
+											<?php } ?>
+										</div>
+									</div>
+									<div class="col-sm-7">
+										<div class="tab-content" id="nav-tabContent">
+											<?php foreach ($pengajuan->persyaratan as $n => $f) { ?>
+												<div class="tab-pane fade list-behaviors" id="list-home<?= $f->id ?>" role="tabpanel"
+													aria-labelledby="list-home-list<?= $p->id ?>">
+													<div class="flex-space align-items-center list-light-dark contact-profile p-3">
+														<ul class="d-flex flex-column gap-2">
+															<li> <strong>Nama Syarat : </strong>
+																<?= $f->persyaratan ?>
+															</li>
+															<li><strong>Detail : </strong>
+																<?= $f->detail ?>
+															</li>
+															<li><strong>Max Size : </strong>
+																<?= $f->max_size ?>KB
+															</li>
+															<li>
+																<button data-bs-toggle="modal" data-bs-target="#exampleModallogin<?= $f->id ?>"
+																	class="btn btn-warning btn-sm">Edit</button>
+																<button onclick="confirmDelete(<?= $f->id ?>)"
+																	class="btn btn-danger btn-sm">Hapus</button>
+															</li>
+														</ul>
+													</div>
+												</div>
+												<div class="modal fade" id="exampleModallogin<?= $f->id ?>" tabindex="-1"
+													aria-labelledby="exampleModallogin" aria-hidden="true" style="display: none;">
+													<div class="modal-dialog modal-dialog-centered" role="document">
+														<div class="modal-content dark-sign-up">
+															<div class="modal-body  text-start">
+																<div class="modal-toggle-wrapper">
+																	<h5>Ubah Persyaratan Untuk
+																		<?= $pengajuan->nama_pengajuan ?>
+																	</h5>
+																	<form class="row g-3 needs-validation" novalidate method="post"
+																		action="<?= base_url("/referensi/pengajuan_update_persyaratan/" . $f->id) ?>">
+																		<div class="col-md-12">
+																			<label class="form-label" for="input-nama-pengajuan">Nama Pengajuan</label>
+																			<input value="<?= $f->persyaratan ?>" class="form-control" id="input-nama-pengajuan"
+																				type="text" placeholder="Contoh : Scan SK" name="persyaratan" required>
+																		</div>
+																		<div class="col-md-12">
+																			<label class="form-label" for="textarea-detail">Detail</label>
+																			<textarea name="detail" id="textarea-detail" cols="10" rows="5"
+																				placeholder="Contoh : Scan Surat Keputusan Kenaikan Pangkat ..."
+																				class="form-control" required><?= $f->detail ?></textarea>
+																		</div>
+																		<div class="col-md-12">
+																			<label class="form-label" for="select-max-size">Ukuran Maksimal</label>
+																			<select name="max_size" required id="select-max-size"
+																				class="form-control form-select">
+																				<option value="1024">1 MB</option>
+																				<option selected value="2048">2 MB</option>
+																				<option value="3072">3 MB</option>
+																				<option value="4096">4 MB</option>
+																				<option value="5120">5 MB</option>
+																				<option value="6144">6 MB</option>
+																				<option value="7168">7 MB</option>
+																				<option value="8192">8 MB</option>
+																			</select>
+																		</div>
+																		<div class=" col-12">
+																			<button class="btn btn-primary" type="submit">Simpan </button>
+																		</div>
+																	</form>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											<?php } ?>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer text-end">
+								<a class="btn btn-secondary" href="<?= base_url('referensi/pengajuan') ?>"><i
+										class="fa fa-arrow-left"></i> Kembali</a>
+								<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModallogin">Tambah <i
+										class="fa fa-plus"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
-<script>
+<div class="modal fade" id="exampleModallogin" tabindex="-1" aria-labelledby="exampleModallogin" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content dark-sign-up">
+			<div class="modal-body  text-start">
+				<div class="modal-toggle-wrapper">
+					<h5>Tambah Persyaratan Untuk
+						<?= $pengajuan->nama_pengajuan ?>
+					</h5>
+					<form class="row g-3 needs-validation" novalidate method="post"
+						action="<?= base_url("/referensi/pengajuan_add_persyaratan/" . $pengajuan->id) ?>">
+						<div class="col-md-12">
+							<label class="form-label" for="input-nama-pengajuan">Nama Pengajuan</label>
+							<input class="form-control" id="input-nama-pengajuan" type="text" placeholder="Contoh : Scan SK"
+								name="persyaratan" required>
+						</div>
+						<div class="col-md-12">
+							<label class="form-label" for="textarea-detail">Detail</label>
+							<textarea name="detail" id="textarea-detail" cols="10" rows="5"
+								placeholder="Contoh : Scan Surat Keputusan Kenaikan Pangkat ..." class="form-control"
+								required></textarea>
+						</div>
+						<div class="col-md-12">
+							<label class="form-label" for="select-max-size">Ukuran Maksimal</label>
+							<select name="max_size" required id="select-max-size" class="form-control form-select">
+								<option value="1024">1 MB</option>
+								<option selected value="2048">2 MB</option>
+								<option value="3072">3 MB</option>
+								<option value="4096">4 MB</option>
+								<option value="5120">5 MB</option>
+								<option value="6144">6 MB</option>
+								<option value="7168">7 MB</option>
+								<option value="8192">8 MB</option>
+							</select>
+						</div>
+						<div class=" col-12">
+							<button class="btn btn-primary" type="submit">Simpan </button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+	async function confirmDelete(id) {
+		const {
+			isConfirmed
+		} = await Swal.fire({
+			title: "Apa anda yakin",
+			text: "Aksi ini tidak bisa dibatalkan",
+			icon: "warning",
+			showCancelButton: true,
+			cancelButtonText: "Batalkan",
+			confirmButtonText: "Yakin"
+		})
+
+		if (isConfirmed) {
+			Swal.fire({
+				title: "Mohon Tunggu",
+				willOpen: () => Swal.showLoading(),
+				allowOutsideClick: false,
+				showConfirmButton: false,
+				backDrop: false,
+			})
+
+			fetch("<?= base_url('/referensi/hapus_persyaratan/') ?>" + id, {
+				method: "POST"
+			}).then(res => {
+				if (!res.ok) {
+					throw new Error(res.statusText)
+				}
+				return res.text()
+			})
+				.then(res => {
+					Swal.fire("Persyaratan berhasil dihapus").then(() => location.reload());
+				})
+				.catch(err => {
+					console.log(err)
+					Swal.fire({
+						title: err.message,
+						icon: "error"
+					})
+				})
+		}
+	}
 </script>
