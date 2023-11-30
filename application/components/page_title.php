@@ -22,7 +22,7 @@ if ($user['profile']['pegawai_id'] == 0) {
                     <li class="breadcrumb-item">
                         <a href="<?= base_url('/dashboard') ?>">
                             <svg class="stroke-icon">
-                                <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
+                                <use href="<?= base_url("/assets/svg/icon-sprite.svg#stroke-home") ?>"></use>
                             </svg>
                         </a>
                     </li>

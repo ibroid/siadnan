@@ -7,14 +7,14 @@ $user = $this->session->userdata('user_login');
         <li>
             <span class="header-search">
                 <svg>
-                    <use href="../assets/svg/icon-sprite.svg#search"></use>
+                    <use href="<?= base_url() ?>assets/svg/icon-sprite.svg#search"></use>
                 </svg>
             </span>
         </li>
         <li>
             <div class="mode">
                 <svg>
-                    <use href="../assets/svg/icon-sprite.svg#moon"></use>
+                    <use href="<?= base_url() ?>assets/svg/icon-sprite.svg#moon"></use>
                 </svg>
             </div>
         </li>
@@ -22,7 +22,7 @@ $user = $this->session->userdata('user_login');
         <li class="onhover-dropdown">
             <div class="notification-box">
                 <svg>
-                    <use href="../assets/svg/icon-sprite.svg#notification"></use>
+                    <use href="<?= base_url() ?>assets/svg/icon-sprite.svg#notification"></use>
                 </svg><span class="badge rounded-pill badge-secondary">4 </span>
             </div>
             <div class="onhover-show-div notification-dropdown">

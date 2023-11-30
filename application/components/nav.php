@@ -14,17 +14,17 @@
                  <i class="fa fa-thumb-tack"></i>
                  <a class="sidebar-link sidebar-title" href="<?= base_url('dashboard') ?>">
                      <svg class="stroke-icon">
-                         <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
+                         <use href="<?= base_url() ?>assets/svg/icon-sprite.svg#stroke-home"></use>
                      </svg>
                      <svg class="fill-icon">
-                         <use href="../assets/svg/icon-sprite.svg#fill-home"></use>
+                         <use href="<?= base_url() ?>assets/svg/icon-sprite.svg#fill-home"></use>
                      </svg><span>Dashboard</span></a>
              </li>
              <li class="sidebar-list">
                  <i class="fa fa-thumb-tack"></i>
                  <a class="sidebar-link sidebar-title" href="<?= base_url('pengajuan') ?>">
                      <svg class="stroke-icon">
-                         <use href="../assets/svg/icon-sprite.svg#stroke-user"></use>
+                         <use href="<?= base_url() ?>assets/svg/icon-sprite.svg#stroke-user"></use>
                      </svg>
                      <span>Pengajuan</span></a>
              </li>
@@ -32,7 +32,7 @@
                  <i class="fa fa-thumb-tack"></i>
                  <a class="sidebar-link sidebar-title" href="<?= base_url('referensi') ?>">
                      <svg class="stroke-icon">
-                         <use href="../assets/svg/icon-sprite.svg#stroke-search"></use>
+                         <use href="<?= base_url() ?>assets/svg/icon-sprite.svg#stroke-search"></use>
                      </svg>
                      <span>Referensi</span></a>
              </li>
@@ -40,7 +40,7 @@
                  <i class="fa fa-thumb-tack"></i>
                  <a class="sidebar-link sidebar-title" href="<?= base_url('settings') ?>">
                      <svg class="stroke-icon">
-                         <use href="../assets/svg/icon-sprite.svg#setting"></use>
+                         <use href="<?= base_url() ?>assets/svg/icon-sprite.svg#setting"></use>
                      </svg>
                      <span>Settings</span></a>
              </li>

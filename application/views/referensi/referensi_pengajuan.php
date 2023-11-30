@@ -27,15 +27,15 @@
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
-							<table class="display table" id="table-pegawai">
+							<table class="display table table-hover" id="table-pegawai">
 								<thead>
-									<tr>
+									<tr class="text-center">
 										<th>No</th>
 										<th>Jenis Pengajuan</th>
 
 										<th>Deskripsi</th>
+										<th>Requirement</th>
 										<th>Persyaratan</th>
-										<th>Jumlah</th>
 										<th>Status</th>
 										<th>Action</th>
 									</tr>
@@ -46,10 +46,13 @@
 											<td><?= ++$k ?></td>
 											<td><?= $p->nama_pengajuan ?></td>
 											<td><?= $p->deskripsi ?></td>
-											<td><?= $p->persyaratan_text ?></td>
-											<td>6</td>
 											<td>
-												<badge class="badge badge-success">Aktif</badge>
+												<a href="<?= base_url("/referensi/req_pengajuan/" . $p->id) ?>" class="btn btn-light">Atur</i></a>
+											</td>
+											<td><?= $p->persyaratan_text ?></td>
+											<td>
+												<input class="tgl tgl-skewed" id="cb3" type="checkbox" <?= ($p->status == 1) ? "checked" : "" ?>>
+												<label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="cb3"></label>
 											</td>
 											<td>
 												<ul class="action" style="list-style-type: none;">

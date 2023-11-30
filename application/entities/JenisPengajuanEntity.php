@@ -40,6 +40,15 @@ class JenisPengajuanEntity extends Illuminate\Database\Eloquent\Model implements
         "name" : "deskripsi"
     }';
 
+    private $status;
+    const StatusDefinition = '{
+        "column" : "status",
+        "type" : "int",
+        "null" : false,
+        "name" : "status",
+        "constraint" : 1
+    }';
+
     private $persyaratanText;
     const PersyaratanTextDefinition = '{
         "column" : "persyaratan_text",

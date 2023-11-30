@@ -15,7 +15,7 @@ class Referensi extends R_Controller
         parent::__construct();
         $this->addons->init([
             'js' => [
-                '<script src="../assets/js/form-validation-custom.js"></script>',
+                '<script src="' . base_url("/assets/js/form-validation-custom.js") . '"></script>',
             ]
         ]);
     }
@@ -202,7 +202,7 @@ class Referensi extends R_Controller
         } else {
             $this->load->page('referensi/referensi_add_pengajuan', [
                 'page_name' => 'Referensi Data',
-                'breadcumb' => 'Referensi / Pengajuan',
+                'breadcumb' => 'Referensi / Pengajuan / Tambah',
             ])->layout('dashboard_layout');
         }
     }
@@ -245,7 +245,7 @@ class Referensi extends R_Controller
 
             $this->load->page('referensi/referensi_edit_pengajuan', [
                 'page_name' => 'Referensi Data',
-                'breadcumb' => 'Referensi / Pengajuan',
+                'breadcumb' => 'Referensi / Pengajuan / Edit',
                 'pengajuan' => $pengajuan
             ])->layout('dashboard_layout');
         }
@@ -262,11 +262,32 @@ class Referensi extends R_Controller
         try {
             $this->deleteJenisPengajuan($id);
 
-            echo json_encode(["message" => "Sukes"]);
+            echo json_encode(["message" => "Sukses"]);
         } catch (\Throwable $th) {
 
             set_status_header(400, $th->getMessage());
             echo json_encode(["message" => $th->getMessage()]);
         }
+    }
+
+    public function req_pengajuan($id = null)
+    {
+        if ($id == null) {
+            set_status_header(404);
+            exit();
+        }
+
+        $pengajuan = $this->getJenisPengajuan($id);
+
+        if (!$pengajuan) {
+            set_status_header(404);
+            exit();
+        }
+
+        $this->load->page('referensi/referensi_reqs_pengajuan', [
+            'page_name' => 'Referensi Data',
+            'breadcumb' => 'Referensi / Pengajuan / Persyaratan',
+            'pengajuan' => $pengajuan
+        ])->layout('dashboard_layout');
     }
 }
