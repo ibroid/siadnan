@@ -48,6 +48,15 @@ class PersyaratanEntity extends Illuminate\Database\Eloquent\Model implements Mi
         "name" : "detail"
     }';
 
+    private $maxSize;
+    const MaxSizeDefinition = '{
+        "column" : "max_size",
+        "type" : "int",
+        "null" : false,
+        "name" : "maxSize",
+        "constraint" : 5
+    }';
+
     private $createdAt;
     const CreatedAtDefinition = '{
         "column":"created_at",
