@@ -21,6 +21,11 @@
 	<div class="container-fluid">
 		<div class="page-content">
 			<div class="row">
+				<?php if ($pengajuan->count() == 0) { ?>
+					<div class="alert alert-secondary">
+						<h4>Belum ada sarana pengajuan yang tersedia</h4>
+					</div>
+				<?php } ?>
 				<?php foreach ($pengajuan as $k => $p) { ?>
 					<div class="col-xxl-6 col-sm-6 box-col-6">
 						<div class="card profile-box">
@@ -37,7 +42,8 @@
 											<h6>
 												<?= $p->persyaratan->count() ?> Persyaratan
 											</h6>
-											<div class="whatsnew-btn"><a href="<?= base_url('wizard/pengajuan/' . $p->id) ?>"
+											<div class="whatsnew-btn"><a
+													href="<?= base_url('wizard/pengajuan/' . $p->id) ?>"
 													class="btn btn-outline-white">Ajukan
 													Sekarang</a></div>
 										</div>
@@ -69,7 +75,8 @@
 										<div class="badge f-10 p-0" id="txt">2:35 PM</div>
 									</div>
 								</div>
-								<div class="cartoon"><img class="img-fluid" src="<?= base_url() ?>assets/images/dashboard/cartoon.svg"
+								<div class="cartoon"><img class="img-fluid"
+										src="<?= base_url() ?>assets/images/dashboard/cartoon.svg"
 										alt="vector women with leptop"></div>
 							</div>
 						</div>

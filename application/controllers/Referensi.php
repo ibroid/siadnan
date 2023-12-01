@@ -12,6 +12,8 @@ class Referensi extends R_Controller
     use JenisPengajuanApi;
     use PersyaratanApi;
 
+    public Addons $addons;
+
     public function __construct()
     {
         parent::__construct();
@@ -370,5 +372,26 @@ class Referensi extends R_Controller
             Redirect::wfe($th->getMessage())->go($_SERVER['HTTP_REFERER']);
         }
 
+    }
+
+    public function set_pengajuan($id = null)
+    {
+        if ($id == null) {
+            set_status_header(404);
+            exit();
+        }
+        R_Input::mustPost();
+
+        try {
+
+            $this->updateJenisPengajuan($id, [
+                'status' => R_Input::pos('status'),
+            ]);
+
+            echo json_encode(['status' => 'success']);
+
+        } catch (\Throwable $th) {
+            echo json_encode(['status' => $th->getMessage()]);
+        }
     }
 }

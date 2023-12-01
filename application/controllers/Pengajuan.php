@@ -11,7 +11,7 @@ class Pengajuan extends R_Controller
         $this->load->page('pengajuan/pengajuan', [
             'page_name' => 'Pengajuan baru',
             'breadcumb' => 'Pengajuan',
-            'pengajuan' => $this->getJenisPengajuan(),
+            'pengajuan' => $this->getJenisPengajuan()->where("status", 1),
         ])->layout('dashboard_layout');
     }
 }

@@ -10,7 +10,8 @@
 						<h5>Daftar Pengajuan Administrasi</h5>
 						<div class="text-end">
 
-							<a href="<?= base_url('referensi/add_pengajuan') ?>" class="btn btn-primary">Tambah Pengajuan <i class="fa fa-plus"></i>
+							<a href="<?= base_url('referensi/add_pengajuan') ?>" class="btn btn-primary">Tambah
+								Pengajuan <i class="fa fa-plus"></i>
 							</a>
 
 						</div>
@@ -43,21 +44,37 @@
 								<tbody>
 									<?php foreach ($pengajuan as $k => $p) { ?>
 										<tr>
-											<td><?= ++$k ?></td>
-											<td><?= $p->nama_pengajuan ?></td>
-											<td><?= $p->deskripsi ?></td>
+											<td>
+												<?= ++$k ?>
+											</td>
+											<td>
+												<?= $p->nama_pengajuan ?>
+											</td>
+											<td>
+												<?= $p->deskripsi ?>
+											</td>
 											<td>
 												<a href="<?= base_url("/referensi/req_pengajuan/" . $p->id) ?>" class="btn btn-light">Atur</i></a>
 											</td>
-											<td><?= $p->persyaratan_text ?></td>
 											<td>
-												<input class="tgl tgl-skewed" id="cb3" type="checkbox" <?= ($p->status == 1) ? "checked" : "" ?>>
+												<?= $p->persyaratan_text ?>
+											</td>
+											<td>
+												<input class="tgl tgl-skewed" value="<?= $p->id ?>" id="cb3" type="checkbox" <?= ($p->status == 1) ? "checked" : "" ?>>
 												<label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="cb3"></label>
 											</td>
 											<td>
 												<ul class="action" style="list-style-type: none;">
-													<li class="edit"> <a href="<?= base_url("/referensi/edit_pengajuan/" . $p->id) ?>"><i class="icon-pencil-alt"></i></a></li>
-													<li class="delete"><a href="javascript:void(0)" onclick="confirmDelete(<?= $p->id ?>)"><i class="icon-trash"></i></a></li>
+													<li class="edit">
+														<a href="<?= base_url("/referensi/edit_pengajuan/" . $p->id) ?>">
+															<i class="icon-pencil-alt"></i>
+														</a>
+													</li>
+													<li class="delete">
+														<a href="javascript:void(0)" onclick="confirmDelete(<?= $p->id ?>)">
+															<i class="icon-trash"></i>
+														</a>
+													</li>
 												</ul>
 											</td>
 										</tr>
@@ -76,6 +93,39 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+	window.addEventListener("DOMContentLoaded", () => {
+		$(".tgl.tgl-skewed").each((i, e) => {
+			e.addEventListener("change", () => {
+				Swal.fire({
+					title: "Mohon Tunggu",
+					willOpen: () => Swal.showLoading(),
+					allowOutsideClick: false,
+					showConfirmButton: false,
+					backDrop: false,
+				})
+
+				const body = new FormData()
+
+				body.append('status', e.checked ? 1 : 0)
+
+				$.ajax({
+					url: "<?= base_url("referensi/set_pengajuan/") ?>" + e.value,
+					method: "POST",
+					processData: false,
+					contentType: false,
+					data: body,
+					success(res) {
+						Swal.close()
+						console.log(res)
+					},
+					error(err) {
+						Swal.fire("Terjadi Kesalahan", err.statusText, "error")
+						e.checked = !e.checked
+					}
+				})
+			})
+		})
+	})
 	async function confirmDelete(id) {
 		const {
 			isConfirmed
@@ -98,13 +148,13 @@
 			})
 
 			fetch("<?= base_url('/referensi/hapus_pengajuan/') ?>" + id, {
-					method: "POST"
-				}).then(res => {
-					if (!res.ok) {
-						throw new Error(res.statusText)
-					}
-					return res.text()
-				})
+				method: "POST"
+			}).then(res => {
+				if (!res.ok) {
+					throw new Error(res.statusText)
+				}
+				return res.text()
+			})
 				.then(res => {
 					Swal.fire("Pegawai berhasil dihapus").then(() => location.reload());
 				})

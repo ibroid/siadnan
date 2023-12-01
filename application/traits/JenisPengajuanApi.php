@@ -1,6 +1,6 @@
 <?php
 
-trait  JenisPengajuanApi
+trait JenisPengajuanApi
 {
     private function addJenisPengajuan(array $data)
     {
