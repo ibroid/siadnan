@@ -22,7 +22,7 @@ class PengaturanEntity extends Illuminate\Database\Eloquent\Model implements Mig
 
     private $variable;
     const VariableDefinition = '{
-        "column" : "variable",
+        "column" : "variabel",
         "type" : "varchar",
         "constraint" : 64,
         "null" : false,
@@ -72,7 +72,8 @@ class PengaturanEntity extends Illuminate\Database\Eloquent\Model implements Mig
     }';
 
     public static function table_declare()
-    {;
+    {
+        ;
         $reflect = new ReflectionClass(self::class);
         $field = [];
 

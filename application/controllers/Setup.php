@@ -28,7 +28,9 @@ class Setup extends CI_Controller
 		if (!password_verify(R_Input::pos('login')['password'] . $salt, $password)) {
 
 			$this->session->set_flashdata('flash_alert', $this->load->component('flash_alert', [
-				'mesg' => 'Terjadi Kesalahan', 'text' => 'Password Salah', 'type' => 'secondary'
+				'mesg' => 'Terjadi Kesalahan',
+				'text' => 'Password Salah',
+				'type' => 'secondary'
 			]));
 
 			redirect(base_url('/setup'));
@@ -155,7 +157,7 @@ class Setup extends CI_Controller
 
 		foreach ($pipes as $pipe) {
 			try {
-				$result .=  stream_get_contents($pipe);
+				$result .= stream_get_contents($pipe);
 			} catch (\Throwable $th) {
 				//throw $th;
 			}
@@ -346,7 +348,7 @@ class Setup extends CI_Controller
 
 		EloquentDatabase::table('pengaturan')->insert([
 			[
-				'variable' => 'ptb',
+				'variabel' => 'ptb',
 				'value' => 'PENGADILAN TINGGI AGMA DKI JAKARTA',
 				'keterangan' => 'Nama Pengadilan Tingkat Banding',
 				'type' => 'text',
