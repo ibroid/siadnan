@@ -75,7 +75,8 @@ class PersyaratanEntity extends Illuminate\Database\Eloquent\Model implements Mi
     }';
 
     public static function table_declare()
-    {;
+    {
+        ;
         $reflect = new ReflectionClass(self::class);
         $field = [];
 
@@ -114,5 +115,10 @@ class PersyaratanEntity extends Illuminate\Database\Eloquent\Model implements Mi
     {
         $js = json_decode(self::PersyaratanEntityDefinition, TRUE);
         return $js['table'];
+    }
+
+    public function persyaratan_pengajuan()
+    {
+        return $this->hasMany(PersyaratanPengajuanEntity::class, 'persyaratan_id');
     }
 }

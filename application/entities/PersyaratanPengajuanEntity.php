@@ -5,6 +5,7 @@ require_once APPPATH . 'interfaces/Migrator.php';
 class PersyaratanPengajuanEntity extends Illuminate\Database\Eloquent\Model implements Migrator
 {
     protected $table = "persyaratan_pengajuan";
+    protected $guarded = [];
     const PersyaratanPengajuanEntityDefinition = '{
         "name": "PersyaratanPengajuanEntity", 
         "table": "persyaratan_pengajuan"
@@ -37,11 +38,19 @@ class PersyaratanPengajuanEntity extends Illuminate\Database\Eloquent\Model impl
         "name" : "pengajuanId"
     }';
 
+    private $persyaratanId;
+    const PersyaratanIdDefinition = '{
+        "column" : "persyaratan_id",
+        "constraint" : 11,
+        "type" : "int",
+        "null" : false,
+        "name" : "persyaratanId"
+    }';
+
     private $tanggalDiperiksa;
     const TanggalDiperiksaDefinition = '{
         "column" : "tanggal_diperiksa",
         "type" : "date",
-        "null" : false,
         "name" : "tanggalDiperiksa"
     }';
 
@@ -62,15 +71,13 @@ class PersyaratanPengajuanEntity extends Illuminate\Database\Eloquent\Model impl
     private $catatan;
     const CatatanDefinition = '{
         "column" : "catatan",
-        "type" : "varchar",
-        "constraint" : 191,
-        "null" : false,
+        "type" : "text",
         "name" : "catatan"
     }';
 
     private $filename;
     const FilenameDefinition = '{
-        "column" : "asesor",
+        "column" : "filename",
         "type" : "varchar",
         "constraint" : 191,
         "null" : false,
@@ -92,8 +99,14 @@ class PersyaratanPengajuanEntity extends Illuminate\Database\Eloquent\Model impl
         "name" : "updatedAt"
     }';
 
+
+    public $file_path = '/uploads/berkas/';
+
+    public static $upload_path = './uploads/berkas/';
+
     public static function table_declare()
-    {;
+    {
+        ;
         $reflect = new ReflectionClass(self::class);
         $field = [];
 
