@@ -188,7 +188,8 @@ class Referensi extends R_Controller
                 $data = [
                     "nama_pengajuan" => R_Input::pos("namaPengajuan"),
                     "deskripsi" => R_Input::pos("deskripsi"),
-                    "persyaratan_text" => R_Input::pos("persyaratan")
+                    "persyaratan_text" => R_Input::pos("persyaratan"),
+                    "status" => 0,
                 ];
 
                 $this->addJenisPengajuan($data);

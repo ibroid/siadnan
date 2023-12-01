@@ -3,6 +3,8 @@
 class Setup extends CI_Controller
 {
 
+	public CI_Session $session;
+	public CI_Migration $migration;
 	public $flash_message = "";
 
 	public function __construct()
@@ -172,13 +174,10 @@ class Setup extends CI_Controller
 		switch (PHP_OS) {
 			case 'WINNT':
 				return 'win.exe';
-				break;
 			case 'Linux':
 				return 'linux';
-				break;
 			default:
 				return 'mac';
-				break;
 		}
 	}
 
