@@ -51,7 +51,8 @@ class PersyaratanPengajuanEntity extends Illuminate\Database\Eloquent\Model impl
     const TanggalDiperiksaDefinition = '{
         "column" : "tanggal_diperiksa",
         "type" : "date",
-        "name" : "tanggalDiperiksa"
+        "name" : "tanggalDiperiksa",
+        "null" : true,
     }';
 
     /**
@@ -72,7 +73,8 @@ class PersyaratanPengajuanEntity extends Illuminate\Database\Eloquent\Model impl
     const CatatanDefinition = '{
         "column" : "catatan",
         "type" : "text",
-        "name" : "catatan"
+        "name" : "catatan",
+        "null" : true,
     }';
 
     private $filename;
@@ -145,5 +147,10 @@ class PersyaratanPengajuanEntity extends Illuminate\Database\Eloquent\Model impl
     {
         $js = json_decode(self::PersyaratanPengajuanEntityDefinition, TRUE);
         return $js['table'];
+    }
+
+    public function pengajuan()
+    {
+        return $this->belongsTo(PengajuanEntity::class, "pengajuan_id", "id");
     }
 }

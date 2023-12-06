@@ -54,14 +54,17 @@
 												<?= $p->deskripsi ?>
 											</td>
 											<td>
-												<a href="<?= base_url("/referensi/req_pengajuan/" . $p->id) ?>" class="btn btn-light">Atur</i></a>
+												<a href="<?= base_url("/referensi/req_pengajuan/" . $p->id) ?>"
+													class="btn btn-light">Atur</i></a>
 											</td>
 											<td>
 												<?= $p->persyaratan_text ?>
 											</td>
 											<td>
-												<input class="tgl tgl-skewed" value="<?= $p->id ?>" id="cb3" type="checkbox" <?= ($p->status == 1) ? "checked" : "" ?>>
-												<label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="cb3"></label>
+												<input class="tgl tgl-skewed" value="<?= $p->id ?>" id="cb3<?= $p->id ?>"
+													type="checkbox" <?= ($p->status == 1) ? "checked" : "" ?>>
+												<label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON"
+													for="cb3<?= $p->id ?>"></label>
 											</td>
 											<td>
 												<ul class="action" style="list-style-type: none;">
@@ -95,6 +98,7 @@
 <script>
 	window.addEventListener("DOMContentLoaded", () => {
 		$(".tgl.tgl-skewed").each((i, e) => {
+			console.log(e)
 			e.addEventListener("change", () => {
 				Swal.fire({
 					title: "Mohon Tunggu",
@@ -105,7 +109,7 @@
 				})
 
 				const body = new FormData()
-
+				console.log(e.value)
 				body.append('status', e.checked ? 1 : 0)
 
 				$.ajax({
@@ -119,7 +123,7 @@
 						console.log(res)
 					},
 					error(err) {
-						Swal.fire("Terjadi Kesalahan", err.statusText, "error")
+						Swal.fire("Terjadi Kesalahan", err.responseText, "error")
 						e.checked = !e.checked
 					}
 				})

@@ -4,6 +4,7 @@ require_once APPPATH . "traits/SatkerApi.php";
 require_once APPPATH . "traits/PegawaiApi.php";
 require_once APPPATH . "traits/JenisPengajuanApi.php";
 require_once APPPATH . "traits/PersyaratanApi.php";
+require_once APPPATH . "traits/PersyaratanPengajuanApi.php";
 
 class Referensi extends R_Controller
 {
@@ -11,6 +12,7 @@ class Referensi extends R_Controller
     use PegawaiApi;
     use JenisPengajuanApi;
     use PersyaratanApi;
+    use PersyaratanPengajuanApi;
 
     public Addons $addons;
 
@@ -380,9 +382,15 @@ class Referensi extends R_Controller
             set_status_header(404);
             exit();
         }
+
         R_Input::mustPost();
 
         try {
+
+            $requirements = $this->getJenisPengajuan($id);
+            if ($requirements->persyaratan->count() == 0) {
+                throw new Exception("Pengajuan ini belum ada Persyaratan", 400);
+            }
 
             $this->updateJenisPengajuan($id, [
                 'status' => R_Input::pos('status'),
@@ -391,7 +399,8 @@ class Referensi extends R_Controller
             echo json_encode(['status' => 'success']);
 
         } catch (\Throwable $th) {
-            echo json_encode(['status' => $th->getMessage()]);
+            set_status_header($th->getCode());
+            echo $th->getMessage();
         }
     }
 }

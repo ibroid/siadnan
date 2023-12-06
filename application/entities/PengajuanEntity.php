@@ -5,6 +5,9 @@ require_once APPPATH . 'interfaces/Migrator.php';
 class PengajuanEntity extends Illuminate\Database\Eloquent\Model implements Migrator
 {
     protected $table = "pengajuan";
+
+    protected $guarded = [];
+
     const PengajuanEntityDefinition = '{
         "name": "PengajuanEntity", 
         "table": "pengajuan"
@@ -43,7 +46,7 @@ class PengajuanEntity extends Illuminate\Database\Eloquent\Model implements Migr
     const TanggalDitinjauDefinition = '{
         "column" : "tanggal_ditinjau",
         "type" : "date",
-        "null" : false,
+        "null" : true,
         "name" : "tanggalDitinjau"
     }';
 
@@ -70,7 +73,7 @@ class PengajuanEntity extends Illuminate\Database\Eloquent\Model implements Migr
         "column":"asesor",
         "type":"varchar",
         "constraint":191,
-        "null":false,
+        "null":true,
         "name" : "asesor"
     }';
 
@@ -79,7 +82,7 @@ class PengajuanEntity extends Illuminate\Database\Eloquent\Model implements Migr
         "column":"surat_keputusan",
         "type":"varchar",
         "constraint":64,
-        "null":false,
+        "null":true,
         "name" : "suratKeputusan"
     }';
 
@@ -99,7 +102,8 @@ class PengajuanEntity extends Illuminate\Database\Eloquent\Model implements Migr
     }';
 
     public static function table_declare()
-    {;
+    {
+        ;
         $reflect = new ReflectionClass(self::class);
         $field = [];
 

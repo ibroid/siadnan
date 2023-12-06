@@ -301,8 +301,8 @@ class Setup extends CI_Controller
 	{
 		EloquentDatabase::table('user')->insert([
 			[
-				'identifier' => 'dev_siadnan',
-				'password' => password_hash('tampan_dan_berani' . 'sd9Lk0Rh', PASSWORD_BCRYPT),
+				'identifier' => 'imal',
+				'password' => password_hash('kuyabatok' . 'sd9Lk0Rh', PASSWORD_BCRYPT),
 				'status' => 1,
 				'level' => 1,
 				'salt' => 'sd9Lk0Rh',

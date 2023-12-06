@@ -42,10 +42,11 @@
 											<h6>
 												<?= $p->persyaratan->count() ?> Persyaratan
 											</h6>
-											<div class="whatsnew-btn"><a
-													href="<?= base_url('wizard/pengajuan/' . $p->id) ?>"
-													class="btn btn-outline-white">Ajukan
-													Sekarang</a></div>
+											<div class="whatsnew-btn">
+												<a href="<?= base_url('/pengajuan/pegawai/' . $p->id) ?>"
+													class="btn btn-outline-white">
+													Ajukan Sekarang</a>
+											</div>
 										</div>
 									</div>
 									<div>

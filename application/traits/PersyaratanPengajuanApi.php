@@ -26,4 +26,16 @@ trait PersyaratanPengajuanApi
 
         return $this->upload->data("file_name");
     }
+
+    private function findPersyaratanByPengajuan($pengajuanId = null)
+    {
+        if ($pengajuanId == null) {
+            throw new Exception("Gagal cari persyaratan berdasarkan pengajuan. Id Pengajuan Kosong", 1);
+        }
+
+        return PersyaratanPengajuanEntity::where("pengajuan", function ($q) use ($pengajuanId) {
+            $q->where("id", $pengajuanId);
+        })->get();
+
+    }
 }

@@ -10,6 +10,10 @@ class R_Controller extends CI_Controller
 
     public CI_DB $database;
 
+    public PegawaiEntity $pegawai;
+
+
+
     public function __construct()
     {
         parent::__construct();
@@ -30,5 +34,6 @@ class R_Controller extends CI_Controller
         $this->user = $this->session->userdata('user_login');
         $this->load->database();
         $this->load->library('EloquentDatabase', null, 'ed');
+        $this->pegawai = PegawaiEntity::find($this->user['profile']['pegawai_id']);
     }
 }
