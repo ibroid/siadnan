@@ -51,7 +51,8 @@ class Pengajuan extends R_Controller
         $this->load->page('pengajuan/pengajuan_pegawai', [
             'page_name' => 'Pengajuan baru',
             'breadcumb' => 'Pengajuan / Pegawai',
-            'pengajuan' => $this->getJenisPengajuan($id),
+            'jenis_pengajuan' => $this->getJenisPengajuan($id),
+            'pengajuan' => $this->getPengajuanByJenisId($id),
             'satker' => $this->get_satker($this->pegawai->satker_id),
         ])->layout('dashboard_layout');
     }
@@ -81,9 +82,9 @@ class Pengajuan extends R_Controller
 
             Redirect::wfa([
                 'type' => 'success',
-                'message' => 'Pegawai berhasil diajukan',
+                'mesg' => 'Pegawai berhasil diajukan',
                 'text' => 'Silahkan refresh apabila data tidak tampil'
-            ])->go('/pengajuan/pegawai');
+            ])->go('/pengajuan/pegawai/' . R_Input::pos('pengajuan_id'));
         } catch (\Throwable $th) {
 
             Redirect::wfe($th->getMessage())->go($_SERVER['HTTP_REFERER']);

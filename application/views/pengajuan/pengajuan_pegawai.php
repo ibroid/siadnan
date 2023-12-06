@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h5>
-                            <?= $pengajuan->nama_pengajuan ?>
+                            <?= $jenis_pengajuan->nama_pengajuan ?>
                         </h5>
                         <div class="card-header-right">
                             <!-- <ul class="list-unstyled card-option">
@@ -33,13 +33,40 @@
                                         <th>Nama</th>
                                         <th>Jabatan</th>
                                         <th>Pangkat</th>
-                                        <th>TMT</th>
-                                        <th>Status</th>
-                                        <th>Golongan</th>
-                                        <th>Pengajuan</th>
+                                        <th>NIP</th>
+                                        <th>Berkas</th>
+                                        <th>Tanggal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach ($pengajuan as $n => $pj) { ?>
+                                        <tr>
+                                            <td class="sorting_1">
+                                                <div class="media"><img class="rounded-circle img-30 me-3"
+                                                        src="../assets/images/user/5.jpg">
+                                                    <div class="media-body align-self-center">
+                                                        <div>
+                                                            <?= $pj->pegawai->nama_lengkap ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <?= $pj->pegawai->jabatan ?>
+                                            </td>
+                                            <td>
+                                                <?= $pj->pegawai->pangkat ?>
+                                            </td>
+                                            <td>
+                                                <?= $pj->pegawai->nip ?>
+                                            </td>
+                                            <td><button class="btn btn-warning btn-sm">Lengkapi</button></button></button>
+                                            </td>
+                                            <td>
+                                                <?= $pj->tanggal_pengajuan ?>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -56,7 +83,7 @@
             <form action="<?= base_url("pengajuan/save_pegawai") ?>" method="POST">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">
-                        <?= $pengajuan->nama_pengajuan ?> Baru
+                        <?= $jenis_pengajuan->nama_pengajuan ?> Baru
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -74,7 +101,7 @@
                         </div>
                     </div>
                     <input type="hidden" name="id" id="hidden-input-pegawai">
-                    <input type="hidden" name="pengajuan_id" value="<?= $pengajuan->id ?>">
+                    <input type="hidden" name="pengajuan_id" value="<?= $jenis_pengajuan->id ?>">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

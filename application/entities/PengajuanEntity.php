@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 require_once APPPATH . 'interfaces/Migrator.php';
 
@@ -25,7 +26,7 @@ class PengajuanEntity extends Illuminate\Database\Eloquent\Model implements Migr
         "name" : "pegawaiId"
     }';
 
-    private $tanggalPengajuan;
+    // private $tanggalPengajuan;
     const TanggalPengajuanDefinition = '{
         "column" : "tanggal_pengajuan",
         "type" : "date",
@@ -142,5 +143,15 @@ class PengajuanEntity extends Illuminate\Database\Eloquent\Model implements Migr
     {
         $js = json_decode(self::PengajuanEntityDefinition, TRUE);
         return $js['table'];
+    }
+
+    public function pegawai()
+    {
+        return $this->belongsTo(PegawaiEntity::class);
+    }
+
+    public function getTanggalPengajuanAttribute($val)
+    {
+        return _tanggalIndo($val);
     }
 }

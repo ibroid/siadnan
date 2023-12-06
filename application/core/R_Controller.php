@@ -12,6 +12,8 @@ class R_Controller extends CI_Controller
 
     public PegawaiEntity $pegawai;
 
+    public Addons $addons;
+
 
 
     public function __construct()

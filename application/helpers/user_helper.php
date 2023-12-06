@@ -16,3 +16,28 @@ if (!function_exists('_getLevel')) {
         }
     }
 }
+
+if (!function_exists('_tanggalIndo')) {
+    function _tanggalIndo(string $tanggal): string
+    {
+        $bulan = array(
+            1 => 'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $pecahkan = explode('-', $tanggal);
+
+        return $pecahkan[2] . ' ' . $bulan[(int) $pecahkan[1]] . ' ' . $pecahkan[0];
+    }
+}
+
+
