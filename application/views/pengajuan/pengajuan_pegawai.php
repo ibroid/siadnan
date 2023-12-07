@@ -36,14 +36,15 @@
                                         <th>NIP</th>
                                         <th>Berkas</th>
                                         <th>Tanggal</th>
+                                        <th width="200px">Catatan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($pengajuan as $n => $pj) { ?>
                                         <tr>
                                             <td class="sorting_1">
-                                                <div class="media"><img class="rounded-circle img-30 me-3"
-                                                        src="../assets/images/user/5.jpg">
+                                                <div class="media"><img class="rounded-circle img-50 me-3"
+                                                        src="<?= $pj->pegawai->pass_foto ?>">
                                                     <div class="media-body align-self-center">
                                                         <div>
                                                             <?= $pj->pegawai->nama_lengkap ?>
@@ -60,10 +61,21 @@
                                             <td>
                                                 <?= $pj->pegawai->nip ?>
                                             </td>
-                                            <td><button class="btn btn-warning btn-sm">Lengkapi</button></button></button>
+                                            <td><a class="btn btn-warning btn-sm text-white"
+                                                    href=" <?= $pj->pegawai->picture == "nopic" ? "javascript:void(0)" : base_url("wizard/pengajuan/$jenis_pengajuan->id/" . $pj->pegawai->id) ?>">Lengkapi</a></button></button>
                                             </td>
                                             <td>
                                                 <?= $pj->tanggal_pengajuan ?>
+                                            </td>
+                                            <td>
+                                                <div class="alert alert-light-secondary p-2" role="alert">
+                                                    <p class="text-small text-secondary">
+                                                        Upload pass foto pegawai <a
+                                                            href="<?= base_url('/referensi/pegawai?satker=' . $satker->kode_satker) ?>">disini</a>
+                                                        sebelum
+                                                        melanjutkan
+                                                    </p>
+                                                </div>
                                             </td>
                                         </tr>
                                     <?php } ?>

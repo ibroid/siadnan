@@ -40,4 +40,19 @@ if (!function_exists('_tanggalIndo')) {
     }
 }
 
+if (!function_exists('_colorStatus')) {
+    function _colorStatus(int $status): string
+    {
+        if ($status == 2) {
+            return "warning";
+        }
+
+        if ($status == 1) {
+            return "success";
+        }
+
+        return "secondary";
+    }
+}
+
 

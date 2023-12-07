@@ -2,16 +2,20 @@
 
 require_once APPPATH . "/traits/JenisPengajuanApi.php";
 require_once APPPATH . "/traits/PersyaratanPengajuanApi.php";
+require_once APPPATH . "/traits/PegawaiApi.php";
+require_once APPPATH . "/traits/PersyaratanApi.php";
 class Wizard extends R_Controller
 {
     use JenisPengajuanApi;
     use PersyaratanPengajuanApi;
+    use PegawaiApi;
+    use PersyaratanApi;
 
     public Addons $addons;
 
-    public function pengajuan($id = null)
+    public function pengajuan($id = null, $pegawaiId = null)
     {
-        if ($id == null) {
+        if ($id == null or $pegawaiId == null) {
             set_status_header(404);
             exit;
         }
@@ -21,8 +25,18 @@ class Wizard extends R_Controller
             'css' => ['<link rel="stylesheet" type="text/css" href="' . base_url() . 'assets/css/vendors/dropzone.css">']
         ]);
 
+        $jenis_pengajuan = $this->getJenisPengajuan($id);
+
+        $pegawai = $this->getPegawai($pegawaiId);
+
+        if (!$jenis_pengajuan or !$pegawai) {
+            set_status_header(404);
+            exit;
+        }
+
         $this->load->page('user/wizard', [
-            "pengajuan" => $this->getJenisPengajuan($id),
+            "jenis_pengajuan" => $jenis_pengajuan,
+            "pegawai" => $pegawai,
         ])->layout('auth_layout');
     }
 
@@ -38,16 +52,18 @@ class Wizard extends R_Controller
                 "filename" => $this->uploadPersyaratanPengajuan($id, 'file'),
                 "pengajuan_id" => R_Input::pos("pengajuan_id"),
                 "tanggal_upload" => date("Y-m-d"),
-                "persyaratan_id" => $id
+                "persyaratan_id" => $id,
+                "pegawai_id" => R_Input::pos("pegawai_id"),
             ];
 
             $this->addPersyaratanPengajuan($data);
 
-            echo json_encode(["status" => "success"]);
+            echo json_encode([$this->load->component("pengajuan/riwayat_upload", ['p' => $this->getPersyaratan($id, R_Input::pos("pengajuan_id"))]), $id]);
         } catch (\Throwable $th) {
             //throw $th;
             set_status_header(400);
             echo $th->getMessage();
         }
     }
+
 }

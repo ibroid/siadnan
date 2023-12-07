@@ -47,25 +47,30 @@ class PersyaratanPengajuanEntity extends Illuminate\Database\Eloquent\Model impl
         "name" : "persyaratanId"
     }';
 
+    private $pegawaiId;
+    const PegawaiIdDefinition = '{
+        "column" : "pegawai_id",
+        "constraint" : 11,
+        "type" : "int",
+        "null" : false,
+        "name" : "pegawaiId"
+    }';
+
     private $tanggalDiperiksa;
     const TanggalDiperiksaDefinition = '{
         "column" : "tanggal_diperiksa",
         "type" : "date",
         "name" : "tanggalDiperiksa",
-        "null" : true,
+        "null" : true
     }';
 
-    /**
-     * 1 = Valid
-     * 2 = Tidak Valid
-     */
     private $status;
     const StatusDefinition = '{
         "column" : "status",
         "type" : "int",
         "constraint" : 1,
         "null" : false,
-        "default" : 1,
+        "default" : 1, 
         "name" : "status"
     }';
 
@@ -74,7 +79,7 @@ class PersyaratanPengajuanEntity extends Illuminate\Database\Eloquent\Model impl
         "column" : "catatan",
         "type" : "text",
         "name" : "catatan",
-        "null" : true,
+        "null" : true
     }';
 
     private $filename;

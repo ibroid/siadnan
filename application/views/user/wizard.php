@@ -1,18 +1,3 @@
-<?php
-
-function colorStatus($status = 0)
-{
-	if ($status == 2) {
-		return "warning";
-	}
-
-	if ($status == 1) {
-		return "success";
-	}
-
-	return "secondary";
-}
-?>
 <div class="container-fluid ">
 	<div class="row">
 		<div class="col-12 p-0">
@@ -21,12 +6,12 @@ function colorStatus($status = 0)
 					<div class="wizard-4" id="wizard">
 						<ul>
 							<li>
-								<a href="<?= base_url('pengajuan') ?>" class="btn btn-outline">
+								<a href="<?= $_SERVER['HTTP_REFERER'] ?>" class="btn btn-outline">
 									<i class="fa fa-arrow-left"></i>
 									Kembali
 								</a>
 							</li>
-							<?php foreach ($pengajuan->persyaratan as $n => $p) { ?>
+							<?php foreach ($jenis_pengajuan->persyaratan as $n => $p) { ?>
 								<li>
 									<a href="#step-<?= ++$n ?>">
 										<h4>
@@ -41,7 +26,7 @@ function colorStatus($status = 0)
 
 							<li> <img src="<?= base_url() ?>assets/images/login/icon.png" alt="looginpage"></li>
 						</ul>
-						<?php foreach ($pengajuan->persyaratan as $n => $p) { ?>
+						<?php foreach ($jenis_pengajuan->persyaratan as $n => $p) { ?>
 							<div id="step-<?= ++$n ?>">
 								<div class="wizard-title">
 									<h2>
@@ -53,7 +38,7 @@ function colorStatus($status = 0)
 								</div>
 								<div class="login-main" style="width:800px">
 									<div class="theme-form">
-										<div class="row">
+										<div class="row" id="class-content-p<?= $p->id ?>">
 											<div class="col-sm-6">
 												<div class="form-group">
 													<label for="name">Upload Disini.
@@ -63,7 +48,8 @@ function colorStatus($status = 0)
 													<form class="dropzone dz-clickable" id="singleFileUpload"
 														action="<?= base_url("wizard/save_persyaratan/" . $p->id) ?>" method="POST"
 														enctype="multipart/form-data">
-														<input type="hidden" name="pengajuan_id" value="<?= $pengajuan->id ?>">
+														<input type="hidden" name="pengajuan_id" value="<?= $jenis_pengajuan->id ?>">
+														<input type="hidden" name="pegawai_id" value="<?= $pegawai->id ?>">
 														<div class="dropzone-wrapper">
 															<div class="dz-message needsclick"><i class="icon-cloud-up"></i>
 																<h6>Drop files here or click to upload.</h6><span class="note needsclick"></span>
@@ -73,30 +59,7 @@ function colorStatus($status = 0)
 												</div>
 											</div>
 											<div class="col-sm-6">
-												<strong>Riwayat Upload</strong>
-												<div class="accordion dark-accordion" id="accordionPanelsStayOpenExample">
-													<?php foreach ($p->persyaratan_pengajuan as $i => $ps) { ?>
-														<div class="accordion-item">
-															<h2 class="accordion-header" id="panelsStayOpen-headingOne">
-																<button
-																	class="accordion-button gap-2 accordion-light-<?= colorStatus($ps->status) ?> active txt-<?= colorStatus($ps->status) ?> collapsed"
-																	type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne"
-																	aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
-																	<?= date('d F Y', strtotime($ps->tanggal_upload)) ?>
-																</button>
-															</h2>
-															<div class="accordion-collapse collapse" id="panelsStayOpen-collapseOne"
-																aria-labelledby="panelsStayOpen-headingOne" style="">
-																<div class="accordion-body">
-																	<p>
-																		<?= !$ps->catatan ? "Menunggu Pemeriksaan" : $ps->catatan . ". Diperiksa tanggal " . date('d F Y', strtotime($ps->tanggal_diperiksa)) ?>
-																	</p>
-																	<a class="btn btn-light btn-sm text-primary" href="">Download File</a>
-																</div>
-															</div>
-														</div>
-													<?php } ?>
-												</div>
+												<?= $this->load->component("pengajuan/riwayat_upload", compact("p")) ?>
 											</div>
 										</div>
 									</div>
@@ -115,9 +78,6 @@ function colorStatus($status = 0)
 <script>
 	document.addEventListener("DOMContentLoaded", () => {
 
-		function fetchRiwayat() {
-
-		}
 
 		(function () {
 			var DropzoneExample = (function () {
@@ -145,7 +105,10 @@ function colorStatus($status = 0)
 							});
 
 							this.on("success", (file, message) => {
+								const data = JSON.parse(message);
+
 								Swal.fire("Upload Berhasil", "", "success")
+								$(`#class-content-p${data[1]} > div:nth-child(2)`).html(data[0])
 							});
 						}
 					};

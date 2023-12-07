@@ -35,23 +35,29 @@ class Pengajuan extends R_Controller
             exit();
         }
 
+        $jenispengajuan = $this->getJenisPengajuan($id);
+        if (!$jenispengajuan) {
+            set_status_header(404);
+            exit();
+        }
+
         $this->addons->init([
             'js' => [
-                '<script src="' . base_url() . '/assets/js/form-validation-custom.js"></script>',
-                '<script src="' . base_url() . '/assets/js/typeahead/handlebars.js"></script>',
-                '<script src="' . base_url() . '/assets/js/typeahead/typeahead.bundle.js"></script>',
-                '<script src="' . base_url() . '/assets/js/flat-pickr/flatpickr.js"></script>',
-                '<script>flatpickr(".datetime-local", {});</script>'
+                '<script src="' . base_url() . '/assets/js/form-validation-custom.js"></script>' . "\n",
+                '<script src="' . base_url() . '/assets/js/typeahead/handlebars.js"></script>' . "\n",
+                '<script src="' . base_url() . '/assets/js/typeahead/typeahead.bundle.js"></script>' . "\n",
+                '<script src="' . base_url() . '/assets/js/flat-pickr/flatpickr.js"></script>' . "\n",
+                '<script>flatpickr(".datetime-local", {});</script>' . "\n"
             ],
             'css' => [
-                '<link rel="stylesheet" type="text/css" href="' . base_url() . '/assets/css/vendors/flatpickr/flatpickr.min.css">'
+                '<link rel="stylesheet" type="text/css" href="' . base_url() . '/assets/css/vendors/flatpickr/flatpickr.min.css">' . "\n"
             ]
         ]);
 
         $this->load->page('pengajuan/pengajuan_pegawai', [
             'page_name' => 'Pengajuan baru',
             'breadcumb' => 'Pengajuan / Pegawai',
-            'jenis_pengajuan' => $this->getJenisPengajuan($id),
+            'jenis_pengajuan' => $jenispengajuan,
             'pengajuan' => $this->getPengajuanByJenisId($id),
             'satker' => $this->get_satker($this->pegawai->satker_id),
         ])->layout('dashboard_layout');
