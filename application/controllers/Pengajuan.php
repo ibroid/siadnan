@@ -98,4 +98,9 @@ class Pengajuan extends R_Controller
             Redirect::wfe($th->getMessage())->go($_SERVER['HTTP_REFERER']);
         }
     }
+
+    public function delete_berkas()
+    {
+
+    }
 }

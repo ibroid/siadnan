@@ -16,6 +16,7 @@ class R_Controller extends CI_Controller
 
     public bool $is_admin = false;
 
+    public CI_Session $session;
 
     public function __construct()
     {

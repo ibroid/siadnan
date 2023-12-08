@@ -4,6 +4,20 @@ trait PersyaratanPengajuanApi
 {
     private function addPersyaratanPengajuan(array $data)
     {
+        $berkasLama = PersyaratanPengajuanEntity::where([
+            "pengajuan_id" => $data["pengajuan_id"],
+            "pegawai_id" => $data["pegawai_id"],
+            "persyaratan_id" => $data["persyaratan_id"],
+
+        ])->first();
+
+        if ($berkasLama) {
+            if ($berkasLama->tanggal_diperiksa == null && $berkasLama->catatan == null) {
+                throw new Exception("Berkas sebelum nya belum diperiksa. Anda bisa upload ulang saat berkas sebelumnya ditolak", 400);
+
+            }
+        }
+
         return PersyaratanPengajuanEntity::create($data);
     }
 
@@ -36,6 +50,6 @@ trait PersyaratanPengajuanApi
         return PersyaratanPengajuanEntity::where("pengajuan", function ($q) use ($pengajuanId) {
             $q->where("id", $pengajuanId);
         })->get();
-
     }
+
 }

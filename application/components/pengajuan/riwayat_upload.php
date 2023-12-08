@@ -19,8 +19,8 @@
                     </p>
                     <a target="_blank" class="btn btn-light btn-sm text-primary"
                         href="<?= base_url("/uploads/berkas/" . $ps->filename) ?>">Download File</a>
-                    <a class="btn btn-light btn-sm text-danger"
-                        href="<?= base_url("/pengajuan/delete_berkas/" . $ps->id) ?>">Delete File</a>
+                    <!-- <a class="btn btn-light btn-sm text-danger"
+                        href="<?= base_url("/pengajuan/delete_berkas/" . $ps->id) ?>">Delete File</a> -->
                 </div>
             </div>
         </div>
