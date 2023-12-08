@@ -311,7 +311,7 @@ class Setup extends CI_Controller
 				'updated_at' => date('Y-m-d H:i:s'),
 			],
 			[
-				'identifier' => 'admin_siadnan',
+				'identifier' => 'admin',
 				'password' => password_hash('ptadkijakarta' . 'Djl8mk20', PASSWORD_BCRYPT),
 				'status' => 1,
 				'level' => 2,

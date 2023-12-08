@@ -36,6 +36,7 @@ class Pengajuan extends R_Controller
         }
 
         $jenispengajuan = $this->getJenisPengajuan($id);
+
         if (!$jenispengajuan) {
             set_status_header(404);
             exit();
@@ -59,7 +60,7 @@ class Pengajuan extends R_Controller
             'breadcumb' => 'Pengajuan / Pegawai',
             'jenis_pengajuan' => $jenispengajuan,
             'pengajuan' => $this->getPengajuanByJenisId($id),
-            'satker' => $this->get_satker($this->pegawai->satker_id),
+            'satker' => $this->get_satker($this->is_admin ? null : $this->pegawai->satker_id),
         ])->layout('dashboard_layout');
     }
 
@@ -78,6 +79,7 @@ class Pengajuan extends R_Controller
     public function save_pegawai()
     {
         R_Input::mustPost();
+
         try {
             $this->savePengajuan([
                 'pegawai_id' => R_Input::pos('id'),

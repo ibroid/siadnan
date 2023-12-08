@@ -71,7 +71,7 @@
                                                 <div class="alert alert-light-secondary p-2" role="alert">
                                                     <p class="text-small text-secondary">
                                                         Upload pass foto pegawai <a
-                                                            href="<?= base_url('/referensi/pegawai?satker=' . $satker->kode_satker) ?>">disini</a>
+                                                            href="<?= base_url('/referensi/pegawai?satker=' . $pj->pegawai->satker->kode_satker) ?>">disini</a>
                                                         sebelum
                                                         melanjutkan
                                                     </p>
@@ -134,7 +134,7 @@
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace("value"),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             remote: {
-                url: `<?= base_url('pegawai/type_suggest') ?>?query=%QUERY&satker_id=${<?= $satker->id ?>}`,
+                url: `<?= base_url('pegawai/type_suggest') ?>?query=%QUERY`,
                 wildcard: "%QUERY",
             },
         });

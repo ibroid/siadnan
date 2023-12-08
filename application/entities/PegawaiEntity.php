@@ -108,7 +108,8 @@ class PegawaiEntity extends Illuminate\Database\Eloquent\Model implements Migrat
 
 
     public static function table_declare()
-    {;
+    {
+        ;
         $reflect = new ReflectionClass(self::class);
         $field = [];
 
@@ -152,5 +153,10 @@ class PegawaiEntity extends Illuminate\Database\Eloquent\Model implements Migrat
     public function getPassfotoAttribute()
     {
         return $this->logo_path . $this->picture;
+    }
+
+    public function satker()
+    {
+        return $this->belongsTo(SatkerEntity::class);
     }
 }

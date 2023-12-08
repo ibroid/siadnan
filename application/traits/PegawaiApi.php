@@ -6,10 +6,15 @@ trait PegawaiApi
   {
     $query = R_Input::gett('query');
     $satker_id = R_Input::gett('satker_id');
-    $data = PegawaiEntity::select('id', 'nama_lengkap')
-      ->where('satker_id', $satker_id)
-      ->where('nama_lengkap', 'LIKE', "$query%")
-      ->get();
+
+    if ($satker_id != null) {
+      $data = PegawaiEntity::select('id', 'nama_lengkap')
+        ->where('satker_id', $satker_id)
+        ->where('nama_lengkap', 'LIKE', "$query%")->get();
+    } else {
+      $data = PegawaiEntity::select('id', 'nama_lengkap')->where('nama_lengkap', 'LIKE', "$query%")->get();
+    }
+
 
     echo json_encode($data);
   }
@@ -21,7 +26,7 @@ trait PegawaiApi
 
   public function datatable_pegawai($idSatker)
   {
-    $columns = ['id', 'nama_lengkap', 'nip', 'jabatan', 'pangkat',  'status', 'picture'];
+    $columns = ['id', 'nama_lengkap', 'nip', 'jabatan', 'pangkat', 'status', 'picture'];
 
     $draw = isset($_POST['draw']) ? $_POST['draw'] : 0;
     $start = isset($_POST['start']) ? $_POST['start'] : 0;
@@ -46,7 +51,7 @@ trait PegawaiApi
       $row_container[$n]['nip'] = $p->nip;
       $row_container[$n]['jabatan'] = $p->jabatan;
       $row_container[$n]['pangkat'] = $p->pangkat;
-      $row_container[$n]['status'] = $this->load->component('badge_status_pegawai',  ['status' => $p->status]);
+      $row_container[$n]['status'] = $this->load->component('badge_status_pegawai', ['status' => $p->status]);
       $row_container[$n]['foto'] = $this->load->component('button_view_pas_foto', ['id' => $p->id]);
       $row_container[$n]['action'] = $this->load->component('button_action_pegawai', ['id' => $p->id, 'satker_id' => $idSatker]);
     }
@@ -66,7 +71,7 @@ trait PegawaiApi
 
     $config['upload_path'] = PegawaiEntity::$upload_path;
     $config['allowed_types'] = 'gif|jpg|png|jpeg';
-    $config['max_size']  = '512';
+    $config['max_size'] = '512';
     $config['encrypt_name'] = true;
 
     $this->load->library('upload', $config);
