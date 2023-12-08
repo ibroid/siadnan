@@ -62,20 +62,48 @@
                                                 <?= $pj->pegawai->nip ?>
                                             </td>
                                             <td><a class="btn btn-warning btn-sm text-white"
-                                                    href=" <?= $pj->pegawai->picture == "nopic" ? "javascript:void(0)" : base_url("wizard/pengajuan/$jenis_pengajuan->id/" . $pj->pegawai->id) ?>">Lengkapi</a></button></button>
+                                                    href=" <?= $pj->pegawai->picture == "nopic" ? "javascript:void(0)" : base_url("wizard/pengajuan/" . $pj->id) ?>">Lengkapi</a></button></button>
                                             </td>
                                             <td>
                                                 <?= $pj->tanggal_pengajuan ?>
                                             </td>
                                             <td>
-                                                <div class="alert alert-light-secondary p-2" role="alert">
-                                                    <p class="text-small text-secondary">
-                                                        Upload pass foto pegawai <a
-                                                            href="<?= base_url('/referensi/pegawai?satker=' . $pj->pegawai->satker->kode_satker) ?>">disini</a>
-                                                        sebelum
-                                                        melanjutkan
-                                                    </p>
-                                                </div>
+                                                <?php
+                                                if ($pj->pegawai->picture == "nopic") { ?>
+                                                    <div class="alert alert-light-secondary p-2" role="alert">
+                                                        <p class="text-small text-secondary">
+                                                            Upload pass foto pegawai <a
+                                                                href="<?= base_url('/referensi/pegawai?satker=' . $pj->pegawai->satker->kode_satker) ?>">disini</a>
+                                                            sebelum
+                                                            melanjutkan
+                                                        </p>
+                                                    </div>
+                                                <?php } else if ($pj->status == 1) { ?>
+                                                        <div class="alert alert-light-secondary p-2" role="alert">
+                                                            <p class="text-small text-secondary">
+                                                                Silahkan Lengkapi Berkas
+                                                            </p>
+                                                        </div>
+                                                <?php } else if ($pj->status == 3) { ?>
+                                                            <div class="alert alert-light-secondary p-2" role="alert">
+                                                                <p class="text-small text-secondary">
+                                                                    Ada berkas yang ditolak. Silahkan Betulkan
+                                                                </p>
+                                                            </div>
+                                                <?php } else if ($pj->status == 4) { ?>
+                                                                <div class="alert alert-light-secondary p-2" role="alert">
+                                                                    <p target="_blank" class="text-small text-secondary">
+                                                                        Pengajuan dikabulkan. Klik <a
+                                                                            href="<?= base_url($pj->SK) ?>">Disini</a>
+                                                                    </p>
+                                                                </div>
+                                                <?php } else { ?>
+                                                                <div class="alert alert-light-secondary p-2" role="alert">
+                                                                    <p class="text-small text-secondary">
+                                                                        Dalam Proses Pemeriksaan
+                                                                    </p>
+                                                                </div>
+                                                <?php } ?>
                                             </td>
                                         </tr>
                                     <?php } ?>

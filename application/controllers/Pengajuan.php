@@ -18,6 +18,7 @@ class Pengajuan extends R_Controller
     use PengajuanApi;
     use SatkerApi;
     use PegawaiApi;
+    use PersyaratanPengajuanApi;
 
     public function index()
     {
@@ -56,8 +57,8 @@ class Pengajuan extends R_Controller
         ]);
 
         $this->load->page('pengajuan/pengajuan_pegawai', [
-            'page_name' => 'Pengajuan baru',
-            'breadcumb' => 'Pengajuan / Pegawai',
+            'page_name' => 'Daftar ' . $jenispengajuan->nama_pengajuan,
+            'breadcumb' => 'Pengajuan / ' . str_replace("Pengajuan ", "", $jenispengajuan->nama_pengajuan),
             'jenis_pengajuan' => $jenispengajuan,
             'pengajuan' => $this->getPengajuanByJenisId($id),
             'satker' => $this->get_satker($this->is_admin ? null : $this->pegawai->satker_id),
@@ -87,7 +88,6 @@ class Pengajuan extends R_Controller
                 'jenis_pengajuan_id' => R_Input::pos('pengajuan_id'),
             ]);
 
-
             Redirect::wfa([
                 'type' => 'success',
                 'mesg' => 'Pegawai berhasil diajukan',
@@ -99,8 +99,31 @@ class Pengajuan extends R_Controller
         }
     }
 
-    public function delete_berkas()
+    public function set_lock($id = null)
     {
+        if ($id == null) {
+            set_status_header(404);
+            exit();
+        }
 
+        try {
+            $pengajuan = $this->getPengajuan($id);
+
+            if (!$pengajuan) {
+                set_status_header(404);
+                exit();
+            }
+
+            $pengajuan->update(["status" => 2]);
+
+            Redirect::wfa([
+                "type" => "success",
+                "mesg" => "Berkas berhasil disimpan",
+                "text" => ""
+            ])->go("/pengajuan/pegawai/$id");
+        } catch (\Throwable $th) {
+            Redirect::wfe($th->getMessage())->go("/pengajuan/pegawai/$id");
+        }
     }
+
 }

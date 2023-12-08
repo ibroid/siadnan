@@ -69,8 +69,7 @@ class PersyaratanPengajuanEntity extends Illuminate\Database\Eloquent\Model impl
         "column" : "status",
         "type" : "int",
         "constraint" : 1,
-        "null" : false,
-        "default" : 1, 
+        "null" : true,
         "name" : "status"
     }';
 
@@ -82,7 +81,7 @@ class PersyaratanPengajuanEntity extends Illuminate\Database\Eloquent\Model impl
         "null" : true
     }';
 
-    private $filename;
+    // private $filename;
     const FilenameDefinition = '{
         "column" : "filename",
         "type" : "varchar",
@@ -107,7 +106,7 @@ class PersyaratanPengajuanEntity extends Illuminate\Database\Eloquent\Model impl
     }';
 
 
-    public $file_path = '/uploads/berkas/';
+    public $file_path = 'uploads/berkas/';
 
     public static $upload_path = './uploads/berkas/';
 
@@ -157,5 +156,15 @@ class PersyaratanPengajuanEntity extends Illuminate\Database\Eloquent\Model impl
     public function pengajuan()
     {
         return $this->belongsTo(PengajuanEntity::class, "pengajuan_id", "id");
+    }
+
+    public function persyaratan()
+    {
+        return $this->belongsTo(PersyaratanEntity::class, "persyaratan_id", "id");
+    }
+
+    public function getBerkasAttribute()
+    {
+        return $this->file_path . $this->filename;
     }
 }

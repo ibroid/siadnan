@@ -41,17 +41,21 @@ if (!function_exists('_tanggalIndo')) {
 }
 
 if (!function_exists('_colorStatus')) {
-    function _colorStatus(int $status): string
+    function _colorStatus($status): string
     {
-        if ($status == 2) {
+        if ($status == null) {
             return "warning";
+        }
+
+        if ($status == 2) {
+            return "secondary   ";
         }
 
         if ($status == 1) {
             return "success";
         }
 
-        return "secondary";
+        return "warning";
     }
 }
 

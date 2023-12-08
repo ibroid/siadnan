@@ -102,6 +102,10 @@ class PengajuanEntity extends Illuminate\Database\Eloquent\Model implements Migr
         "name" : "updatedAt"
     }';
 
+    public $sk_path = 'uploads/berkas/';
+
+    public static $upload_path = './uploads/berkas/';
+
     public static function table_declare()
     {
         ;
@@ -150,8 +154,23 @@ class PengajuanEntity extends Illuminate\Database\Eloquent\Model implements Migr
         return $this->belongsTo(PegawaiEntity::class);
     }
 
+    public function pengajuan()
+    {
+        return $this->belongsTo(JenisPengajuanEntity::class, "jenis_pengajuan_id", "id");
+    }
+
+    public function persyaratan_pengajuan()
+    {
+        return $this->hasMany(PersyaratanPengajuanEntity::class, "pengajuan_id", "id");
+    }
+
     public function getTanggalPengajuanAttribute($val)
     {
         return _tanggalIndo($val);
+    }
+
+    public function getSKAttribute()
+    {
+        return $this->sk_path . $this->surat_keputusan;
     }
 }

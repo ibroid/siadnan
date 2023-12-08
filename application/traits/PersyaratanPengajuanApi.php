@@ -52,4 +52,32 @@ trait PersyaratanPengajuanApi
         })->get();
     }
 
+    private function findPersyaratanPengajuanWhere($where = [])
+    {
+        return PersyaratanPengajuanEntity::where($where);
+    }
+
+    private function deletePersyaratanPengajuan($id = null)
+    {
+        if ($id == null) {
+            throw new Exception("Gagal delete persyaratan pengajuan. Id Kosong", 400);
+        }
+        $persyaratanPengajuan = PersyaratanPengajuanEntity::find($id);
+
+        if (file_exists(FCPATH . $persyaratanPengajuan->berkas)) {
+            unlink(FCPATH . $persyaratanPengajuan->berkas);
+            // throw new Exception("Gagal remove Berkas. File not found in " . $persyaratanPengajuan->berkas, 404);
+        }
+
+        $persyaratanPengajuan->delete();
+    }
+
+    private function updatePersyaratanPengajuan($id = null, array $data = [])
+    {
+        $persyaratanPengajuan = PersyaratanPengajuanEntity::findOrFail($id);
+
+        return $persyaratanPengajuan->update($data);
+
+    }
+
 }

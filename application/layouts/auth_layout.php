@@ -66,7 +66,7 @@
     <!-- Sidebar jquery-->
     <script src="<?= base_url() ?>assets/js/config.js"></script>
     <!-- Plugins JS start-->
-    <script src="<?= base_url() ?>assets/js/form-wizard/form-wizard-five.js"></script>
+    <!-- <script src="<?= base_url() ?>assets/js/form-wizard/form-wizard-five.js"></script> -->
     <script src="<?= base_url() ?>assets/js/slick/slick.min.js"></script>
     <script src="<?= base_url() ?>assets/js/slick/slick.js"></script>
     <script src="<?= base_url() ?>assets/js/header-slick.js"></script>
