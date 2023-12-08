@@ -134,7 +134,6 @@ class Referensi extends R_Controller
                     'nip' => R_Input::pos('nip'),
                     'pangkat' => R_Input::pos('pangkat'),
                     'jabatan' => R_Input::pos('jabatan'),
-                    'picture' => 'nopic',
                     'satker_id' => $satker->id
                 ];
 

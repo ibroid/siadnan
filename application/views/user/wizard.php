@@ -77,8 +77,6 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", () => {
-
-
 		(function () {
 			var DropzoneExample = (function () {
 				var DropzoneDemos = function () {
