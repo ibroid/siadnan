@@ -115,7 +115,5 @@ class Wizard extends R_Controller
             set_status_header(400);
             echo $th->getMessage();
         }
-
     }
-
 }

@@ -120,10 +120,9 @@ class Pengajuan extends R_Controller
                 "type" => "success",
                 "mesg" => "Berkas berhasil disimpan",
                 "text" => ""
-            ])->go("/pengajuan/pegawai/$id");
+            ])->go("/pengajuan/pegawai/$pengajuan->jenis_pengajuan_id");
         } catch (\Throwable $th) {
-            Redirect::wfe($th->getMessage())->go("/pengajuan/pegawai/$id");
+            Redirect::wfe($th->getMessage())->go("/pengajuan/pegawai/$pengajuan->jenis_pengajuan_id");
         }
     }
-
 }

@@ -6,8 +6,7 @@
 					<div class="wizard-4" id="wizard">
 						<ul>
 							<li>
-								<a href="<?= base_url("/pengajuan/pegawai/$jenis_pengajuan->id") ?>"
-									class="btn btn-outline">
+								<a href="<?= base_url("/pengajuan/pegawai/$jenis_pengajuan->id") ?>" class="btn btn-outline">
 									<i class="fa fa-arrow-left"></i>
 									Kembali
 								</a>
@@ -46,18 +45,13 @@
 														Maksimal
 														<?= $p->max_size ?> KB
 													</label>
-													<form class="dropzone dz-clickable" id="singleFileUpload"
-														action="<?= base_url("wizard/save_persyaratan") ?>" method="POST"
-														enctype="multipart/form-data">
+													<form class="dropzone dz-clickable" id="singleFileUpload" action="<?= base_url("wizard/save_persyaratan") ?>" method="POST" enctype="multipart/form-data">
 														<input type="hidden" name="persyaratan_id" value="<?= $p->id ?>">
-														<input type="hidden" name="pegawai_id"
-															value="<?= $pengajuan->pegawai_id ?>">
-														<input type="hidden" name="pengajuan_id"
-															value="<?= $pengajuan->id ?>">
+														<input type="hidden" name="pegawai_id" value="<?= $pengajuan->pegawai_id ?>">
+														<input type="hidden" name="pengajuan_id" value="<?= $pengajuan->id ?>">
 														<div class="dropzone-wrapper">
 															<div class="dz-message needsclick"><i class="icon-cloud-up"></i>
-																<h6>Drop files here or click to upload.</h6><span
-																	class="note needsclick"></span>
+																<h6>Drop files here or click to upload.</h6><span class="note needsclick"></span>
 															</div>
 														</div>
 													</form>
@@ -85,8 +79,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-
-
 	document.addEventListener("DOMContentLoaded", () => {
 		async function fetchRiwayatUpload() {
 			$.ajax({
@@ -100,13 +92,15 @@
 						$(e).append(html)
 					})
 				},
-				error(error) { Swal.fire("Terjadi kesalahan", error.responseText, "error") }
+				error(error) {
+					Swal.fire("Terjadi kesalahan", error.responseText, "error")
+				}
 			})
 		}
 
-		(function () {
-			var DropzoneExample = (function () {
-				var DropzoneDemos = function () {
+		(function() {
+			var DropzoneExample = (function() {
+				var DropzoneDemos = function() {
 					Dropzone.options.singleFileUpload = {
 						paramName: "file",
 						maxFiles: 1,
@@ -140,7 +134,7 @@
 					};
 				};
 				return {
-					init: function () {
+					init: function() {
 						DropzoneDemos();
 					},
 				};
@@ -148,12 +142,12 @@
 			DropzoneExample.init();
 		})();
 
-		(function ($) {
-			(function (a) {
-				a.fn.smartWizard = function (m) {
+		(function($) {
+			(function(a) {
+				a.fn.smartWizard = function(m) {
 					var c = a.extend({}, a.fn.smartWizard.defaults, m),
 						x = arguments;
-					return this.each(function () {
+					return this.each(function() {
 						function C() {
 							var e = b.children("div");
 							b.children("ul").addClass("anchor");
@@ -172,7 +166,7 @@
 								.addClass("btn btn-primary");
 							c.errorSteps &&
 								0 < c.errorSteps.length &&
-								a.each(c.errorSteps, function (a, b) {
+								a.each(c.errorSteps, function(a, b) {
 									y(b, !0);
 								});
 							p.append(e);
@@ -182,17 +176,17 @@
 							c.includeFinishButton && k.append(s);
 							k.append(q).append(r);
 							z = p.width();
-							a(q).click(function () {
+							a(q).click(function() {
 								if (a(this).hasClass("buttonDisabled")) return !1;
 								A();
 								return !1;
 							});
-							a(r).click(function () {
+							a(r).click(function() {
 								if (a(this).hasClass("buttonDisabled")) return !1;
 								B();
 								return !1;
 							});
-							a(s).click(function () {
+							a(s).click(function() {
 								if (!a(this).hasClass("buttonDisabled"))
 									if (a.isFunction(c.onFinish)) c.onFinish.call(this, a(f));
 									else {
@@ -201,14 +195,14 @@
 									}
 								return !1;
 							});
-							a(f).bind("click", function (a) {
+							a(f).bind("click", function(a) {
 								if (f.index(this) == h) return !1;
 								a = f.index(this);
 								1 == f.eq(a).attr("isDone") - 0 && t(a);
 								return !1;
 							});
 							c.keyNavigation &&
-								a(document).keyup(function (a) {
+								a(document).keyup(function(a) {
 									39 == a.which ? A() : 37 == a.which && B();
 								});
 							D();
@@ -216,18 +210,18 @@
 						}
 
 						function D() {
-							c.enableAllSteps
-								? (a(f, b)
+							c.enableAllSteps ?
+								(a(f, b)
 									.removeClass("selected")
 									.removeClass("disabled")
 									.addClass("done"),
-									a(f, b).attr("isDone", 1))
-								: (a(f, b)
+									a(f, b).attr("isDone", 1)) :
+								(a(f, b)
 									.removeClass("selected")
 									.removeClass("done")
 									.addClass("disabled"),
 									a(f, b).attr("isDone", 0));
-							a(f, b).each(function (e) {
+							a(f, b).each(function(e) {
 								a(a(this).attr("href"), b).hide();
 								a(this).attr("rel", e + 1);
 							});
@@ -238,32 +232,32 @@
 								g = c.contentURL,
 								h = d.data("hasContent");
 							stepNum = e + 1;
-							g && 0 < g.length
-								? c.contentCache && h
-									? w(e)
-									: a.ajax({
-										url: g,
-										type: "POST",
-										data: {
-											step_number: stepNum,
-										},
-										dataType: "text",
-										beforeSend: function () {
-											n.show();
-										},
-										error: function () {
-											n.hide();
-										},
-										success: function (c) {
-											n.hide();
-											c &&
-												0 < c.length &&
-												(d.data("hasContent", !0),
-													a(a(d, b).attr("href"), b).html(c),
-													w(e));
-										},
-									})
-								: w(e);
+							g && 0 < g.length ?
+								c.contentCache && h ?
+								w(e) :
+								a.ajax({
+									url: g,
+									type: "POST",
+									data: {
+										step_number: stepNum,
+									},
+									dataType: "text",
+									beforeSend: function() {
+										n.show();
+									},
+									error: function() {
+										n.hide();
+									},
+									success: function(c) {
+										n.hide();
+										c &&
+											0 < c.length &&
+											(d.data("hasContent", !0),
+												a(a(d, b).attr("href"), b).html(c),
+												w(e));
+									},
+								}) :
+								w(e);
 						}
 
 						function w(e) {
@@ -277,57 +271,55 @@
 								return !1;
 							c.updateHeight && p.height(a(a(d, b).attr("href"), b).outerHeight());
 							if ("slide" == c.transitionEffect)
-								a(a(g, b).attr("href"), b).slideUp("fast", function (c) {
+								a(a(g, b).attr("href"), b).slideUp("fast", function(c) {
 									a(a(d, b).attr("href"), b).slideDown("fast");
 									h = e;
 									u(g, d);
 								});
 							else if ("fade" == c.transitionEffect)
-								a(a(g, b).attr("href"), b).fadeOut("fast", function (c) {
+								a(a(g, b).attr("href"), b).fadeOut("fast", function(c) {
 									a(a(d, b).attr("href"), b).fadeIn("fast");
 									h = e;
 									u(g, d);
 								});
 							else if ("slideleft" == c.transitionEffect) {
 								var k = 0;
-								e > h
-									? ((nextElmLeft1 = z + 10),
+								e > h ?
+									((nextElmLeft1 = z + 10),
 										(nextElmLeft2 = 0),
-										(k = 0 - a(a(g, b).attr("href"), b).outerWidth()))
-									: ((nextElmLeft1 =
-										0 - a(a(d, b).attr("href"), b).outerWidth() + 20),
+										(k = 0 - a(a(g, b).attr("href"), b).outerWidth())) :
+									((nextElmLeft1 =
+											0 - a(a(d, b).attr("href"), b).outerWidth() + 20),
 										(nextElmLeft2 = 0),
 										(k = 10 + a(a(g, b).attr("href"), b).outerWidth()));
-								e == h
-									? ((nextElmLeft1 = a(a(d, b).attr("href"), b).outerWidth() + 20),
+								e == h ?
+									((nextElmLeft1 = a(a(d, b).attr("href"), b).outerWidth() + 20),
 										(nextElmLeft2 = 0),
-										(k = 0 - a(a(g, b).attr("href"), b).outerWidth()))
-									: a(a(g, b).attr("href"), b).animate(
-										{
+										(k = 0 - a(a(g, b).attr("href"), b).outerWidth())) :
+									a(a(g, b).attr("href"), b).animate({
 											left: k,
 										},
 										"fast",
-										function (e) {
+										function(e) {
 											a(a(g, b).attr("href"), b).hide();
 										}
 									);
 								a(a(d, b).attr("href"), b).css("left", nextElmLeft1);
 								a(a(d, b).attr("href"), b).show();
-								a(a(d, b).attr("href"), b).animate(
-									{
+								a(a(d, b).attr("href"), b).animate({
 										left: nextElmLeft2,
 									},
 									"fast",
-									function (a) {
+									function(a) {
 										h = e;
 										u(g, d);
 									}
 								);
 							} else
 								a(a(g, b).attr("href"), b).hide(),
-									a(a(d, b).attr("href"), b).show(),
-									(h = e),
-									u(g, d);
+								a(a(d, b).attr("href"), b).show(),
+								(h = e),
+								u(g, d);
 							return !0;
 						}
 
@@ -339,15 +331,15 @@
 							a(d, b).addClass("selected");
 							a(d, b).attr("isDone", 1);
 							c.cycleSteps ||
-								(0 >= h
-									? a(r).addClass("buttonDisabled")
-									: a(r).removeClass("buttonDisabled"),
-									f.length - 1 <= h
-										? a(q).addClass("buttonDisabled")
-										: a(q).removeClass("buttonDisabled"));
-							!f.hasClass("disabled") || c.enableFinishButton
-								? a(s).removeClass("buttonDisabled")
-								: a(s).addClass("buttonDisabled");
+								(0 >= h ?
+									a(r).addClass("buttonDisabled") :
+									a(r).removeClass("buttonDisabled"),
+									f.length - 1 <= h ?
+									a(q).addClass("buttonDisabled") :
+									a(q).removeClass("buttonDisabled"));
+							!f.hasClass("disabled") || c.enableFinishButton ?
+								a(s).removeClass("buttonDisabled") :
+								a(s).addClass("buttonDisabled");
 							if (a.isFunction(c.onShowStep) && !c.onShowStep.call(this, a(d)))
 								return !1;
 						}
@@ -377,8 +369,9 @@
 
 						function y(c, d) {
 							d
-								? a(f.eq(c - 1), b).addClass("error")
-								: a(f.eq(c - 1), b).removeClass("error");
+								?
+								a(f.eq(c - 1), b).addClass("error") :
+								a(f.eq(c - 1), b).removeClass("error");
 						}
 						var b = a(this),
 							h = c.selected,
@@ -396,10 +389,10 @@
 						l = a(".msg-box", b);
 						0 == l.length &&
 							((l = a(
-								'<div class="msg-box"><div class="content"></div><a href="#" class="close"><i class="icofont icofont-close-line-circled"></i></a></div>'
-							)),
+									'<div class="msg-box"><div class="content"></div><a href="#" class="close"><i class="icofont icofont-close-line-circled"></i></a></div>'
+								)),
 								k.append(l));
-						a(".close", l).click(function () {
+						a(".close", l).click(function() {
 							l.fadeOut("normal");
 							return !1;
 						});
@@ -447,7 +440,9 @@
 
 			async function onFinishCallback() {
 				// $("#wizard").smartWizard("showMessage", "Pengajuan berhasil disimpan. Silahkan tunggu 3 detik");
-				const { isConfirmed } = await Swal.fire({
+				const {
+					isConfirmed
+				} = await Swal.fire({
 					title: "Apa berkas sudah lengkap ?",
 					text: "Setelah ini berkas tidak bisa di ubah lagi",
 					confirmButtonText: "Yakin",
@@ -464,7 +459,9 @@
 		function initDeleteEvent() {
 			$(".btn-delete-file").each((i, e) => {
 				e.addEventListener("click", async () => {
-					const { isConfirmed } = await Swal.fire({
+					const {
+						isConfirmed
+					} = await Swal.fire({
 						title: "Apa anda yakin ?",
 						text: "File akan hilang dari server",
 						confirmButtonText: "Yakin",

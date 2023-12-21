@@ -5,11 +5,12 @@ trait PengajuanApi
     private function savePengajuan(array $data = [])
     {
         $pengajuanSblmnya = PengajuanEntity::where([
-            'jenis_pengajuan_id' => $data['jenis_pengajuan_id'],
+            // 'jenis_pengajuan_id' => $data['jenis_pengajuan_id'],
             'pegawai_id' => $data['pegawai_id'],
-            'status' => 1,
-        ])->first();
+            // 'status' => 1,
+        ])->where("status", "!=", 4)->first();
 
+        // prindie($pengajuanSblmnya);
         if ($pengajuanSblmnya) {
             throw new Exception("Pegawai ini sedang dalam proses pengajuan. Silahkan tunggu penngajuan sebelumnya selesai", 400);
         }
@@ -84,11 +85,8 @@ trait PengajuanApi
 
         if (!$this->upload->do_upload($file)) {
             throw new Exception($this->upload->display_errors(), 1);
-
         }
 
         return $this->upload->data("file_name");
     }
-
-
 }

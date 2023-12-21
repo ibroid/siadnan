@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 require_once APPPATH . 'interfaces/Migrator.php';
@@ -107,8 +108,7 @@ class PengajuanEntity extends Illuminate\Database\Eloquent\Model implements Migr
     public static $upload_path = './uploads/berkas/';
 
     public static function table_declare()
-    {
-        ;
+    {;
         $reflect = new ReflectionClass(self::class);
         $field = [];
 

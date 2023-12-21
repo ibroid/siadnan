@@ -111,8 +111,7 @@ class PersyaratanPengajuanEntity extends Illuminate\Database\Eloquent\Model impl
     public static $upload_path = './uploads/berkas/';
 
     public static function table_declare()
-    {
-        ;
+    {;
         $reflect = new ReflectionClass(self::class);
         $field = [];
 
@@ -166,5 +165,10 @@ class PersyaratanPengajuanEntity extends Illuminate\Database\Eloquent\Model impl
     public function getBerkasAttribute()
     {
         return $this->file_path . $this->filename;
+    }
+
+    public function getHumanTanggalDiperiksaAttribute()
+    {
+        return _tanggalIndo($this->attributes["tanggal_diperiksa"]);
     }
 }

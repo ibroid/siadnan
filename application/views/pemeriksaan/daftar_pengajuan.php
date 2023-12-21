@@ -45,8 +45,7 @@
                                                 <?= ++$n ?>
                                             </td>
                                             <td class="sorting_1">
-                                                <div class="media"><img class="rounded-circle img-50 me-3"
-                                                        src="<?= $p->pegawai->pass_foto ?>">
+                                                <div class="media"><img class="rounded-circle img-50 me-3" src="<?= $p->pegawai->pass_foto ?>">
                                                     <div class="media-body align-self-center">
                                                         <div>
                                                             <?= $p->pegawai->nama_lengkap ?>
@@ -64,8 +63,7 @@
                                                 <?= $p->pegawai->pangkat ?>
                                             </td>
                                             <td>
-                                                <a href="<?= base_url('/pemeriksaan/berkas/' . $p->id) ?>"
-                                                    class="btn btn-warning btn-sm text-white">Periksa </a>
+                                                <a href="<?= base_url('/pemeriksaan/berkas/' . $p->id) ?>" class="btn btn-warning btn-sm text-white">Periksa </a>
                                             </td>
                                             <td>
                                                 <?= $p->pengajuan->nama_pengajuan ?>
@@ -74,14 +72,12 @@
                                                 <?php if ($p->status == 4) { ?>
                                                     <div class="alert alert-light-primary p-1" role="alert">
                                                         <p class="text-small text-primary">Pengajuan ini sudah dikabulkan. Klik
-                                                            <a href="#">Disini</a> untuk mengubah
+                                                            <a onclick="setData(<?= $p->id ?>,'<?= $p->asesor ?>', '<?= $p->tanggal_ditinjau ?>','<?= $p->sk ?>')" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" href="javascript:void(0)">Disini</a> untuk mengubah
                                                             surat keputusan
                                                         </p>
                                                     </div>
                                                 <?php } else { ?>
-                                                    <a onclick="setDataIid(<?= $p->id ?>)" data-bs-toggle="modal"
-                                                        data-bs-target="#staticBackdrop"
-                                                        class="btn btn-success btn-sm">Kabulkan</a>
+                                                    <a onclick="setDataIid(<?= $p->id ?>)" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-success btn-sm">Kabulkan</a>
                                                 <?php } ?>
                                             </td>
                                         </tr>
@@ -113,8 +109,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <label for="input-pegawai">Tanggal Ditinjau</label>
-                            <input required type="date" class="form-control flatpickr-input datetime-local"
-                                name="tanggal_ditinjau">
+                            <input required type="date" class="form-control flatpickr-input datetime-local" name="tanggal_ditinjau">
                         </div>
                         <div class="col-sm">
                             <label for="input-pegawai">Nama Asesor (Yang Memeriksa Berkas)</label>
@@ -124,11 +119,48 @@
                     <div class="row">
                         <div class="col-sm">
                             <label for="input-pegawai">Surat Keputusan</label>
-                            <input required type="file" class="form-control form-upload form-file"
-                                name="surat_keputusan">
+                            <input required type="file" class="form-control form-upload form-file" name="surat_keputusan">
                         </div>
                     </div>
-                    <input type="hidden" name="id" id="hidden-input-pegawai">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save
+                        changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="staticBackdrop2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <form action="<?= base_url("pemeriksaan/dikabulkan") ?>" method="POST" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                        Isi Surat Keputusan
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal-body-pegawai">
+                    <input type="hidden" name="id" id="hidden-pengajuan-id2">
+                    <div class="row">
+                        <div class="col-sm">
+                            <label for="input-pegawai">Tanggal Ditinjau</label>
+                            <input required type="date" id="tanggal-ditinjau" class="form-control flatpickr-input datetime-local" name="tanggal_ditinjau">
+                        </div>
+                        <div class="col-sm">
+                            <label for="input-pegawai">Nama Asesor (Yang Memeriksa Berkas)</label>
+                            <input required type="text" id="asesor" class="form-control" name="asesor">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <label for="input-pegawai">Surat Keputusan</label>
+                            <input required type="file" class="form-control form-upload form-file" name="surat_keputusan">
+                        </div>
+                    </div>
+                    <a id="sk-url" target="_blank" href=""><strong>Download File Sebelumnya</strong></a>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -143,5 +175,12 @@
 <script>
     function setDataIid(id) {
         document.getElementById("hidden-pengajuan-id").value = id;
+    }
+
+    function setData(id, asesor, tanggal_ditinjau, sk) {
+        document.getElementById("hidden-pengajuan-id2").value = id;
+        document.getElementById("tanggal-ditinjau").value = tanggal_ditinjau;
+        document.getElementById("asesor").value = asesor;
+        document.getElementById("sk-url").setAttribute("href", "<?= base_url() ?>" + sk);
     }
 </script>
