@@ -93,7 +93,7 @@ class Pemeriksaan extends R_Controller
 		try {
 			$pengajuan = $this->getPengajuan($id);
 
-			$cekStatusBerkas = $pengajuan->persyaratan_pengajuan()->where("tanggal_diperiksa", date("Y-m-d"))->where("status", 2)->exists();
+			$cekStatusBerkas = $pengajuan->persyaratan_pengajuan()->whereDate('created_at', date("Y-m-d"))->where("status", 2)->exists();
 
 			if ($cekStatusBerkas) {
 				$pengajuan->update([
