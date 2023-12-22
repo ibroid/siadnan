@@ -101,7 +101,7 @@ class Pemeriksaan extends R_Controller
 				]);
 			} else {
 				$pengajuan->update([
-					"status" => 2
+					"status" => 5
 				]);
 			}
 

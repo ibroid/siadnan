@@ -3,8 +3,7 @@
     <div id="sidebar-menu">
         <ul class="sidebar-links" id="simple-bar">
             <li class="back-btn">
-                <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2"
-                        aria-hidden="true"></i></div>
+                <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
             </li>
             <li class="pin-title sidebar-main-title">
                 <div>
@@ -31,15 +30,17 @@
                     <span>Pengajuan</span>
                 </a>
             </li>
-            <li class="sidebar-list">
-                <i class="fa fa-thumb-tack"></i>
-                <a class="sidebar-link sidebar-title" href="<?= base_url('/pemeriksaan') ?>">
-                    <svg class="stroke-icon">
-                        <use href="<?= base_url() ?>assets/svg/icon-sprite.svg#stroke-file"></use>
-                    </svg>
-                    <span>Pemeriksaan</span>
-                </a>
-            </li>
+            <?php if ($this->session->userdata("user_login")["level"] != "Operator") { ?>
+                <li class="sidebar-list">
+                    <i class="fa fa-thumb-tack"></i>
+                    <a class="sidebar-link sidebar-title" href="<?= base_url('/pemeriksaan') ?>">
+                        <svg class="stroke-icon">
+                            <use href="<?= base_url() ?>assets/svg/icon-sprite.svg#stroke-file"></use>
+                        </svg>
+                        <span>Pemeriksaan</span>
+                    </a>
+                </li>
+            <?php } ?>
             <li class="sidebar-list">
                 <i class="fa fa-thumb-tack"></i>
                 <a class="sidebar-link sidebar-title" href="<?= base_url('/referensi') ?>">

@@ -29,6 +29,10 @@ class Wizard extends R_Controller
 
         $pengajuan = $this->getPengajuan($id);
 
+        if ($pengajuan->status == 5) {
+            Redirect::wfe("Berkas tidak dapat dirubah karna sedang dalam pembuatan SK")->go($_SERVER["HTTP_REFERER"]);
+        }
+
         if ($pengajuan->status == 2) {
             Redirect::wfe("Berkas tidak dapat dirubah sampai pemeriksaan selesai")->go($_SERVER["HTTP_REFERER"]);
         }

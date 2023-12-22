@@ -42,6 +42,9 @@
 																			<?= $f->status == 1 ? "Diterima" : "Ditolak" ?>
 																		</li>
 																	</ul>
+																	<div class="text-end">
+																		<a target="_blank" href="<?= base_url($f->berkas) ?>" class="btn btn-primary btn-sm"><i class="fa fa-file"></i> Download</a>
+																	</div>
 																</div>
 																<hr>
 															<?php } else { ?>
@@ -99,7 +102,9 @@
 							</div>
 							<div class="card-footer text-end">
 								<a class="btn btn-secondary" href="<?= base_url("/pemeriksaan") ?>"><i class="fa fa-arrow-left"></i> Kembali</a>
-								<a class="btn btn-success" href="<?= base_url("/pemeriksaan/done/" . $pengajuan->id) ?>"><i class="fa fa-check"></i> Pemeriksaan Selesai</a>
+								<?php if ($pengajuan->status == 2 || $pengajuan->status == 5 || $pengajuan->status == 3) { ?>
+									<a class="btn btn-success" href="<?= base_url("/pemeriksaan/done/" . $pengajuan->id) ?>"><i class="fa fa-check"></i> Pemeriksaan Selesai</a>
+								<?php } ?>
 							</div>
 						</div>
 					</div>

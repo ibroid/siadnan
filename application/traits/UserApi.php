@@ -23,6 +23,10 @@ trait UserApi
 
     public function insert_user($data = [])
     {
+        $cekUser = UserEntity::where("identifier", $data["identifier"])->first();
+        if ($cekUser) {
+            throw new Exception("User memiliki identifier yang sama dengan user lainnya", 1);
+        }
         return UserEntity::create($data);
     }
 

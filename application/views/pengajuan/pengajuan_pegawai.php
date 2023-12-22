@@ -82,6 +82,12 @@
                                                             Silahkan Lengkapi Berkas
                                                         </p>
                                                     </div>
+                                                <?php } else if ($pj->status == 5) { ?>
+                                                    <div class="alert alert-light-secondary p-2" role="alert">
+                                                        <p class="text-small text-secondary">
+                                                            Menuggu SK
+                                                        </p>
+                                                    </div>
                                                 <?php } else if ($pj->status == 3) { ?>
                                                     <div class="alert alert-light-secondary p-2" role="alert">
                                                         <p class="text-small text-secondary">
