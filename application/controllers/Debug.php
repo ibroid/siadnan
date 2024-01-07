@@ -11,7 +11,6 @@ class Debug extends CI_Controller
 
     public function index()
     {
-
-        prindie(ProfileEntity::table_declare());
+        prindie($this->session->userdata("riwayat_pemeriksaan_berkas"));
     }
 }

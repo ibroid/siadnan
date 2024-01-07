@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Collection;
+
 require_once APPPATH . 'traits/PengaturanApi.php';
 require_once APPPATH . 'traits/PengajuanApi.php';
 require_once APPPATH . 'traits/PersyaratanPengajuanApi.php';
@@ -75,11 +77,17 @@ class Pemeriksaan extends R_Controller
 				"catatan" => R_Input::pos("catatan")
 			];
 
-			$this->updatePersyaratanPengajuan(R_Input::pos("id"), $data);
+			$pp = $this->updatePersyaratanPengajuan(R_Input::pos("id"), $data);
+
+			$this->session->set_userdata("riwayat_pemeriksaan_berkas", [[
+				"persyaratan" => $pp->persyaratan->persyaratan,
+				"status" => $pp->status == 1 ? "Diterima" : "Ditolak",
+				"catatan" => $pp->catatan
+			], ...($this->session->userdata("riwayat_pemeriksaan_berkas") ?? [])]);
 
 			Redirect::wfa([
 				"mesg" => "Berhasil Menyimpan Respon",
-				"text" => "",
+				"text" => "Pastikan anda memerhatikan riwayat pemeriksaan berkas",
 				"type" => "success",
 			])->go($_SERVER["HTTP_REFERER"]);
 		} catch (\Exception $th) {
@@ -91,21 +99,21 @@ class Pemeriksaan extends R_Controller
 	public function done($id)
 	{
 		try {
+			// throw new Exception("Fungsi ini sedang maintenance", 1);
+
 			$pengajuan = $this->getPengajuan($id);
 
-			$cekStatusBerkas = $pengajuan->persyaratan_pengajuan()->whereDate('created_at', date("Y-m-d"))->where("status", 2)->exists();
+			$berkasDiperiksa = collect($this->session->userdata("riwayat_pemeriksaan_berkas"));
 
-			if ($cekStatusBerkas) {
-				$pengajuan->update([
-					"status" => 3
-				]);
+			$ditolakFiltered = $berkasDiperiksa->firstWhere("status", "Ditolak");
+
+			if ($ditolakFiltered) {
+				$pengajuan->update(["status" => 3]);
 			} else {
-				$pengajuan->update([
-					"status" => 5
-				]);
+				$pengajuan->update(["status" => 4]);
 			}
 
-
+			$this->session->unset_userdata("riwayat_pemeriksaan_berkas");
 			Redirect::wfa([
 				"mesg" => "Pemeriksaan Berhasil",
 				"text" => "",
@@ -122,7 +130,8 @@ class Pemeriksaan extends R_Controller
 		R_Input::mustPost();
 
 		try {
-			$pengajuan = $this->getPengajuan(R_Input::pos("id"))->first();
+
+			$pengajuan = $this->getPengajuan(R_Input::pos("id"));
 
 			$pengajuan->update([
 				"status" => 4,
@@ -140,6 +149,56 @@ class Pemeriksaan extends R_Controller
 		} catch (\Throwable $th) {
 
 			Redirect::wfe($th->getMessage())->go("/pemeriksaan");
+		}
+	}
+
+	public function pembatalan($id = null)
+	{
+		try {
+			$pengajuan = $this->getPengajuan($id);
+			$deleteFile = $this->hapusSKPengabulan($pengajuan->surat_keputusan);
+			$pengajuan->update(
+				[
+					"surat_keputusan" => "",
+					"asesor" => "",
+					"tanggal_ditinjau" => NULL,
+					"status" => 3,
+				]
+			);
+
+			$this->session->set_flashdata("flash_alert", $this->load->component("flash_alert", [
+				"text" => $deleteFile ? "File SK Berhasil dihapus" : "Terjadi kesalahan saat menghapus file SK dari server",
+				"mesg" => "Pengabulan dibatalkan",
+				"type" => "success"
+			]));
+
+			echo json_encode(["message" => "Berhasil"]);
+		} catch (\Throwable $th) {
+			$this->session->set_flashdata("flash_error", $this->load->component("flash_alert", [
+				"mesg" => $th->getMessage(),
+				"text" => "Terjadi kesalahaan saat membatalkan pengabulan",
+				"type" => "secondary"
+			]));
+
+			// set_status_header(400);
+			echo json_encode(["message" => $th->getMessage()]);
+		}
+	}
+
+	public function batalkan_berkas($id)
+	{
+		try {
+			$pp = $this->findPersyaratanPengajuan($id);
+			$pp->update([
+				"tanggal_diperiksa" => NULL,
+				"status" => NULL,
+				"catatan" => NULL
+			]);
+
+			redirect($_SERVER["HTTP_REFERER"]);
+		} catch (\Throwable $th) {
+			//throw $th;
+			Redirect::wfe($th->getMessage())->go($_SERVER["HTTP_REFERER"]);
 		}
 	}
 }

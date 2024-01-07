@@ -1,3 +1,4 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <div class="page-body">
     <?= $this->load->component("page_title") ?>
     <?= $this->session->flashdata("flash_alert") ?>
@@ -72,8 +73,8 @@
                                                 <?php if ($p->status == 4) { ?>
                                                     <div class="alert alert-light-primary p-1" role="alert">
                                                         <p class="text-small text-primary">Pengajuan ini sudah dikabulkan. Klik
-                                                            <a onclick="setData(<?= $p->id ?>,'<?= $p->asesor ?>', '<?= $p->tanggal_ditinjau ?>','<?= $p->sk ?>')" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" href="javascript:void(0)">Disini</a> untuk mengubah
-                                                            surat keputusan
+                                                            <a class="text-success" onclick="setData(<?= $p->id ?>,'<?= $p->asesor ?>', '<?= $p->tanggal_ditinjau ?>','<?= $p->sk ?>')" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" href="javascript:void(0)">Disini</a> untuk mengubah
+                                                            surat keputusan. Klik <a onclick="pembatalan(<?= $p->id ?>)" class="text-danger" href="javascript:void(0)">Disini</a> Untuk membatalkan pengabulan
                                                         </p>
                                                     </div>
                                                 <?php } else { ?>
@@ -174,6 +175,7 @@
 
 <script>
     function setDataIid(id) {
+        // console.log(id)
         document.getElementById("hidden-pengajuan-id").value = id;
     }
 
@@ -182,5 +184,36 @@
         document.getElementById("tanggal-ditinjau").value = tanggal_ditinjau;
         document.getElementById("asesor").value = asesor;
         document.getElementById("sk-url").setAttribute("href", "<?= base_url() ?>" + sk);
+    }
+
+    function pembatalan(id) {
+        Swal.fire({
+            title: 'Apa anda yakin ?',
+            text: "SK Pengabulan akan dihapus",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: 'Yakin',
+            showLoaderOnConfirm: true,
+            preConfirm: (login) => {
+                //login is your inputed data
+                return fetch(`<?= base_url("Pemeriksaan/pembatalan/") ?>` + id)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(response.statusText)
+                        }
+                        return response.json()
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(
+                            `Request failed: error`
+                        )
+                    })
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.reload()
+            }
+        })
     }
 </script>

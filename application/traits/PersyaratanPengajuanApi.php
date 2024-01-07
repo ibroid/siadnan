@@ -14,7 +14,6 @@ trait PersyaratanPengajuanApi
         if ($berkasLama) {
             if ($berkasLama->tanggal_diperiksa == null && $berkasLama->catatan == null) {
                 throw new Exception("Berkas sebelum nya belum diperiksa. Anda bisa upload ulang saat berkas sebelumnya ditolak", 400);
-
             }
         }
 
@@ -35,7 +34,6 @@ trait PersyaratanPengajuanApi
 
         if (!$this->upload->do_upload($file)) {
             throw new Exception($this->upload->display_errors(), 1);
-
         }
 
         return $this->upload->data("file_name");
@@ -57,6 +55,11 @@ trait PersyaratanPengajuanApi
         return PersyaratanPengajuanEntity::where($where);
     }
 
+    private function findPersyaratanPengajuan($id)
+    {
+        return PersyaratanPengajuanEntity::findOrFail($id);
+    }
+
     private function deletePersyaratanPengajuan($id = null)
     {
         if ($id == null) {
@@ -76,8 +79,8 @@ trait PersyaratanPengajuanApi
     {
         $persyaratanPengajuan = PersyaratanPengajuanEntity::findOrFail($id);
 
-        return $persyaratanPengajuan->update($data);
+        $persyaratanPengajuan->update($data);
 
+        return $persyaratanPengajuan;
     }
-
 }

@@ -43,6 +43,7 @@
 																		</li>
 																	</ul>
 																	<div class="text-end">
+																		<a href="<?= base_url("/pemeriksaan/batalkan_berkas/$f->id") ?>" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Batalkan</a>
 																		<a target="_blank" href="<?= base_url($f->berkas) ?>" class="btn btn-primary btn-sm"><i class="fa fa-file"></i> Download</a>
 																	</div>
 																</div>
@@ -94,17 +95,43 @@
 										</div>
 									</div>
 								</div>
-								<div class="row p-3 mt-3">
-									<div class="alert alert-warning" role="alert">
-										<h6>Apabila selesai memeriksa harap klik Pemeriksaan Selesai</h6>
+								<?php if ($this->session->userdata("riwayat_pemeriksaan_berkas")) { ?>
+									<div class="row p-3 mt-3">
+										<div class="text-center mb-2">
+											<h5>Riwayat Penyetujuan Berkas</h5>
+										</div>
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th>Persyaratan</th>
+													<th>Status</th>
+													<th>Catatan</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php foreach ($this->session->userdata("riwayat_pemeriksaan_berkas") as $d) { ?>
+													<tr>
+														<td><?= $d["persyaratan"] ?></td>
+														<td><?= $d["status"] ?></td>
+														<td><?= $d["catatan"] ?></td>
+													</tr>
+												<?php } ?>
+												<tr>
+													<td colspan="3" class="text-end">
+														<div role="alert" class="alert alert-secondary text-start">
+															<strong>PENTING !</strong> Klik selesai apabila sudah selesai memeriksa semua berkas
+														</div>
+														<a class="btn btn-success" href="<?= base_url("/pemeriksaan/done/" . $pengajuan->id) ?>"><i class="fa fa-check"></i> Pemeriksaan Selesai</a>
+													</td>
+												</tr>
+
+											</tbody>
+										</table>
 									</div>
-								</div>
+								<?php } ?>
 							</div>
 							<div class="card-footer text-end">
 								<a class="btn btn-secondary" href="<?= base_url("/pemeriksaan") ?>"><i class="fa fa-arrow-left"></i> Kembali</a>
-								<?php if ($pengajuan->status == 2 || $pengajuan->status == 5 || $pengajuan->status == 3) { ?>
-									<a class="btn btn-success" href="<?= base_url("/pemeriksaan/done/" . $pengajuan->id) ?>"><i class="fa fa-check"></i> Pemeriksaan Selesai</a>
-								<?php } ?>
 							</div>
 						</div>
 					</div>

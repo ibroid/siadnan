@@ -49,14 +49,16 @@
                     </svg>
                     <span>Referensi</span></a>
             </li>
-            <li class="sidebar-list">
-                <i class="fa fa-thumb-tack"></i>
-                <a class="sidebar-link sidebar-title" href="<?= base_url('/settings') ?>">
-                    <svg class="stroke-icon">
-                        <use href="<?= base_url() ?>assets/svg/icon-sprite.svg#setting"></use>
-                    </svg>
-                    <span>Settings</span></a>
-            </li>
+            <?php if ($this->session->userdata("user_login")["level"] != "Operator") { ?>
+                <li class="sidebar-list">
+                    <i class="fa fa-thumb-tack"></i>
+                    <a class="sidebar-link sidebar-title" href="<?= base_url('/settings') ?>">
+                        <svg class="stroke-icon">
+                            <use href="<?= base_url() ?>assets/svg/icon-sprite.svg#setting"></use>
+                        </svg>
+                        <span>Settings</span></a>
+                </li>
+            <?php } ?>
 
         </ul>
     </div>

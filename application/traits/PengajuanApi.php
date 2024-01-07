@@ -44,7 +44,7 @@ trait PengajuanApi
         $dir = isset($_POST['order'][0]['dir']) ? $_POST['order'][0]['dir'] : 'asc';
 
         $pegawai = PegawaiEntity::select($columns)
-            ->where("satker_id", $idSatker)
+            // ->where("satker_id", $idSatker)
             ->orderBy($column, $dir)
             ->offset($start)
             ->limit($length)
@@ -61,7 +61,7 @@ trait PengajuanApi
             $row_container[$n]['pangkat'] = $p->pangkat;
             $row_container[$n]['status'] = $this->load->component('badge_status_pegawai', ['status' => $p->status]);
             $row_container[$n]['foto'] = $this->load->component('button_view_pas_foto', ['id' => $p->id]);
-            $row_container[$n]['action'] = $this->load->component('button_action_pegawai', ['id' => $p->id, 'satker_id' => $idSatker]);
+            $row_container[$n]['action'] = $this->load->component('button_action_pegawai', ['id' => $p->id]);
         }
 
         header("Content-Type: application/json", true, 200);
@@ -88,5 +88,10 @@ trait PengajuanApi
         }
 
         return $this->upload->data("file_name");
+    }
+
+    private function hapusSKPengabulan($file)
+    {
+        return unlink(FCPATH . "uploads/berkas/" . $file);
     }
 }
