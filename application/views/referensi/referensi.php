@@ -32,15 +32,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-12 set-col-12 box-col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4>Jenis Pengajuan</h4>
-                            <p>Atur referensi jenis pengajuan yang akan digunakan di Satuan Tingkat Pertama</p>
-                            <a href="<?= base_url('referensi/pengajuan') ?>" class="btn btn-outline-info">Referensi Pengajuan</a>
+                <?php if ($this->session->userdata('user_login')["level"] != "Operator") { ?>
+                    <div class="col-xl-12 set-col-12 box-col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Jenis Pengajuan</h4>
+                                <p>Atur referensi jenis pengajuan yang akan digunakan di Satuan Tingkat Pertama</p>
+                                <a href="<?= base_url('referensi/pengajuan') ?>" class="btn btn-outline-info">Referensi Pengajuan</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <?php } ?>
+                <?php if ($this->session->userdata('user_login')["level"] == "Operator") { ?>
+                    <div class="col-xl-12 set-col-12 box-col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Profile Pengadilan</h4>
+                                <p>Atur referensi profile pengadilan yang akan digunakan di Satuan Tingkat Pertama</p>
+                                <a href="<?= base_url('referensi/pengadilan') ?>" class="btn btn-outline-info">Referensi Profile Pengadilan</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+
             </div>
         </div>
     </div>

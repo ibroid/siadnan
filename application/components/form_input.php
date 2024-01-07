@@ -14,7 +14,7 @@ $hidden = (isset($custom->hidden)) ? "hidden=\"true\" " : '';
 $placeholder = (isset($custom->placeholder)) ? "placeholder=\"" . $custom->placeholder . "\" " : "placeholder=\"Enter your data ...\"";
 ?>
 
-<label class="form-label" <?= $for ?>><?= isset($custom->label) ? $custom->label : ucwords(str_replace('_', ' ', $definition->column))  ?>
+<label class="form-label mt-3" <?= $for ?>><?= isset($custom->label) ? $custom->label : ucwords(str_replace('_', ' ', $definition->column))  ?>
   <span class="txt-danger">*</span>
 </label>
 

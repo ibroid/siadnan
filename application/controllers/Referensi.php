@@ -367,12 +367,10 @@ class Referensi extends R_Controller
                 'mesg' => 'Berhasil Mengubah Persyaratan',
                 'text' => ''
             ])->go($_SERVER['HTTP_REFERER']);
-
         } catch (\Throwable $th) {
 
             Redirect::wfe($th->getMessage())->go($_SERVER['HTTP_REFERER']);
         }
-
     }
 
     public function set_pengajuan($id = null)
@@ -396,10 +394,44 @@ class Referensi extends R_Controller
             ]);
 
             echo json_encode(['status' => 'success']);
-
         } catch (\Throwable $th) {
             set_status_header($th->getCode());
             echo $th->getMessage();
+        }
+    }
+
+    public function pengadilan()
+    {
+        $this->load->page('referensi/referensi_pengadilan', [
+            'page_name' => 'Referensi Data',
+            'breadcumb' => 'Referensi / Profile Pengadilan',
+            'satker' => $this->get_satker($this->pegawai["satker_id"]),
+        ])->layout('dashboard_layout');
+    }
+
+    public function simpan_satker($id)
+    {
+        R_Input::mustPost();
+        try {
+            $logo_satker = $this->upload_logo_satker('logo');
+            $data = [
+                'nama_satker' => R_Input::pos('namaSatker'),
+                'kode_satker' => R_Input::pos('kodeSatker'),
+                'telepon_satker' => R_Input::pos('teleponSatker'),
+                'email_satker' => R_Input::pos('emailSatker'),
+                'logo_satker' => $logo_satker
+            ];
+
+            $this->update_satker($id, $data);
+
+            Redirect::wfa([
+                'type' => 'success',
+                'mesg' => 'Aksi Berhasil',
+                'text' => '<strong>Satker telah disimpan</strong>'
+            ])->go($_SERVER["HTTP_REFERER"]);
+        } catch (\Throwable $th) {
+            throw $th;
+            Redirect::wfe($th->getMessage())->go($_SERVER["HTTP_REFERER"]);
         }
     }
 }

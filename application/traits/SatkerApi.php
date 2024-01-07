@@ -11,7 +11,7 @@ trait SatkerApi
   {
     $config['upload_path'] =  SatkerEntity::$upload_path;
     $config['allowed_types'] = 'gif|jpg|png|jpeg';
-    $config['max_size']  = '512';
+    $config['max_size']  = '8146';
     $config['encrypt_name'] = true;
 
     $this->load->library('upload', $config);
