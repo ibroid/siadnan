@@ -55,8 +55,11 @@ trait PersyaratanPengajuanApi
         return PersyaratanPengajuanEntity::where($where);
     }
 
-    private function findPersyaratanPengajuan($id)
+    private function findPersyaratanPengajuan($id = null)
     {
+        if ($id == null) {
+            return PersyaratanPengajuanEntity::all();
+        }
         return PersyaratanPengajuanEntity::findOrFail($id);
     }
 

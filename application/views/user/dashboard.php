@@ -3,8 +3,8 @@
     <div class="page-title">
       <div class="row">
         <div class="col-6">
-          <h3>Dashboard Pengajuan</h3>
-          <p>Pengadilan Agama Jakarta Utara</p>
+          <h3>Selamat Datang di Sistem Administrasi untuk Pengajuan</h3>
+          <p><?= $pengaturan->ptb ?></p>
         </div>
         <div class="col-6">
           <ol class="breadcrumb">
@@ -18,102 +18,105 @@
       </div>
     </div>
   </div>
-  <div class="container-fluid">
-    <div class="row started-main">
+  <?php if ($admin) { ?>
+    <div class="container-fluid">
+      <div class="row started-main">
 
-      <div class="col-sm-3">
-        <div class="card course-box widget-course">
-          <div class="card-body">
-            <div class="course-widget">
-              <div class="course-icon">
-                <svg class="fill-icon">
-                  <use href="../assets/svg/icon-sprite.svg#course-1"></use>
-                </svg>
-              </div>
-              <div>
-                <h4 class="mb-0">Total : 8</h4><span class="f-light">Berkas Ditolak</span><a class="btn btn-light f-light" href="learning-list-view.html">Tinjau Ulang<span class="ms-2">
-                    <svg class="fill-icon f-light">
-                      <use href="../assets/svg/icon-sprite.svg#arrowright"></use>
-                    </svg></span></a>
-              </div>
-            </div>
-          </div>
-          <ul class="square-group">
-            <li class="square-1 warning"></li>
-            <li class="square-1 primary"></li>
-            <li class="square-2 warning1"></li>
-            <li class="square-3 danger"></li>
-            <li class="square-4 light"></li>
-            <li class="square-5 warning"></li>
-            <li class="square-6 success"></li>
-            <li class="square-7 success"></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="card course-box widget-course">
-          <div class="card-body">
-            <div class="course-widget">
-              <div class="course-icon warning">
-                <svg class="fill-icon">
-                  <use href="../assets/svg/icon-sprite.svg#course-2"></use>
-                </svg>
-              </div>
-              <div>
-                <h4 class="mb-0">Total : 4</h4><span class="f-light">Dalam Progres</span><a class="btn btn-light f-light" href="learning-list-view.html">Lanjut Tinjau<span class="ms-2">
-                    <svg class="fill-icon f-light">
-                      <use href="../assets/svg/icon-sprite.svg#arrowright"></use>
-                    </svg></span></a>
-              </div>
-            </div>
-          </div>
-          <ul class="square-group">
-            <li class="square-1 warning"></li>
-            <li class="square-1 primary"></li>
-            <li class="square-2 warning1"></li>
-            <li class="square-3 danger"></li>
-            <li class="square-4 light"></li>
-            <li class="square-5 warning"></li>
-            <li class="square-6 success"></li>
-            <li class="square-7 success"></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header card-no-border">
-            <div class="header-top">
-              <h5>Total Pengabulan</h5>
-              <div class="dropdown icon-dropdown">
-                <button class="btn dropdown-toggle" id="userdropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="icon-more-alt"></i></button>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown"><a class="dropdown-item" href="#">Weekly</a><a class="dropdown-item" href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
-              </div>
-            </div>
-          </div>
-          <div class="card-body py-lg-3">
-            <ul class="user-list">
-              <li>
-                <div class="user-icon primary">
-                  <div class="user-box"><i class="font-primary" data-feather="user-plus"></i></div>
+        <div class="col-sm-3">
+          <div class="card course-box widget-course">
+            <div class="card-body">
+              <div class="course-widget">
+                <div class="course-icon">
+                  <svg class="fill-icon">
+                    <use href="../assets/svg/icon-sprite.svg#course-1"></use>
+                  </svg>
                 </div>
                 <div>
-                  <h5 class="mb-1">178 Pengajuan</h5><span class="font-primary d-flex align-items-center"><i class="icon-arrow-up icon-rotate me-1"> </i><span class="f-w-500">Dikabulkan</span></span>
+                  <h4 class="mb-0">Total : <?= $berkas->where("status", null)->count() ?>
+                  </h4><span class="f-light">Berkas Belum Diperiksa</span><a class="btn btn-light f-light" href="learning-list-view.html">Tinjau Ulang<span class="ms-2">
+                      <svg class="fill-icon f-light">
+                        <use href="../assets/svg/icon-sprite.svg#arrowright"></use>
+                      </svg></span></a>
                 </div>
-              </li>
-              <li>
-                <div class="user-icon success">
-                  <div class="user-box"><i class="font-success" data-feather="user-minus"></i></div>
-                </div>
-                <div>
-                  <h5 class="mb-1">178 Pengajuan</h5><span class="font-danger d-flex align-items-center"><i class="icon-arrow-down icon-rotate me-1"></i><span class="f-w-500">Ditolak</span></span>
-                </div>
-              </li>
+              </div>
+            </div>
+            <ul class="square-group">
+              <li class="square-1 warning"></li>
+              <li class="square-1 primary"></li>
+              <li class="square-2 warning1"></li>
+              <li class="square-3 danger"></li>
+              <li class="square-4 light"></li>
+              <li class="square-5 warning"></li>
+              <li class="square-6 success"></li>
+              <li class="square-7 success"></li>
             </ul>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="card course-box widget-course">
+            <div class="card-body">
+              <div class="course-widget">
+                <div class="course-icon warning">
+                  <svg class="fill-icon">
+                    <use href="../assets/svg/icon-sprite.svg#course-2"></use>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="mb-0">Total : <?= $pengajuans->where("status", 1)->count() ?></h4><span class="f-light">Belum Lengkap</span><a class="btn btn-light f-light" href="learning-list-view.html">Lanjut Tinjau<span class="ms-2">
+                      <svg class="fill-icon f-light">
+                        <use href="../assets/svg/icon-sprite.svg#arrowright"></use>
+                      </svg></span></a>
+                </div>
+              </div>
+            </div>
+            <ul class="square-group">
+              <li class="square-1 warning"></li>
+              <li class="square-1 primary"></li>
+              <li class="square-2 warning1"></li>
+              <li class="square-3 danger"></li>
+              <li class="square-4 light"></li>
+              <li class="square-5 warning"></li>
+              <li class="square-6 success"></li>
+              <li class="square-7 success"></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header card-no-border">
+              <div class="header-top">
+                <h5>Total Pengabulan</h5>
+                <div class="dropdown icon-dropdown">
+                  <button class="btn dropdown-toggle" id="userdropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="icon-more-alt"></i></button>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown"><a class="dropdown-item" href="#">Weekly</a><a class="dropdown-item" href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body py-lg-3">
+              <ul class="user-list">
+                <li>
+                  <div class="user-icon primary">
+                    <div class="user-box"><i class="font-primary" data-feather="user-plus"></i></div>
+                  </div>
+                  <div>
+                    <h5 class="mb-1"><?= $pengajuans->where("status", 4)->count() ?> Pengajuan</h5><span class="font-primary d-flex align-items-center"><i class="icon-arrow-up icon-rotate me-1"> </i><span class="f-w-500">Dikabulkan</span></span>
+                  </div>
+                </li>
+                <li>
+                  <div class="user-icon success">
+                    <div class="user-box"><i class="font-success" data-feather="user-minus"></i></div>
+                  </div>
+                  <div>
+                    <h5 class="mb-1"><?= $pengajuans->where("status", 3)->count() ?> Pengajuan</h5><span class="font-danger d-flex align-items-center"><i class="icon-arrow-down icon-rotate me-1"></i><span class="f-w-500">Ditolak</span></span>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  <?php } ?>
   <div class="container-fluid">
     <?php foreach ($dashboard_pengadilan as $dp) { ?>
       <h5>Dashboard <?= ucwords(strtolower($dp->nama_satker))  ?></h5>
@@ -155,7 +158,7 @@
                   </div>
                 </div>
                 <div>
-                  <h4><?= $dp->pengajuan->count() ?></h4><span class="f-light">Purchase</span>
+                  <h4><?= $dp->pengajuan->where("status", 3)->count() ?></h4><span class="f-light">Perlu Perbaikan</span>
                 </div>
               </div>
               <div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+50%</span></div>
@@ -177,7 +180,7 @@
                   </div>
                 </div>
                 <div>
-                  <h4>7000</h4><span class="f-light">Sales return</span>
+                  <h4><?= $dp->pengajuan->where("status", 2)->count() ?></h4><span class="f-light">Sedang Proses</span>
                 </div>
               </div>
               <div class="font-warning f-w-500"><i class="icon-arrow-down icon-rotate me-1"></i><span>-20%</span></div>
@@ -199,7 +202,7 @@
                   </div>
                 </div>
                 <div>
-                  <h4>5700</h4><span class="f-light">Purchase rate</span>
+                  <h4><?= $dp->pengajuan->where("status", "4")->count() ?></h4><span class="f-light">Dikabulkan</span>
                 </div>
               </div>
               <div class="font-success f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+70%</span></div>
