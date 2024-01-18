@@ -83,7 +83,7 @@
         <div class="card">
           <div class="card-header card-no-border">
             <div class="header-top">
-              <h5>Total Users</h5>
+              <h5>Total Pengabulan</h5>
               <div class="dropdown icon-dropdown">
                 <button class="btn dropdown-toggle" id="userdropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="icon-more-alt"></i></button>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown"><a class="dropdown-item" href="#">Weekly</a><a class="dropdown-item" href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
@@ -97,7 +97,7 @@
                   <div class="user-box"><i class="font-primary" data-feather="user-plus"></i></div>
                 </div>
                 <div>
-                  <h5 class="mb-1">178,098</h5><span class="font-primary d-flex align-items-center"><i class="icon-arrow-up icon-rotate me-1"> </i><span class="f-w-500">+30.89</span></span>
+                  <h5 class="mb-1">178 Pengajuan</h5><span class="font-primary d-flex align-items-center"><i class="icon-arrow-up icon-rotate me-1"> </i><span class="f-w-500">Dikabulkan</span></span>
                 </div>
               </li>
               <li>
@@ -105,7 +105,7 @@
                   <div class="user-box"><i class="font-success" data-feather="user-minus"></i></div>
                 </div>
                 <div>
-                  <h5 class="mb-1">178,098</h5><span class="font-danger d-flex align-items-center"><i class="icon-arrow-down icon-rotate me-1"></i><span class="f-w-500">-08.89</span></span>
+                  <h5 class="mb-1">178 Pengajuan</h5><span class="font-danger d-flex align-items-center"><i class="icon-arrow-down icon-rotate me-1"></i><span class="f-w-500">Ditolak</span></span>
                 </div>
               </li>
             </ul>
@@ -115,6 +115,101 @@
     </div>
   </div>
   <div class="container-fluid">
+    <?php foreach ($dashboard_pengadilan as $dp) { ?>
+      <h5>Dashboard <?= ucwords(strtolower($dp->nama_satker))  ?></h5>
+      <div class="row mt-3">
+        <div class="col-sm-6 col-xl-3 col-lg-6 box-col-6">
+          <div class="card widget-1" style="background-image: none;">
+            <div class="card-body">
+              <div class="widget-content">
+                <div class="widget-round primary">
+                  <div class="bg-round">
+                    <svg class="svg-fill">
+                      <use href="../assets/svg/icon-sprite.svg#tag"> </use>
+                    </svg>
+                    <svg class="half-circle svg-fill">
+                      <use href="../assets/svg/icon-sprite.svg#halfcircle"></use>
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <h4><?= $dp->pengajuan->count() ?></h4><span class="f-light">Total Pengajuan</span>
+                </div>
+              </div>
+              <div class="font-primary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+70%</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xl-3 col-lg-6 box-col-6">
+          <div class="card widget-1" style="background-image: none;">
+            <div class="card-body">
+              <div class="widget-content">
+                <div class="widget-round secondary">
+                  <div class="bg-round">
+                    <svg class="svg-fill">
+                      <use href="../assets/svg/icon-sprite.svg#cart"> </use>
+                    </svg>
+                    <svg class="half-circle svg-fill">
+                      <use href="../assets/svg/icon-sprite.svg#halfcircle"></use>
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <h4><?= $dp->pengajuan->count() ?></h4><span class="f-light">Purchase</span>
+                </div>
+              </div>
+              <div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+50%</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xl-3 col-lg-6 box-col-6">
+          <div class="card widget-1" style="background-image: none;">
+            <div class="card-body">
+              <div class="widget-content">
+                <div class="widget-round warning">
+                  <div class="bg-round">
+                    <svg class="svg-fill">
+                      <use href="../assets/svg/icon-sprite.svg#return-box"> </use>
+                    </svg>
+                    <svg class="half-circle svg-fill">
+                      <use href="../assets/svg/icon-sprite.svg#halfcircle"></use>
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <h4>7000</h4><span class="f-light">Sales return</span>
+                </div>
+              </div>
+              <div class="font-warning f-w-500"><i class="icon-arrow-down icon-rotate me-1"></i><span>-20%</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xl-3 col-lg-6 box-col-6">
+          <div class="card widget-1" style="background-image: none;">
+            <div class="card-body">
+              <div class="widget-content">
+                <div class="widget-round success">
+                  <div class="bg-round">
+                    <svg class="svg-fill">
+                      <use href="../assets/svg/icon-sprite.svg#rate"> </use>
+                    </svg>
+                    <svg class="half-circle svg-fill">
+                      <use href="../assets/svg/icon-sprite.svg#halfcircle"></use>
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <h4>5700</h4><span class="f-light">Purchase rate</span>
+                </div>
+              </div>
+              <div class="font-success f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+70%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php } ?>
+  </div>
+  <!-- <div class="container-fluid">
     <div class="row starter-main">
       <div class="col-sm-12">
         <div class="card">
@@ -305,5 +400,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

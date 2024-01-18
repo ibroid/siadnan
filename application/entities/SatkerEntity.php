@@ -138,4 +138,9 @@ class SatkerEntity extends Illuminate\Database\Eloquent\Model implements Migrato
     {
         return $this->logo_path . $this->logo_satker;
     }
+
+    public function pengajuan()
+    {
+        return $this->hasManyThrough(PengajuanEntity::class, PegawaiEntity::class, "satker_id", "pegawai_id", "id", "id");
+    }
 }

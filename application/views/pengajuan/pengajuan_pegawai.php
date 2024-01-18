@@ -97,7 +97,12 @@
 												<?php } else if ($pj->status == 4) { ?>
 													<div class="alert alert-light-secondary p-2" role="alert">
 														<p target="_blank" class="text-small text-secondary">
-															Pengajuan dikabulkan. Klik <a href="<?= base_url($pj->SK) ?>">Disini</a>
+															Pengajuan dikabulkan.
+															<?php if ($pj->surat_keputusan != null) { ?>
+																Klik <a href="<?= base_url($pj->SK) ?>">Disini</a>
+															<?php } else { ?>
+																Belum ada Surat Keputusan
+															<?php } ?>
 														</p>
 													</div>
 												<?php } else { ?>

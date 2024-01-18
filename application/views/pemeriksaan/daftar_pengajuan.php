@@ -161,7 +161,7 @@
                             <input required type="file" class="form-control form-upload form-file" name="surat_keputusan">
                         </div>
                     </div>
-                    <a id="sk-url" target="_blank" href=""><strong>Download File Sebelumnya</strong></a>
+                    <a id="sk-url" href="javascript:void(0)"><strong>Download File Sebelumnya</strong></a>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -183,7 +183,17 @@
         document.getElementById("hidden-pengajuan-id2").value = id;
         document.getElementById("tanggal-ditinjau").value = tanggal_ditinjau;
         document.getElementById("asesor").value = asesor;
-        document.getElementById("sk-url").setAttribute("href", "<?= base_url() ?>" + sk);
+        if (sk != "uploads/berkas/") {
+            document.getElementById("sk-url").setAttribute("href", "<?= base_url() ?>" + sk);
+            document.getElementById("sk-url").setAttribute("target", "_blank");
+            document.getElementById("sk-url").classList.remove("disabled");
+            document.getElementById("sk-url").textContent = "Download File Sebelumnya"
+        } else {
+            document.getElementById("sk-url").removeAttribute("target");
+            document.getElementById("sk-url").textContent = "Tidak Ada File Sebelumnya"
+            document.getElementById("sk-url").classList.add("disabled");
+            document.getElementById("sk-url").setAttribute("href", "javascript:void(0)");
+        }
     }
 
     function pembatalan(id) {
