@@ -75,7 +75,7 @@
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace("value"),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
-        url: `<?= base_url('profile/suggest_autocomplete') ?>?query=%QUERY`,
+        url: `<?= base_url('profile/suggest_autocomplete_with_pegawai') ?>?query=%QUERY`,
         wildcard: "%QUERY",
       },
     });

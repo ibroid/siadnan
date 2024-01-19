@@ -12,6 +12,17 @@ trait ProfileApi
     echo json_encode($data);
   }
 
+  public function suggest_autocomplete_with_pegawai()
+  {
+    $query = R_Input::gett('query');
+    $data = ProfileEntity::select('id', 'nama_lengkap')
+      ->where('nama_lengkap', 'LIKE', "$query%")
+      ->where('pegawai_id', '!=', 0)
+      ->get();
+
+    echo json_encode($data);
+  }
+
   public function get_profile($id = null)
   {
     if ($id == null) {
