@@ -15,7 +15,6 @@ trait PegawaiApi
       $data = PegawaiEntity::select('id', 'nama_lengkap')->where('nama_lengkap', 'LIKE', "$query%")->get();
     }
 
-
     echo json_encode($data);
   }
 
