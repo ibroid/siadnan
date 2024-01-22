@@ -8,7 +8,7 @@ trait PengaturanApi
       throw new Exception("Gagal get Pengaturan. Variabel kosong", 1);
     }
 
-    return PengaturanEntity::where('variable', $variable)->first();
+    return PengaturanEntity::where('variabel', $variable)->first();
   }
 
   private function update_pengaturan($var = null, $val = null)
@@ -21,15 +21,15 @@ trait PengaturanApi
       throw new Exception("Gagal Update Pengaturan. Value kosong", 1);
     }
 
-    return PengaturanEntity::where('variable', $var)->update(['value' => $val]);
+    return PengaturanEntity::where('variabel', $var)->update(['value' => $val]);
   }
 
   private function plucking_pengaturan()
   {
     $pengaturan = PengaturanEntity::all();
 
-    $pjk = new class {
-
+    $pjk = new class
+    {
     };
 
     foreach ($pengaturan as $k => $value) {

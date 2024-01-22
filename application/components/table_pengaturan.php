@@ -15,7 +15,7 @@
           <td><?= $pengaturan->variable ?></td>
           <td><?= $pengaturan->value ?></td>
           <td>
-            <a href="<?= base_url('/settings?edit_pengaturan=' . $pengaturan->variable) ?>" class="btn btn-warning">Ubah</a>
+            <a href="<?= base_url('/settings?edit_pengaturan=' . $pengaturan->variabel) ?>" class="btn btn-warning">Ubah</a>
           </td>
         </tr>
       <?php } ?>
