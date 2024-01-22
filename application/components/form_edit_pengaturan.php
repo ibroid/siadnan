@@ -1,4 +1,4 @@
-<form action="<?= base_url('/settings/edit_pengaturan/' . $pengaturan->variable) ?>" novalidate class="needs-validation custom-input" autocomplete="off" method="post" enctype="multipart/form-data">
+<form action="<?= base_url('/settings/edit_pengaturan/' . $pengaturan->variabel) ?>" novalidate class="needs-validation custom-input" autocomplete="off" method="post" enctype="multipart/form-data">
   <div class="payment-info-wrapper">
     <div class="row shipping-method g-3">
       <div class="col-12">
