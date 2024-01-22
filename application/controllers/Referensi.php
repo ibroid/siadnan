@@ -28,10 +28,11 @@ class Referensi extends R_Controller
 
     public function index()
     {
+        prindie($this->get_satker($this->pegawai["satker_id"]));
         $this->load->page('referensi/referensi', [
             'page_name' => 'Referensi Data',
             'breadcumb' => 'Referensi',
-            'satkers' => $this->get_satker(),
+            'satkers' => $this->is_admin ? $this->get_satker() : [$this->get_satker($this->pegawai["satker_id"])],
         ])->layout('dashboard_layout');
     }
 
