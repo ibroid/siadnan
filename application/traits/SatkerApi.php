@@ -25,7 +25,7 @@ trait SatkerApi
     }
   }
 
-  public function satker_by_kode(int $kode = null)
+  public function satker_by_kode($kode = null)
   {
     if ($kode == null) {
       throw new Exception("Gagal get satker by kode. Kode kosong", 1);
