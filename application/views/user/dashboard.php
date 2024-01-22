@@ -33,7 +33,7 @@
                 </div>
                 <div>
                   <h4 class="mb-0">Total : <?= $berkas->where("status", null)->count() ?>
-                  </h4><span class="f-light">Berkas Belum Diperiksa</span><a class="btn btn-light f-light" href="learning-list-view.html">Tinjau Ulang<span class="ms-2">
+                  </h4><span class="f-light">Berkas Belum Diperiksa</span><a class="btn btn-light f-light" href="<?= base_url("/pemeriksaan") ?>">Tinjau Sekarang<span class="ms-2">
                       <svg class="fill-icon f-light">
                         <use href="../assets/svg/icon-sprite.svg#arrowright"></use>
                       </svg></span></a>
@@ -62,7 +62,7 @@
                   </svg>
                 </div>
                 <div>
-                  <h4 class="mb-0">Total : <?= $pengajuans->where("status", 1)->count() ?></h4><span class="f-light">Belum Lengkap</span><a class="btn btn-light f-light" href="learning-list-view.html">Lanjut Tinjau<span class="ms-2">
+                  <h4 class="mb-0">Total : <?= $pengajuans->where("status", 1)->count() ?></h4><span class="f-light">Belum Lengkap</span><a class="btn btn-light f-light" href="<?= base_url("/pemeriksaan") ?>">Lanjut Tinjau<span class="ms-2">
                       <svg class="fill-icon f-light">
                         <use href="../assets/svg/icon-sprite.svg#arrowright"></use>
                       </svg></span></a>
