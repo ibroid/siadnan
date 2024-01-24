@@ -62,6 +62,7 @@ class Pengajuan extends R_Controller
             'jenis_pengajuan' => $jenispengajuan,
             'pengajuan' => $this->getPengajuanByJenisId($id),
             'satker' => $this->get_satker($this->is_admin ? null : $this->pegawai->satker_id),
+            'admin' => $this->is_admin
         ])->layout('dashboard_layout');
     }
 

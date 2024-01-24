@@ -169,7 +169,7 @@
 			datumTokenizer: Bloodhound.tokenizers.obj.whitespace("value"),
 			queryTokenizer: Bloodhound.tokenizers.whitespace,
 			remote: {
-				url: `<?= base_url('pegawai/type_suggest') ?>?query=%QUERY&satker_id=` + <?= $satker->id ?>,
+				url: `<?= $admin ? base_url('pegawai/type_suggest?query=%QUERY') : base_url('pegawai/type_suggest?query=%QUERY&satker_id=' . $satker->id) ?>`,
 				wildcard: "%QUERY",
 			},
 		});
