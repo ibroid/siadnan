@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-6">
                     <h3><?= $page_name ?></h3>
-                    <p>Pengadilan Agama Jakarta Utara</p>
+                    <!-- <p>Pengadilan Agama Jakarta Utara</p> -->
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">

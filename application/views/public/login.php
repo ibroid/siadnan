@@ -10,10 +10,10 @@
 					<div class="login-main">
 						<?= $this->session->flashdata('flash_error') ?>
 						<form class="theme-form" autocomplete="off" method="POST" action="<?= base_url('auth/login') ?>">
-							<h4>Sign in to account</h4>
-							<p>Enter your email & password to login</p>
+							<h4>Hallo !</h4>
+							<p>Silahkan masukkan username & password</p>
 							<div class="form-group">
-								<label class="col-form-label">Identifier</label>
+								<label class="col-form-label">Username</label>
 								<input class="form-control" name="login[identifier]" type="text" required="Harap Isi Bidang ini" placeholder="username">
 							</div>
 							<div class="form-group">

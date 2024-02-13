@@ -65,31 +65,48 @@
                                         <div class="mb-3">
                                             <label class="form-label">Jabatan</label>
                                             <select required name="jabatan" id="select-jabatan" class="form-control">
-                                                <option selected><?= $pegawai->jabatan ?></option>
+                                                <option selected="" disabled="" value="">Pilih Jabatan ..</option>
                                                 <option>Ketua</option>
                                                 <option>Wakil Ketua</option>
                                                 <option>Panitera</option>
                                                 <option>Sekretaris</option>
+                                                <option>Kepala Bagian Perencanaan dan Kepegawaian</option>
+                                                <option>Kepala Bagian Umum dan Keuangan</option>
+                                                <option>Panitera Muda Banding</option>
                                                 <option>Panitera Muda Hukum</option>
+                                                <option>Panitera Muda Gugatan</option>
+                                                <option>Panitera Muda Permohonan</option>
                                                 <option>Panitera Pengganti</option>
-                                                <option>Hakim </option>
+                                                <option>Hakim</option>
+                                                <option>Hakim Tinggi</option>
                                                 <option>Jurusita</option>
                                                 <option>Jurusita Pengganti</option>
-                                                <option>Panitera Muda Permohonan</option>
-                                                <option>Panitera Muda Gugatan</option>
-                                                <option>Kasubbag Umum dan Keuangan</option>
-                                                <option>Kasubbag Perencanaan, IT dan Pelaporan</option>
-                                                <option>Kasubbag Kepegawaian, Organisasi dan Tata Laksana</option>
-                                                <option>Bendahara Pengeluaran</option>
-                                                <option>Bendahara Penerimaan</option>
-                                                <option>Analis Pengelolaan Keuangan APBN</option>
-                                                <option>Analis Perkara Peradilan</option>
-                                                <option>Pengelola Perkara </option>
-                                                <option>Pengelola Perkara </option>
-                                                <option>Pengelola BMN</option>
-                                                <option>Analis Kepegawaian</option>
-                                                <option>Pranata Komputer</option>
-                                                <option>PPNPN</option>
+                                                <option>Kepala Sub Bagian Keuangan dan Pelaporan</option>
+                                                <option>Kepala Sub Bagian Kepegawaian dan TI</option>
+                                                <option>Kepala Sub Bagian Rencana Program dan Anggaran</option>
+                                                <option>Kepala Sub Bagian Tata Usaha dan Rumah Tangga</option>
+                                                <option>Kepala Sub Bagian Kepegawaian, Organisasi dan Tata Laksana</option>
+                                                <option>Kepala Sub Bagian Perencanaan, Teknologi Informasi dan Pelaporan</option>
+                                                <option>Analis Pengelolaan Keuangan APBN Ahli Madya</option>
+                                                <option>Analis Pengelolaan Keuangan APBN Ahli Muda</option>
+                                                <option>Arsiparis Ahli Pertama</option>
+                                                <option>Pranata Komputer Ahli Pertama</option>
+                                                <option>Pengelola Pengadaan Barang/Jasa Ahli Pertama</option>
+                                                <option>Analis Sumber Daya Manusia Aparatur Ahli Pertama</option>
+                                                <option>Perencana Ahli Pertama</option>
+                                                <option>Pranata Keuangan APBN Pelaksana Lanjutan/Mahir</option>
+                                                <option>Pranata Keuangan APBN Mahir</option>
+                                                <option>Pranata Sumber Daya Manusia Aparatur Terampil</option>
+                                                <option>Pranata Keuangan APBN Terampil</option>
+                                                <option>Arsiparis Pelaksana</option>
+                                                <option>Arsiparis Terampil</option>
+                                                <option>Operator - Penata Layanan Operasional</option>
+                                                <option>Klerek - Analis Perkara Peradilan</option>
+                                                <option>Klerek - Pengolah Data dan Informasi</option>
+                                                <option>Klerek - Penata Keprotokolan</option>
+                                                <option>Klerek - Pengelola Penanganan Perkara</option>
+                                                <option>Operator - Teknisi Sarana dan Prasarana</option>
+                                                <option>Klerek - Penelaah Teknis Kebijakan</option>
                                             </select>
                                             <div class="invalid-tooltip">Check Again !</div>
                                         </div>
