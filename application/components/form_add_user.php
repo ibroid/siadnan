@@ -22,7 +22,7 @@
       <div class="card">
         <div class="media p-20">
           <div class="form-check radio radio-secondary m-0 w-100">
-            <input required class="form-check-input" id="radio21" type="radio" name="level" value="3">
+            <input required class="form-check-input" id="radio21" type="radio" name="level" value="2">
             <label class="form-check-label mb-0 w-100" for="radio21">
               <span class="media-body">
                 <span class="mt-0 mega-title-badge">Operator<span class="badge badge-secondary pull-right digits"> OPT
