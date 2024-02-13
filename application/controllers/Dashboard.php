@@ -21,7 +21,6 @@ class Dashboard extends R_Controller
             $data["berkas"] = $this->findPersyaratanPengajuan();
             $data["pengajuans"] = $this->getPengajuan();
         }
-        prindie($this->user);
         $this->load->page('user/dashboard', $data)->layout('dashboard_layout');
     }
 }
