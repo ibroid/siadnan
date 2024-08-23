@@ -49,3 +49,5 @@ uploads/logo/*
 !uploads/berkas/index.html
 !uploads/pengaturan/index.html
 !uploads/logo/index.html
+
+*.pem

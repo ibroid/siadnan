@@ -78,10 +78,11 @@ class Settings extends R_Controller
     {
         // prindie(R_Input::pos());
         try {
+            $salt = salt();
             $data = [
-                'salt' => salt(),
+                'salt' => $salt,
                 'identifier' => R_Input::pos('identifier'),
-                'password' => R_Input::pos('login')['password'],
+                'password' => R_Input::pos('login')['password'] . $salt,
                 'level' => R_Input::pos('level'),
                 'profile_id' => R_Input::pos('profile_id'),
                 'status' => 1,
