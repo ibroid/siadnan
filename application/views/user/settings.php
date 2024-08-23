@@ -16,7 +16,7 @@ $is_pengaturan_tab = (isset($_GET['add_pengaturan']) or isset($_GET['edit_pengat
 			<div class="row">
 				<div class="col-6">
 					<h3><?= $page_name ?></h3>
-					<p>Pengadilan Agama Jakarta Utara</p>
+					<!-- <p>Pengadilan Agama Jakarta Utara</p> -->
 				</div>
 				<div class="col-6">
 					<ol class="breadcrumb">
@@ -45,7 +45,7 @@ $is_pengaturan_tab = (isset($_GET['add_pengaturan']) or isset($_GET['edit_pengat
 						<div class="card-header">
 							<h4>Pengaturan Aplikasi</h4>
 							<p class="f-m-light mt-1">
-								Silahkan sesuaikan dengan plingkungan Peradilan anda.</p>
+								Silahkan sesuaikan dengan lingkungan Peradilan anda.</p>
 						</div>
 						<div class="card-body">
 							<div class="row shopping-wizard">
