@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-6">
           <h3>Selamat Datang di Sistem Administrasi untuk Pengajuan</h3>
-          <p><?= $pengaturan->ptb ?></p>
+          <!-- <?= $pengaturan->ptb ?> -->
         </div>
         <div class="col-6">
           <ol class="breadcrumb">

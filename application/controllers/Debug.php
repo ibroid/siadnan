@@ -11,6 +11,6 @@ class Debug extends CI_Controller
 
     public function index()
     {
-        echo password_hash("kuyabatoksd9Lk0Rh", PASSWORD_BCRYPT);
+        show_404();
     }
 }
