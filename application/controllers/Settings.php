@@ -82,14 +82,13 @@ class Settings extends R_Controller
             $data = [
                 'salt' => $salt,
                 'identifier' => R_Input::pos('identifier'),
-                'password' => R_Input::pos('login')['password'] . $salt,
+                'password' => password_hash(R_Input::pos('login')['password'] . $salt, PASSWORD_BCRYPT),
                 'level' => R_Input::pos('level'),
                 'profile_id' => R_Input::pos('profile_id'),
                 'status' => 1,
             ];
             // prindie($data);
             if ($id != null) {
-
                 $this->update_user($id, $data);
             } else {
                 $this->insert_user($data);
