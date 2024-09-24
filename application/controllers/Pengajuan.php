@@ -56,11 +56,23 @@ class Pengajuan extends R_Controller
             ]
         ]);
 
+        $satker = $this->is_admin ? 0 : $this->pegawai->satker_id;
+
+        $pengajuan = PengajuanEntity::with(['pegawai' => function ($builder) use ($satker) {
+            if ($satker !== 0) {
+                $builder->where('satker_id', $satker);
+            } else {
+                $builder;
+            }
+        }])->where("jenis_pengajuan_id", $id)->get();
+
+
+
         $this->load->page('pengajuan/pengajuan_pegawai', [
             'page_name' => 'Daftar ' . $jenispengajuan->nama_pengajuan,
             'breadcumb' => 'Pengajuan / ' . str_replace("Pengajuan ", "", $jenispengajuan->nama_pengajuan),
             'jenis_pengajuan' => $jenispengajuan,
-            'pengajuan' => $this->getPengajuanByJenisId($id),
+            'pengajuan' => $pengajuan,
             'satker' => $this->get_satker($this->is_admin ? null : $this->pegawai->satker_id),
             'admin' => $this->is_admin
         ])->layout('dashboard_layout');

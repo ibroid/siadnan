@@ -38,9 +38,8 @@ class R_Controller extends CI_Controller
         $this->user = $this->session->userdata('user_login');
         $this->load->database();
         $this->load->library('EloquentDatabase', null, 'ed');
-        if ($this->user["level"] == "Operator") {
-            $this->pegawai = PegawaiEntity::find($this->user['profile']['pegawai_id']);
-        } else {
+        $this->pegawai = PegawaiEntity::find($this->user['profile']['pegawai_id']);
+        if ($this->user["level"] == "Admin" || $this->user["level"] == "Developer") {
             $this->is_admin = true;
         }
     }
