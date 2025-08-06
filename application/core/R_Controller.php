@@ -10,7 +10,7 @@ class R_Controller extends CI_Controller
 
     public CI_DB $database;
 
-    public  $pegawai;
+    public PegawaiEntity $pegawai;
 
     public Addons $addons;
 
@@ -41,7 +41,7 @@ class R_Controller extends CI_Controller
         if (PegawaiEntity::find($this->user['profile']['pegawai_id'])) {
             $this->pegawai = PegawaiEntity::find($this->user['profile']['pegawai_id']);
         } else {
-            $this->pegawai = null;
+            $this->pegawai = new PegawaiEntity();
         }
         if ($this->user["level"] == "Admin" || $this->user["level"] == "Developer" || $this->user["level"] == "Administrator") {
             $this->is_admin = true;
