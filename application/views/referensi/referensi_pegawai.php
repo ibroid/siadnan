@@ -112,9 +112,9 @@
 
 			fetch("<?= base_url('/referensi/hapus_pegawai/') ?>" + id, {
 					method: "POST"
-				}).then(res => {
+				}).then(async res => {
 					if (!res.ok) {
-						throw new Error(res.statusText)
+						throw new Error(await res.text())
 					}
 					return res.text()
 				})
@@ -122,10 +122,10 @@
 					Swal.fire("Pegawai berhasil dihapus").then(() => location.reload());
 				})
 				.catch(err => {
-					console.log(err)
 					Swal.fire({
-						title: err.message,
-						icon: "error"
+						title: "Terjadi kesalahan",
+						icon: "error",
+						text: err
 					})
 				})
 		}

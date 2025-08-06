@@ -41,7 +41,7 @@ trait PegawaiApi
       ->limit($length)
       ->get();
 
-    $total_pegawai = PegawaiEntity::count();
+    $total_pegawai = PegawaiEntity::where('satker_id', $idSatker)->count();
 
     $row_container = [];
 
@@ -122,6 +122,16 @@ trait PegawaiApi
       throw new Exception("Gagal delete pegawai. Id kosong", 1);
     }
 
-    return PegawaiEntity::where("id", $id)->delete();
+    $pegawai = PegawaiEntity::find($id);
+
+    if ($pegawai->profile) {
+      throw new Exception("Pegawai ini masih mempunyai user profile. Hapus user profile terlebih dahulu", 1);
+    }
+
+    if ($pegawai->pengajuan->count() > 0) {
+      throw new Exception("Pegawai ini masih dalam proses pengajuan. Silahkan hapus pengajuan terkait terlebih dahulu", 1);
+    }
+
+    $pegawai->delete();
   }
 }

@@ -21,7 +21,7 @@ trait PengajuanApi
     private function getPengajuan($id = null)
     {
         if ($id == null) {
-            return PengajuanEntity::all();
+            return PengajuanEntity::has('pegawai')->get();
         }
 
         return PengajuanEntity::findOrFail($id);

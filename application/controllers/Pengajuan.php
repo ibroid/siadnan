@@ -58,14 +58,11 @@ class Pengajuan extends R_Controller
 
         $satker = $this->is_admin ? 0 : $this->pegawai->satker_id;
 
-        $pengajuan = PengajuanEntity::with(['pegawai' => function ($builder) use ($satker) {
+        $pengajuan = PengajuanEntity::whereHas('pegawai', function($q) use($satker) {
             if ($satker !== 0) {
-                $builder->where('satker_id', $satker);
-            } else {
-                $builder;
+                $q->where("satker_id", 2);
             }
-        }])->where("jenis_pengajuan_id", $id)->get();
-
+        })->where("jenis_pengajuan_id", $id)->get();
 
 
         $this->load->page('pengajuan/pengajuan_pegawai', [

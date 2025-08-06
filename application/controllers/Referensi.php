@@ -170,7 +170,7 @@ class Referensi extends R_Controller
             $this->deleteUser($id);
             echo json_encode(['text' => "Success"]);
         } catch (\Throwable $th) {
-            echo json_encode(['text' => $th->getMessage()]);
+            $this->output->set_status_header(400)->set_output($th->getMessage());
         }
     }
 

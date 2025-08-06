@@ -108,8 +108,7 @@ class PegawaiEntity extends Illuminate\Database\Eloquent\Model implements Migrat
 
 
     public static function table_declare()
-    {
-        ;
+    {;
         $reflect = new ReflectionClass(self::class);
         $field = [];
 
@@ -158,5 +157,15 @@ class PegawaiEntity extends Illuminate\Database\Eloquent\Model implements Migrat
     public function satker()
     {
         return $this->belongsTo(SatkerEntity::class);
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(ProfileEntity::class, 'pegawai_id', 'id');
+    }
+
+    public function pengajuan()
+    {
+        return $this->hasMany(PengajuanEntity::class, 'pegawai_id', 'id');
     }
 }

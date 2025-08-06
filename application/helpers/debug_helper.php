@@ -1,7 +1,7 @@
 <?php
 
 if (!function_exists('prindie')) {
-  function prindie($var = null)
+  function prindie(...$var)
   {
     echo '<pre>';
     print_r($var);
