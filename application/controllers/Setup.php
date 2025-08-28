@@ -145,10 +145,6 @@ class Setup extends CI_Controller
 		$path = str_replace('\\', '/', FCPATH) . "go_helper";
 		$gofile = $path . "/go_helper_" . $this->OsType();
 
-		// if ($this->OsType() != "WINNT") {
-		// 	$gofile = "sudo " . $gofile;
-		// }
-
 		$proc = proc_open(
 			"cd $path && $gofile $par --pass=" . R_Input::pos('login')['password'],
 			[['pipe', 'r'], ['pipe', 'w'], ['pipe', 'w']],
@@ -242,42 +238,36 @@ class Setup extends CI_Controller
 
 	private function init_assets_direct()
 	{
-		$root = str_replace('\\', '/', FCPATH);
+		$url = trim($this->RunGoHelper("--do=link_assets"));
 
-		$link_assets = $this->RunGoHelper("--do=link_assets");
-		// prindie($link_assets);
+		$saveFile = "file.zip";
 
-		$zipFileName = 'assets.zip';
+		$ch = curl_init($url);
+		$fp = fopen($saveFile, "w+");
 
-		$downloadPath = $root . $zipFileName;
+		curl_setopt($ch, CURLOPT_FILE, $fp);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 120);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0");
 
-		$extractPath = './assets';
+		curl_exec($ch);
 
-		try {
-
-			$ch = curl_init();
-
-			$fp = fopen("assets.zip", 'w+');
-
-			curl_setopt($ch, CURLOPT_FILE, $fp);
-			curl_setopt($ch, CURLOPT_HEADER, 0);
-			// curl_setopt($ch, CURLOPT_FILE, $fp);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-			curl_setopt($ch, CURLOPT_URL, $link_assets);
-
-			$out = curl_exec($ch);
-
-			curl_close($ch);
-			fwrite($fp, $out);
-			fclose($fp);
-		} catch (\Throwable $th) {
-			unlink($root . "assets");
-			throw $th;
+		if (curl_errno($ch)) {
+			echo "cURL error: " . curl_error($ch);
+		} else {
+			$status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			echo "HTTP Status: $status\n";
+			echo "Download selesai ke $saveFile\n";
 		}
 
+		curl_close($ch);
+		fclose($fp);
+
 		$zip = new ZipArchive;
-		if ($zip->open($downloadPath) === TRUE) {
-			$zip->extractTo($extractPath);
+		if ($zip->open($saveFile) === TRUE) {
+			$zip->extractTo("./assets");
 			$zip->close();
 			echo 'File ZIP berhasil diekstrak. <a href="/setup">Kembali</a>';
 		} else {
