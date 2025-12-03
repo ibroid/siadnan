@@ -12,6 +12,58 @@
 						<div class="row g-3  mega-inline card">
 							<div class="card-body">
 								<div class="row">
+									<div class="col-6">
+										<div class="card widget-1" style="background: none;">
+											<div class="card-body">
+												<div class="widget-content">
+													<div class="widget-round success">
+														<div class="bg-round">
+															<svg>
+																<use href="<?= base_url() ?>/assets/svg/icon-sprite.svg#return-box"> </use>
+															</svg>
+															<svg class="half-circle svg-fill">
+																<use href="<?= base_url() ?>/assets/svg/icon-sprite.svg#halfcircle"></use>
+															</svg>
+														</div>
+													</div>
+													<div>
+														<h4> <span class="counter" data-target="845"><?= $pengajuan->persyaratan_pengajuan->where('status', true)->count() ?></span></h4><span class="f-light">Sudah Diperiksa</span>
+													</div>
+												</div>
+												<div class="font-danger f-w-500"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trending-down bookmark-search me-1">
+														<polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
+														<polyline points="17 18 23 18 23 12"></polyline>
+													</svg><span class="txt-danger">-40%</span></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="card widget-1" style="background: none;">
+											<div class="card-body">
+												<div class="widget-content">
+													<div class="widget-round warning">
+														<div class="bg-round">
+															<svg>
+																<use href="<?= base_url() ?>/assets/svg/icon-sprite.svg#return-box"> </use>
+															</svg>
+															<svg class="half-circle svg-fill">
+																<use href="<?= base_url() ?>/assets/svg/icon-sprite.svg#halfcircle"></use>
+															</svg>
+														</div>
+													</div>
+													<div>
+														<h4> <span class="counter" data-target="845"><?= $pengajuan->persyaratan_pengajuan->where('status', false)->count() ?></span></h4><span class="f-light">Belum Diperiksa</span>
+													</div>
+												</div>
+												<div class="font-danger f-w-500"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trending-down bookmark-search me-1">
+														<polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
+														<polyline points="17 18 23 18 23 12"></polyline>
+													</svg><span class="txt-danger">-40%</span></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
 									<div class="col-sm-5">
 										<p class="text-primary">Klik Untuk Melihat Detail</p>
 										<div class="list-group" id="list-tab" role="tablist">
@@ -130,8 +182,9 @@
 									</div>
 								<?php } ?>
 							</div>
-							<div class="card-footer text-end">
+							<div class="card-footer text-end d-flex justify-content-between">
 								<a class="btn btn-secondary" href="<?= base_url("/pemeriksaan") ?>"><i class="fa fa-arrow-left"></i> Kembali</a>
+								<a onclick="batalkan_pemeriksaan()" class="btn btn-danger" href="javascript:void(0)"><i class="fa fa-trash"></i> Batalkan Pemeriksaan</a>
 							</div>
 						</div>
 					</div>
@@ -144,6 +197,22 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+	function batalkan_pemeriksaan() {
+		Swal.fire({
+			title: "Apa anda yakin",
+			text: "Membatalkan pemeriksaan akan menghapus semua data pemeriksaan berkas ini",
+			icon: "warning",
+			showCancelButton: true,
+			cancelButtonText: "Batalkan",
+			confirmButtonText: "Yakin"
+		}).then(({
+			isConfirmed
+		}) => {
+			if (isConfirmed) {
+				window.location.href = "<?= base_url("/pemeriksaan/batalkan_pemeriksaan/" . $pengajuan->id) ?>";
+			}
+		})
+	}
 	async function confirmDelete(id) {
 		const {
 			isConfirmed

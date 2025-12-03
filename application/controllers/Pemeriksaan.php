@@ -201,4 +201,25 @@ class Pemeriksaan extends R_Controller
 			Redirect::wfe($th->getMessage())->go($_SERVER["HTTP_REFERER"]);
 		}
 	}
+
+	public function batalkan_pemeriksaan($id)
+	{
+		try {
+			$pengajuan = $this->getPengajuan($id);
+
+			$pengajuan->update([
+				"status" => 1
+			]);
+
+			$this->session->set_flashdata("flash_alert", $this->load->component("flash_alert", [
+				"mesg" => "Pemeriksaan Berkas Dibatalkan",
+				"text" => "",
+				"type" => "success"
+			]));
+
+			redirect('/pemeriksaan');
+		} catch (\Throwable $th) {
+			Redirect::wfe($th->getMessage())->go($_SERVER["HTTP_REFERER"]);
+		}
+	}
 }

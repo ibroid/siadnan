@@ -474,7 +474,7 @@
 					}
 				});
 
-				if (condition) {
+				if (isConfirmed) {
 					location.href = "<?= base_url("/pengajuan/set_lock/" . $pengajuan->id) ?>"
 				}
 			}
