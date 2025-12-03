@@ -38,6 +38,7 @@
 	<link id="color" rel="stylesheet" href="<?= base_url() ?>/assets/css/color-1.css" media="screen">
 	<!-- Responsive css-->
 	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/responsive.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>

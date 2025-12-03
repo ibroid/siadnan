@@ -6,6 +6,8 @@ require_once APPPATH . "/traits/PersyaratanPengajuanApi.php";
 require_once APPPATH . "/traits/SatkerApi.php";
 require_once APPPATH . "/traits/PegawaiApi.php";
 
+use Illuminate\Database\Capsule\Manager as DB;
+
 class Pengajuan extends R_Controller
 {
 
@@ -133,6 +135,39 @@ class Pengajuan extends R_Controller
             ])->go("/pengajuan/pegawai/$pengajuan->jenis_pengajuan_id");
         } catch (\Throwable $th) {
             Redirect::wfe($th->getMessage())->go("/pengajuan/pegawai/$pengajuan->jenis_pengajuan_id");
+        }
+    }
+
+    public function batalkan_pengajuan($id = null)
+    {
+        if ($id == null) {
+            set_status_header(404);
+            exit();
+        }
+
+        try {
+            DB::beginTransaction();
+            $pengajuan = $this->getPengajuan($id);
+
+            if (!$pengajuan) {
+                set_status_header(404);
+                exit();
+            }
+
+            if ($pengajuan->pengajuan_persyaratan) {
+                $pengajuan->pengajuan_persyaratan()->delete();
+            }
+
+            $pengajuan->delete();
+            DB::commit();
+            Redirect::wfa([
+                "type" => "success",
+                "mesg" => "Pengajuan berhasil dibatalkan",
+                "text" => ""
+            ])->go("/pengajuan/pegawai/$pengajuan->jenis_pengajuan_id");
+        } catch (\Throwable $th) {
+            DB::rollback();
+            Redirect::wfe($th->getMessage())->go($_SERVER["HTTP_REFERER"]);
         }
     }
 }

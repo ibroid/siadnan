@@ -38,6 +38,7 @@
 										<th>Berkas</th>
 										<th>Tanggal</th>
 										<th width="200px">Catatan</th>
+										<th>Aksi</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -111,6 +112,16 @@
 															Dalam Proses Pemeriksaan
 														</p>
 													</div>
+												<?php } ?>
+											</td>
+											<td>
+												<?php if ($pj->status == 4) { ?>
+													Tidak dapat dirubah
+												<?php } else { ?>
+													<button onclick="batalkan_pengajuan(<?= $pj->id ?>)" class="btn btn-sm btn-danger">
+														<i class="fa fa-trash"></i>
+														Batalkan
+													</button>
 												<?php } ?>
 											</td>
 										</tr>
@@ -200,4 +211,19 @@
 			$("#hidden-input-pegawai").val(selection.id)
 		})
 	})
+
+	function batalkan_pengajuan(id) {
+		Swal.fire({
+			title: "Batalkan Pengajuan?",
+			text: "Apakah anda yakin ingin membatalkan pengajuan ini?",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Ya, Batalkan",
+			cancelButtonText: "Tidak, Kembali",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				window.location.href = "<?= base_url("/pengajuan/batalkan_pengajuan/" . $pj->id) ?>";
+			}
+		});
+	}
 </script>

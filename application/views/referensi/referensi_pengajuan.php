@@ -93,7 +93,6 @@
 	</div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 	window.addEventListener("DOMContentLoaded", () => {
@@ -152,13 +151,13 @@
 			})
 
 			fetch("<?= base_url('/referensi/hapus_pengajuan/') ?>" + id, {
-				method: "POST"
-			}).then(res => {
-				if (!res.ok) {
-					throw new Error(res.statusText)
-				}
-				return res.text()
-			})
+					method: "POST"
+				}).then(res => {
+					if (!res.ok) {
+						throw new Error(res.statusText)
+					}
+					return res.text()
+				})
 				.then(res => {
 					Swal.fire("Pegawai berhasil dihapus").then(() => location.reload());
 				})

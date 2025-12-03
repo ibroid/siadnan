@@ -166,7 +166,6 @@
 	</div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 	async function confirmDelete(id) {
@@ -191,13 +190,13 @@
 			})
 
 			fetch("<?= base_url('/referensi/hapus_persyaratan/') ?>" + id, {
-				method: "POST"
-			}).then(res => {
-				if (!res.ok) {
-					throw new Error(res.statusText)
-				}
-				return res.text()
-			})
+					method: "POST"
+				}).then(res => {
+					if (!res.ok) {
+						throw new Error(res.statusText)
+					}
+					return res.text()
+				})
 				.then(res => {
 					Swal.fire("Persyaratan berhasil dihapus").then(() => location.reload());
 				})

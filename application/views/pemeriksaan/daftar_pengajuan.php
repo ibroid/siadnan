@@ -1,4 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <div class="page-body">
     <?= $this->load->component("page_title") ?>
     <?= $this->session->flashdata("flash_alert") ?>
