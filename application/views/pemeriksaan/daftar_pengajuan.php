@@ -46,7 +46,7 @@
                                                 <?= ++$n ?>
                                             </td>
                                             <td class="sorting_1">
-                                                <div class="media"><img class="rounded-circle img-50 me-3" src="<?= $p->pegawai->pass_foto ?>">
+                                                <div class="media"><img class="rounded-circle img-50 me-3" src="<?= $p->pegawai->pass_foto ?>" alt="foto pegawai">
                                                     <div class="media-body align-self-center">
                                                         <div>
                                                             <?= $p->pegawai->nama_lengkap ?>

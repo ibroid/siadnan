@@ -151,7 +151,11 @@ class PegawaiEntity extends Illuminate\Database\Eloquent\Model implements Migrat
 
     public function getPassfotoAttribute()
     {
-        return $this->logo_path . $this->picture;
+        $file = $this->logo_path . $this->picture;
+        if (file_exists($file)) {
+            return $file;
+        }
+        return "\assets\images\user\user.png";
     }
 
     public function satker()
