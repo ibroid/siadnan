@@ -5,6 +5,9 @@ require_once APPPATH . "/traits/PersyaratanPengajuanApi.php";
 require_once APPPATH . "/traits/PegawaiApi.php";
 require_once APPPATH . "/traits/PengajuanApi.php";
 require_once APPPATH . "/traits/PersyaratanApi.php";
+
+use Illuminate\Database\Capsule\Manager as DB;
+
 class Wizard extends R_Controller
 {
     use JenisPengajuanApi;
@@ -119,5 +122,48 @@ class Wizard extends R_Controller
             set_status_header(400);
             echo $th->getMessage();
         }
+    }
+
+    public function cek_kelengkapan_berkas($id = null)
+    {
+        if ($id == null) {
+            set_status_header(404);
+            exit();
+        }
+
+        if ($this->input->request_headers()['Accept'] != 'application/json') {
+            set_status_header(404);
+            exit();
+        }
+
+        $pengajuan = $this->getPengajuan($id);
+
+        if (!$pengajuan) {
+            set_status_header(404);
+            exit();
+        }
+
+        $persyaratanBelumUpload = DB::table('persyaratan')
+            ->where('pengajuan_id', $pengajuan->jenis_pengajuan_id)
+            ->whereNotExists(function ($query) use ($pengajuan) {
+                $query->select("*")
+                    ->from('persyaratan_pengajuan')
+                    ->whereRaw('persyaratan_pengajuan.persyaratan_id = persyaratan.id')
+                    ->whereRaw('persyaratan_pengajuan.pengajuan_id = ' . $pengajuan->id);
+            })
+            ->get();
+
+        if ($persyaratanBelumUpload->count() > 0) {
+            $this->output->set_content_type('application/json')->set_output(json_encode([
+                "message" => "Terdapat " . ($persyaratanBelumUpload->count()) . " berkas yang belum lengkap.",
+                "status" => false,
+            ], JSON_PRETTY_PRINT));
+            return;
+        }
+
+        $this->output->set_content_type('application/json')->set_output(json_encode([
+            "message" => "Berkas pengajuan sudah lengkap",
+            "status" => true,
+        ], JSON_PRETTY_PRINT));
     }
 }

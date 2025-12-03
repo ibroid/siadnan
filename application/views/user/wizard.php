@@ -447,10 +447,34 @@
 					text: "Setelah ini berkas tidak bisa di ubah lagi",
 					confirmButtonText: "Yakin",
 					showCancelButton: true,
-					icon: "question"
-				})
+					allowOutsideClick: () => !Swal.isLoading(),
+					showCancelButton: true,
+					showLoaderOnConfirm: true,
+					icon: "question",
+					preConfirm: async () => {
+						try {
+							const response = await fetch("<?= base_url("/wizard/cek_kelengkapan_berkas/" . $pengajuan->id) ?>", {
+								headers: {
+									'Accept': 'application/json'
+								}
+							});
+							if (!response.ok) {
+								return Swal.showValidationMessage(`Terdapat kesalahan: ${response.statusText}`);
+							}
 
-				if (isConfirmed) {
+							return response.json().then(data => {
+								if (!data.status) {
+									Swal.showValidationMessage(data.message);
+								}
+								return data;
+							});
+						} catch (error) {
+							Swal.showValidationMessage("Terdapat kesalahan: " + error.message)
+						}
+					}
+				});
+
+				if (condition) {
 					location.href = "<?= base_url("/pengajuan/set_lock/" . $pengajuan->id) ?>"
 				}
 			}
