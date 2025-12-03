@@ -51,3 +51,4 @@ uploads/logo/*
 !uploads/logo/index.html
 
 *.pem
+*.zip
