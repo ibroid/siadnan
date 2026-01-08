@@ -222,7 +222,7 @@
 			cancelButtonText: "Tidak, Kembali",
 		}).then((result) => {
 			if (result.isConfirmed) {
-				window.location.href = "<?= base_url("/pengajuan/batalkan_pengajuan/" . $pj->id) ?>";
+				window.location.href = "<?= base_url("/pengajuan/batalkan_pengajuan/") ?>" + id;
 			}
 		});
 	}
